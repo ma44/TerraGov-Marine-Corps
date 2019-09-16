@@ -15,7 +15,7 @@
 	var/mob/living/carbon/xenomorph/hivelord/parent2 = parent
 	if(SSai.init_pheromones)
 		parent2.current_aura = pick(list("recovery", "warding", "frenzy"))
-	plantweeds.owner = parent2
+	plantweeds.owner = parent
 	secrete.owner = parent2
 
 //We make magic weeds, walls and sticky resin

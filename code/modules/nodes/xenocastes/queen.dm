@@ -14,7 +14,7 @@
 	..()
 	var/mob/living/carbon/xenomorph/parent2 = parent
 	screech.owner = parent2
-	plantweeds.owner = parent2
+	plantweeds.owner = parent
 	spit.owner = parent2
 	parent2.ammo = new/datum/ammo/xeno/acid/heavy(src)
 	if(SSai.init_pheromones)

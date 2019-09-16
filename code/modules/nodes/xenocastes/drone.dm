@@ -14,7 +14,7 @@
 	var/mob/living/carbon/xenomorph/drone/parent2 = parent
 	if(SSai.init_pheromones)
 		parent2.current_aura = pick(list("recovery", "warding", "frenzy"))
-	plantweeds.owner = parent2
+	plantweeds.owner = parent
 
 //We make magic weeds
 /datum/component/ai_behavior/xeno/drone/HandleAbility()
