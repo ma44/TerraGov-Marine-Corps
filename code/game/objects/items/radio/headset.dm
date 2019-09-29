@@ -191,16 +191,17 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 
 
 /obj/item/radio/headset/mainship/Destroy()
-	if(wearer && headset_hud_on)
-		if(wearer.wear_ear == src)
+	if(wearer)
+		if(headset_hud_on && wearer.wear_ear == src)
 			squadhud.remove_hud_from(wearer)
 			wearer.SL_directional = null
 			if(wearer.assigned_squad)
 				SSdirection.stop_tracking(wearer.assigned_squad.tracking_id, wearer)
-			wearer = null
+		wearer = null
 	squadhud = null
 	headset_hud_on = FALSE
 	sl_direction = null
+	QDEL_NULL(camera)
 	return ..()
 
 
@@ -244,7 +245,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	if(wearer.mind && wearer.assigned_squad && wearer.hud_used?.SL_locator)
 		wearer.hud_used.SL_locator.alpha = 0
 
-	if(wearer.assigned_squad.squad_leader == wearer)
+	if(wearer?.assigned_squad?.squad_leader == wearer)
 		SSdirection.clear_leader(wearer.assigned_squad.tracking_id)
 		SSdirection.stop_tracking("marine-sl", wearer)
 	else

@@ -17,8 +17,7 @@
 	var/gib_flick = "gibbed-a"
 
 	// *** Melee Attacks *** //
-	var/melee_damage_lower = 10
-	var/melee_damage_upper = 20
+	var/melee_damage = 10
 	var/attack_delay = CLICK_CD_MELEE
 
 	var/savage_cooldown = 30 SECONDS
@@ -100,14 +99,15 @@
 	// *** Defiler Abilities *** //
 	var/neuro_claws_amount
 
+	var/list/actions
+
 /mob/living/carbon/xenomorph
 	name = "Drone"
 	desc = "What the hell is THAT?"
 	icon = 'icons/Xeno/1x1_Xenos.dmi'
 	icon_state = "Drone Walking"
 	speak_emote = list("hisses")
-	melee_damage_lower = 5
-	melee_damage_upper = 10 //Arbitrary damage values
+	melee_damage = 5 //Arbitrary damage value
 	attacktext = "claws"
 	attack_sound = null
 	friendly = "nuzzles"

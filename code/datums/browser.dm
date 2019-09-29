@@ -122,7 +122,9 @@
 /datum/browser/proc/setup_onclose()
 	set waitfor = FALSE //winexists sleeps, so we don't need to.
 	for(var/i in 1 to 10)
-		if(user && winexists(user, window_id))
+		if(QDELETED(user))
+			return
+		if(winexists(user, window_id))
 			onclose(user, window_id, ref)
 			break
 
@@ -152,6 +154,10 @@
 
 	..(User, ckey("[User]-[Message]-[Title]-[world.time]-[rand(1,10000)]"), Title, 350, 150, src, StealFocus, Timeout)
 	set_content(output)
+
+
+/datum/browser/can_interact(mob/user)
+	return TRUE
 
 
 /datum/browser/modal/alert/Topic(href,href_list)

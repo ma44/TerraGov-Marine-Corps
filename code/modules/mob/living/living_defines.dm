@@ -49,8 +49,7 @@
 	var/cameraFollow
 
 	// Putting these here for attack_animal().
-	var/melee_damage_lower = 0
-	var/melee_damage_upper = 0
+	var/melee_damage = 0
 	var/attacktext = "attacks"
 	var/attack_sound
 	var/friendly = "nuzzles"
@@ -72,7 +71,6 @@
 	var/resting = FALSE
 
 	var/list/icon/pipes_shown = list()
-	var/last_played_vent
 	var/is_ventcrawling
 
 	var/pull_speed = 0 //How much slower or faster this mob drags as a base
@@ -101,10 +99,8 @@
 	var/job
 	var/faction = "Neutral"
 
-	var/last_taste_time
-	var/last_taste_text
-
 	var/blood_volume = 0 //how much blood the mob has
 	var/heart_multi = 1 //Multiplier.
 
 	var/datum/component/ai_behavior/ai_type //Kind of AI types this mob could have
+	var/list/embedded_objects = list()
