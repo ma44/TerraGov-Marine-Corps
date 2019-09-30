@@ -1,8 +1,9 @@
-
 //Basic datum AI for a xeno; ability to use acid on obstacles if valid as well as attack obstacles
 /datum/component/ai_behavior/xeno
 	var/last_health //For purposes of sensing overall danger at this node
 	var/ability_tick_threshold = 0 //Want to do something every X Process()? here ya go
+	var/can_construct = FALSE //If this xeno can construct stuff
+	var/faction = XENOMORPH //Used for construction markers
 
 /datum/component/ai_behavior/xeno/Init()
 	..()
@@ -87,7 +88,11 @@
 				var/list/humans_nearby = cheap_get_humans_near(parent2, 10)
 				if(!humans_nearby.len)
 					current_node.remove_from_notable_nodes(ENEMY_PRESENCE)
-					action_state = new/datum/action_state/random_move/scout(src)
+					if(can_construct && length(current_node.datumnode.construction_markers[faction])) //If we can construct then let's do some building first
+						var/datum/construction_marker/random_marker = pick(current_node.datumnode.construction_markers[faction])
+						action_state = new/datum/action_state/do_after/construction(src, random_marker.source_node.parentnode.loc, random_marker.time, 0)
+					else
+						action_state = new/datum/action_state/random_move/scout(src)
 
 				else //Enemies found kill em if not pacifist
 					current_node.add_to_notable_nodes(ENEMY_PRESENCE)
@@ -106,6 +111,12 @@
 
 		if(DISENGAGE) //We were on hunt and destroy but now low health, let's get moving and avoid enemies
 			action_state = new/datum/action_state/random_move/scout(src)
+
+		if(CONSTRUCTION_DONE)
+			if(can_construct && current_node.datumnode.construction_markers[faction]) //See if there's more things to construct
+				action_state = new/datum/action_state/do_after/construction(src, pick(current_node.datumnode.construction_markers[faction].source_node.parentnode.loc), 0, 0)
+			else
+				action_completed(FINISHED_MOVE)
 
 	action_state.Process()
 
@@ -146,6 +157,8 @@
 
 //Like the old one but now will do left and right movements upon being in melee range
 /datum/component/ai_behavior/xeno/ProcessMove()
+	if(QDELETED(src))
+		return
 	var/mob/living/carbon/parent2 = parent
 	if(!parent2.canmove)
 		return 4

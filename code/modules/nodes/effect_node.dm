@@ -1,11 +1,9 @@
-GLOBAL_LIST_EMPTY(nodes_with_enemies)
-
 //The actual node; really only to hold the ai_node datum that stores all the information
 
 /obj/effect/AINode //A effect that has a ai_node datum in it, used by AIs to pathfind over long distances as well as knowing what's happening at it
 	name = "AI Node"
 	icon = 'icons/effects/landmarks_static.dmi'
-	icon_state = "x6" //Pure white 'X' with black borders
+	icon_state = "x6" //Pure white 'X' with blue borders
 	var/datum/ai_node/datumnode = new/datum/ai_node() //Stores things about the AI node
 	var/turf/srcturf //The turf this is on
 	alpha = 255
@@ -14,6 +12,8 @@ GLOBAL_LIST_EMPTY(nodes_with_enemies)
 	. = ..()
 	srcturf = loc
 	datumnode.parentnode = src
+	datumnode.add_construction(new/datum/construction_marker/xeno/weed_node(loc, datumnode))
+	stack_trace("did that")
 	GLOB.allnodes += src
 
 /obj/effect/AINode/proc/MakeAdjacents()

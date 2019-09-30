@@ -185,3 +185,45 @@
 	else
 		parent_ai.action_completed(NO_ENEMIES_FOUND)
 		..()
+
+/datum/action_state/do_after //A action state for basically standing still
+	var/atom/target_atom //Parameters for the do_after
+	var/duration
+	var/distance
+
+/datum/action_state/do_after/New(parent_to_hook_to, atom/target, the_duration, distance_to_keep)
+	..()
+	target_atom = target
+	duration = the_duration
+	distance = distance_to_keep
+
+/datum/action_state/do_after/Process()
+	if(get_dist(parent_ai.parent, target_atom) < distance)
+		if(do_after(parent_ai.parent, duration, target_atom))
+			OnComplete()
+			return
+		OnComplete()
+
+/datum/action_state/do_after/GetTargetDir(smart_pathfind)
+	var/mob/living/parent2 = parent_ai.parent
+	if(get_dist(parent2, target_atom) > distance)
+		if(smart_pathfind)
+			return get_dir(parent2, get_step_to(parent2, target_atom))
+		return get_dir(parent2, target_atom)
+	return 0 //Stop moving once at the distance
+
+//Do_After done for construction things like resin walls or barricades,
+/datum/action_state/do_after/construction
+	var/turf/target_turf
+	var/datum/construction_marker/the_marker
+
+/datum/action_state/do_after/construction/New(parent_to_hook_to, atom/target, the_duration, distance_to_keep, datum/construction_marker/marker)
+	..()
+	target_turf = marker
+	the_marker = marker
+
+/datum/action_state/do_after/construction/OnComplete()
+	if(istype(the_marker.
+	the_marker.finish_construction()
+	parent_ai.action_completed(CONSTRUCTION_DONE)
+	..()

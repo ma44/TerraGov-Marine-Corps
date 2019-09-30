@@ -21,7 +21,7 @@
 	set name = "Regress"
 	set desc = "Regress into a lower form."
 	set category = "Alien"
-	
+
 	var/tiers_to_pick_from
 	switch(tier)
 		if(XENO_TIER_ZERO, XENO_TIER_FOUR)
@@ -153,7 +153,7 @@
 		if(is_banned_from(ckey, ROLE_XENO_QUEEN))
 			to_chat(src, "<span class='warning'>You are jobbanned from the Queen role.</span>")
 			return
-		
+
 		if(hive.living_xeno_queen)
 			to_chat(src, "<span class='warning'>There already is a living Queen.</span>")
 			return
@@ -188,7 +188,7 @@
 		if(length(hive.xenos_by_typepath[/mob/living/carbon/xenomorph/shrike]))
 			to_chat(src, "<span class='warning'>There already is a living Shrike. The hive cannot contain more than one psychic energy repository.</span>")
 			return
-		
+
 		if(mind)
 			mind.assigned_role = ROLE_XENO_QUEEN
 

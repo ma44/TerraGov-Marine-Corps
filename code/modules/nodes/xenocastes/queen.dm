@@ -9,6 +9,7 @@
 	var/datum/action/xeno_action/activable/screech/screech = new
 	var/datum/action/xeno_action/plant_weeds/plantweeds = new
 	var/datum/action/xeno_action/activable/xeno_spit/spit = new
+	can_construct = TRUE
 
 /datum/component/ai_behavior/xeno/queen/Init()
 	..()

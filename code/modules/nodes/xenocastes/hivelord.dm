@@ -9,6 +9,7 @@
 /datum/component/ai_behavior/xeno/hivelord
 	var/datum/action/xeno_action/plant_weeds/plantweeds = new
 	var/datum/action/xeno_action/activable/secrete_resin/hivelord/secrete = new
+	can_construct = TRUE
 
 /datum/component/ai_behavior/xeno/hivelord/Init()
 	..()

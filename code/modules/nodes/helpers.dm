@@ -1,7 +1,8 @@
-
 //A file containing helpers for nodes and direction related things
 
 GLOBAL_LIST_EMPTY(allnodes)
+GLOBAL_LIST_EMPTY(nodes_with_enemies)
+GLOBAL_LIST_EMPTY(nodes_with_construction)
 
 //Converts input direction to a list of either two same directions if the input is cardinal
 //Otherwise will return the two directions that make up the diagonal
