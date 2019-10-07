@@ -3,7 +3,7 @@
 	var/last_health //For purposes of sensing overall danger at this node
 	var/ability_tick_threshold = 0 //Want to do something every X Process()? here ya go
 	var/can_construct = FALSE //If this xeno can construct stuff
-	var/faction = XENOMORPH //Used for construction markers
+	faction = XENOMORPH //Used for construction markers
 
 /datum/component/ai_behavior/xeno/Init()
 	..()
@@ -80,20 +80,20 @@
 	var/mob/living/carbon/xenomorph/parent2 = parent
 	switch(reason)
 		if(FINISHED_MOVE)
+			//If we prioritize nodes with enemies, let's go find some to kill
 			if(SSai.prioritize_nodes_with_enemies && GLOB.nodes_with_enemies.len && !(current_node in GLOB.nodes_with_enemies) && (!SSai.is_suicidal && (parent2.health < (parent2.maxHealth * SSai.retreat_health_threshold)))) //There's no enemies at this node but if they're somewhere else we moving to that
 				action_state = new/datum/action_state/move_to_node(src)
 				var/datum/action_state/move_to_node/the_state = action_state
 				the_state.destination_node = pick(shuffle(GLOB.nodes_with_enemies))
 			else
+				//No prioritized node, let's look for humans nearby to kill
 				var/list/humans_nearby = cheap_get_humans_near(parent2, 10)
 				if(!humans_nearby.len)
-					current_node.remove_from_notable_nodes(ENEMY_PRESENCE)
-					if(can_construct && length(current_node.datumnode.construction_markers[faction])) //If we can construct then let's do some building first
-						var/datum/construction_marker/random_marker = pick(current_node.datumnode.construction_markers[faction])
-						action_state = new/datum/action_state/do_after/construction(src, random_marker.source_node.parentnode.loc, random_marker.time, 0)
-					else
+					//No humans nearby, if we can construct let's look for construction to do
+					if(can_construct && current_node.datumnode.get_marker_faction(faction))
+						action_state = new/datum/action_state/construction(src)
+					else //Nothing to construct here, let's do some scouting
 						action_state = new/datum/action_state/random_move/scout(src)
-
 				else //Enemies found kill em if not pacifist
 					current_node.add_to_notable_nodes(ENEMY_PRESENCE)
 					current_node.datumnode.set_weight(ENEMY_PRESENCE, humans_nearby.len)
@@ -111,12 +111,6 @@
 
 		if(DISENGAGE) //We were on hunt and destroy but now low health, let's get moving and avoid enemies
 			action_state = new/datum/action_state/random_move/scout(src)
-
-		if(CONSTRUCTION_DONE)
-			if(can_construct && current_node.datumnode.construction_markers[faction]) //See if there's more things to construct
-				action_state = new/datum/action_state/do_after/construction(src, pick(current_node.datumnode.construction_markers[faction].source_node.parentnode.loc), 0, 0)
-			else
-				action_completed(FINISHED_MOVE)
 
 	action_state.Process()
 
