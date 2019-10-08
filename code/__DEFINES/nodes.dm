@@ -11,7 +11,7 @@
 
 #define XENOMORPH "xenomorph"
 #define MARINE "marine"
-#define NONE "none" //Someone would probably look at this and think 'why isn't this null?'
+#define NOTHING "nothing" //Someone would probably look at this and think 'why isn't this null?'
 
 //Construction type, determines what gotta be built
 

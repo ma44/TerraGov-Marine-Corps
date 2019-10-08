@@ -14,16 +14,13 @@
 		source_node = the_source_node
 	else
 		stack_trace("Construction marker initialized without turf or source node attached.")
-		Destroy(src)
+		qdel(src)
 		return
 
 //When we finish putting something down
-/datum/construction_marker/proc/finish_construction()
-	Destroy(src)
-
-/datum/construction_marker/Destroy()
-	source_node.remove_from_construction(src)
-	..()
+//Spread out determines if we wanna put down more markers nearby or not
+/datum/construction_marker/proc/finish_construction(spread_out = FALSE)
+	source_node.remove_from_construction(src) //This handles deleting this datum
 
 //Xeno related constructions
 /datum/construction_marker/xeno
@@ -42,14 +39,21 @@
 	time = 0
 
 //Let's place nearby weed nodes
-/datum/construction_marker/xeno/weed_node/finish_construction()
-	for(var/diagonal in GLOB.diagonals)
-		var/turf/turf = get_step(source_node.parentnode.loc, diagonal)
-		if(construction_type in range(0, turf))
-			continue
-		if(get_dist(turf, source_node.parentnode.loc) < 10) //Don't build super far out
-			source_node.add_construction(new/datum/construction_marker/xeno/weed_node(turf.loc, source_node))
-	return ..()
+/datum/construction_marker/xeno/weed_node/finish_construction(spread_out = FALSE)
+	if(spread_out)
+		var/turf/turf
+		for(var/diagonal in GLOB.diagonals)
+			turf = get_step(turf_reference, diagonal)
+			var/can_spread_marker = TRUE
+			if(locate(construction_type) in turf)
+				can_spread_marker = FALSE
+			for(var/atom/thing in range(0, turf))
+				if(thing.density)
+					can_spread_marker = FALSE
+					break
+			if(can_spread_marker && get_dist(turf, source_node.parentnode.loc) < 10) //Don't build super far out
+				source_node.add_construction(new/datum/construction_marker/xeno/weed_node(turf, source_node))
+	..()
 
 /datum/construction_marker/xeno/sticky_resin
 	construction_type = STICKY_RESIN

@@ -13,11 +13,15 @@
 	parent2.xeno_caste.caste_flags += CASTE_CAN_HEAL_WIHOUT_QUEEN
 	parent2.a_intent = INTENT_HARM
 	last_health = parent2.health
-	action_state = new/datum/action_state/random_move/scout(src)
 	parent2.afk_timer_id = addtimer(CALLBACK(GLOBAL_PROC, /proc/afk_message, src), 999 HOURS, TIMER_STOPPABLE)
 	parent2.a_intent = INTENT_HARM //Kill em all
 	if(SSai.randomized_xeno_tiers) //Equal chances of being young, mature, elder or ancient
 		parent2.upgrade_xeno(pick(list(0, XENO_UPGRADE_ONE, XENO_UPGRADE_TWO, XENO_UPGRADE_THREE)))
+	if(can_construct)
+		action_state.OnComplete() //Removes random_move
+		action_state = new/datum/action_state/construction(src)
+	else
+		action_state = new/datum/action_state/random_move/scout(src)
 
 /datum/component/ai_behavior/xeno/proc/AttemptGetTarget()
 	for(var/mob/living/carbon/human/human in cheap_get_humans_near(parent, 10))
@@ -90,7 +94,8 @@
 				var/list/humans_nearby = cheap_get_humans_near(parent2, 10)
 				if(!humans_nearby.len)
 					//No humans nearby, if we can construct let's look for construction to do
-					if(can_construct && current_node.datumnode.get_marker_faction(faction))
+					var/list/stuff_to_make = current_node.datumnode.get_marker_faction(faction)
+					if(can_construct && length(stuff_to_make))
 						action_state = new/datum/action_state/construction(src)
 					else //Nothing to construct here, let's do some scouting
 						action_state = new/datum/action_state/random_move/scout(src)

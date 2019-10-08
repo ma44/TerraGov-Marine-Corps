@@ -13,7 +13,6 @@
 	srcturf = loc
 	datumnode.parentnode = src
 	datumnode.add_construction(new/datum/construction_marker/xeno/weed_node(loc, datumnode))
-	stack_trace("did that")
 	GLOB.allnodes += src
 
 /obj/effect/AINode/proc/MakeAdjacents()
