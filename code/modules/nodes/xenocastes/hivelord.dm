@@ -24,7 +24,7 @@
 	. = ..()
 	if(!.)
 		return FALSE
-
+/*
 	var/mob/living/carbon/xenomorph/hivelord/parent2 = parent
 
 	if(ability_tick_threshold % 2 == 0)
@@ -34,7 +34,7 @@
 
 		if(!locate(/obj/effect/alien/weeds/node) in range(1, parent2))
 			plantweeds.action_activate()
-		/*
+
 		else
 
 			var/got_wall = FALSE
@@ -46,10 +46,10 @@
 				var/turf/T = get_turf(parentmob2)
 				T.ChangeTurf(/turf/closed/wall/resin)
 				return //We plopped a thicc wall, can't build anything else here
-		*/
 	var/turf/T2 = get_turf(parent2)
 	if(T2.check_alien_construction(parent2))
 		var/turf/T = get_turf(parent2)
 		new/obj/effect/alien/resin/sticky(T)
 		//parentmob2.selected_resin = /obj/effect/alien/resin/sticky
 		//secrete.use_ability()
+*/

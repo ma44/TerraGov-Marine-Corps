@@ -204,15 +204,17 @@
 				break
 		if(!marker)
 			parent_ai.action_completed(FINISHED_MOVE)
-			return
-	if(marker && get_dir(parent_ai.parent, marker.turf_reference) < 1)
+	if(marker && get_dist(parent_ai.parent, marker.turf_reference) < 1)
 		var/mob/living/builder = parent_ai.parent //parent is typecaste as datum, no loc associated
 		if(locate(marker.construction_type) in marker.turf_reference || marker.turf_reference.density)
 			marker.finish_construction(FALSE)
-		if(marker)
+			marker = null
+			Process()
+		else
 			new marker.construction_type(builder.loc)
 			marker.finish_construction(TRUE)
 			marker = null
+			Process()
 
 /datum/action_state/construction/GetTargetDir(smart_pathfind) //We give it a direction to the target
 	if(!marker) //Adds a marker if there isn't one already

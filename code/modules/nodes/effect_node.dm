@@ -12,7 +12,11 @@
 	. = ..()
 	srcturf = loc
 	datumnode.parentnode = src
-	datumnode.add_construction(new/datum/construction_marker/xeno/weed_node(loc, datumnode))
+	for(var/diagonal in GLOB.diagonals)
+		datumnode.add_construction(new/datum/construction_marker/xeno/weed_node(get_step(loc, diagonal), datumnode))
+	//for(var/cardinal in GLOB.cardinals)
+	//	datumnode.add_construction(new/datum/construction_marker/xeno/sticky_resin(get_step(loc, cardinal), datumnode))
+	//datumnode.add_construction(new/datum/construction_marker/xeno/weed_node(loc, datumnode))
 	GLOB.allnodes += src
 
 /obj/effect/AINode/proc/MakeAdjacents()

@@ -11,23 +11,30 @@
 	parent2.xeno_caste.caste_flags += CASTE_INNATE_HEALING
 	parent2.xeno_caste.caste_flags += CASTE_QUICK_HEAL_STANDING
 	parent2.xeno_caste.caste_flags += CASTE_CAN_HEAL_WIHOUT_QUEEN
-	parent2.a_intent = INTENT_HARM
 	last_health = parent2.health
 	parent2.afk_timer_id = addtimer(CALLBACK(GLOBAL_PROC, /proc/afk_message, src), 999 HOURS, TIMER_STOPPABLE)
-	parent2.a_intent = INTENT_HARM //Kill em all
 	if(SSai.randomized_xeno_tiers) //Equal chances of being young, mature, elder or ancient
 		parent2.upgrade_xeno(pick(list(0, XENO_UPGRADE_ONE, XENO_UPGRADE_TWO, XENO_UPGRADE_THREE)))
+	/*
 	if(can_construct)
 		action_state.OnComplete() //Removes random_move
 		action_state = new/datum/action_state/construction(src)
 	else
-		action_state = new/datum/action_state/random_move/scout(src)
+	*/
+	parent2.a_intent = INTENT_HARM //Kill em all
+	action_state = new/datum/action_state/random_move/scout(src)
 
 /datum/component/ai_behavior/xeno/proc/AttemptGetTarget()
 	for(var/mob/living/carbon/human/human in cheap_get_humans_near(parent, 10))
 		if(human.stat != DEAD)
 			return human
 	return FALSE
+
+/datum/component/ai_behavior/xeno/remove_everything() //Removes parent from processing AI and own component
+
+	SSai.aidatums -= src
+	SSai_movement.RemoveFromProcess(src)
+	qdel(src)
 
 //Below proc happens every 1/2 second
 /datum/component/ai_behavior/xeno/Process()

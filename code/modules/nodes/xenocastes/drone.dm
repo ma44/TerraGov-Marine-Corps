@@ -12,6 +12,8 @@
 
 /datum/component/ai_behavior/xeno/drone/Init()
 	..()
+	action_state.OnComplete() //Removes random_move
+	action_state = new/datum/action_state/construction(src)
 	var/mob/living/carbon/xenomorph/drone/parent2 = parent
 	if(SSai.init_pheromones)
 		parent2.current_aura = pick(list("recovery", "warding", "frenzy"))

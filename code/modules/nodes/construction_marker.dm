@@ -27,34 +27,53 @@
 	faction = XENOMORPH
 
 /datum/construction_marker/xeno/resin_wall
-	construction_type = RESIN_WALL
+	construction_type = /turf/closed/wall/resin
 	time = 20
 
 /datum/construction_marker/xeno/resin_door
-	construction_type = RESIN_DOOR
+	construction_type = /obj/structure/mineral_door/resin
 	time = 10
 
 /datum/construction_marker/xeno/weed_node
-	construction_type = WEED_NODE
+	construction_type = /obj/effect/alien/weeds/node
 	time = 0
 
 //Let's place nearby weed nodes
 /datum/construction_marker/xeno/weed_node/finish_construction(spread_out = FALSE)
 	if(spread_out)
-		var/turf/turf
+		var/turf/turf_to_spread_to
 		for(var/diagonal in GLOB.diagonals)
-			turf = get_step(turf_reference, diagonal)
+			turf_to_spread_to = get_step(turf_reference, diagonal)
+			if(turf_to_spread_to.density)
+				return
 			var/can_spread_marker = TRUE
-			if(locate(construction_type) in turf)
+			if(locate(construction_type) in turf_reference)
 				can_spread_marker = FALSE
-			for(var/atom/thing in range(0, turf))
+			for(var/atom/thing in turf_to_spread_to)
 				if(thing.density)
 					can_spread_marker = FALSE
 					break
-			if(can_spread_marker && get_dist(turf, source_node.parentnode.loc) < 10) //Don't build super far out
-				source_node.add_construction(new/datum/construction_marker/xeno/weed_node(turf, source_node))
+			if(can_spread_marker && get_dist(turf_to_spread_to, source_node.parentnode.loc) < 10) //Don't build super far out
+				source_node.add_construction(new/datum/construction_marker/xeno/weed_node(turf_to_spread_to, source_node))
 	..()
 
 /datum/construction_marker/xeno/sticky_resin
-	construction_type = STICKY_RESIN
+	construction_type = /obj/effect/alien/resin/sticky
 	time = 20
+
+//Let's place nearby sticky resin
+/datum/construction_marker/xeno/sticky_resin/finish_construction(spread_out = FALSE)
+	if(spread_out)
+		var/turf/turf_to_spread_to
+		for(var/cardinal in GLOB.cardinals)
+			turf_to_spread_to = get_step(turf_reference, cardinal)
+			var/can_spread_marker = TRUE
+			if(locate(construction_type) in turf_to_spread_to)
+				can_spread_marker = FALSE
+			for(var/atom/thing in turf_to_spread_to)
+				if(thing.density)
+					can_spread_marker = FALSE
+					break
+			if(can_spread_marker && get_dist(turf_to_spread_to, source_node.parentnode.loc) < 10) //Don't build super far out
+				source_node.add_construction(new/datum/construction_marker/xeno/sticky_resin(turf_to_spread_to, source_node))
+	..()
