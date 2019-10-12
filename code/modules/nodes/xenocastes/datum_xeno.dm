@@ -4,6 +4,7 @@
 	var/ability_tick_threshold = 0 //Want to do something every X Process()? here ya go
 	var/can_construct = FALSE //If this xeno can construct stuff
 	faction = XENOMORPH //Used for construction markers
+	var/datum/construction_marker/current_marker //What marker we gonna build at, used for handling marker if this xeno dies
 
 /datum/component/ai_behavior/xeno/Init()
 	..()
@@ -31,7 +32,8 @@
 	return FALSE
 
 /datum/component/ai_behavior/xeno/remove_everything() //Removes parent from processing AI and own component
-
+	if(!QDELETED(current_marker))
+		current_marker.remove_assigned_builder()
 	SSai.aidatums -= src
 	SSai_movement.RemoveFromProcess(src)
 	qdel(src)
@@ -101,10 +103,11 @@
 				var/list/humans_nearby = cheap_get_humans_near(parent2, 10)
 				if(!humans_nearby.len)
 					//No humans nearby, if we can construct let's look for construction to do
-					var/list/stuff_to_make = current_node.datumnode.get_marker_faction(faction)
+					var/list/stuff_to_make = current_node.datumnode.get_unassigned_marker_faction(faction)
 					if(can_construct && length(stuff_to_make))
 						action_state = new/datum/action_state/construction(src)
 					else //Nothing to construct here, let's do some scouting
+						current_marker = null
 						action_state = new/datum/action_state/random_move/scout(src)
 				else //Enemies found kill em if not pacifist
 					current_node.add_to_notable_nodes(ENEMY_PRESENCE)

@@ -6,6 +6,7 @@
 	var/datum/ai_node/source_node //The datum node we're attached to
 	var/faction //What faction is suppose to build this, currently MARINE or XENOMORPH
 	var/time //Time to wait for do_after
+	var/datum/component/ai_behavior/xeno/assigned_builder //One builder per construction only
 
 /datum/construction_marker/New(turf/turf_to_build_at, datum/ai_node/the_source_node)
 	..()
@@ -16,6 +17,16 @@
 		stack_trace("Construction marker initialized without turf or source node attached.")
 		qdel(src)
 		return
+
+/datum/construction_marker/proc/assign_builder(datum/component/ai_behavior/xeno/parent_ai)
+	parent_ai.current_marker = src
+	assigned_builder = parent_ai.parent
+	source_node.remove_from_unassigned(src)
+
+/datum/construction_marker/proc/remove_assigned_builder()
+	assigned_builder.current_marker = null
+	assigned_builder = null
+	source_node.move_to_unassigned(src)
 
 //When we finish putting something down
 //Spread out determines if we wanna put down more markers nearby or not
@@ -47,7 +58,7 @@
 			if(turf_to_spread_to.density)
 				return
 			var/can_spread_marker = TRUE
-			if(locate(construction_type) in turf_reference)
+			if(locate(construction_type) in turf_to_spread_to)
 				can_spread_marker = FALSE
 			for(var/atom/thing in turf_to_spread_to)
 				if(thing.density)
@@ -70,6 +81,7 @@
 			var/can_spread_marker = TRUE
 			if(locate(construction_type) in turf_to_spread_to)
 				can_spread_marker = FALSE
+				stack_trace("construction already made")
 			for(var/atom/thing in turf_to_spread_to)
 				if(thing.density)
 					can_spread_marker = FALSE

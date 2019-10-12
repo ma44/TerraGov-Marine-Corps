@@ -197,29 +197,39 @@
 
 /datum/action_state/construction/Process()
 	..()
-	if(!marker)
-		for(var/datum/construction_marker/new_marker in shuffle(parent_ai.current_node.datumnode.get_marker_faction(parent_ai.faction)))
+	if(QDELETED(marker))
+		var/list/unassigned_markers = parent_ai.current_node.datumnode.get_unassigned_marker_faction(parent_ai.faction)
+		if(!length(unassigned_markers))
+			parent_ai.action_completed(FINISHED_MOVE)
+			return
+		/*
+		var/datum/construction_marker/closest_marker = pick(unassigned_markers)
+		for(var/datum/construction_marker/a_marker in unassigned_markers)
+			if(get_dist(a_marker, parent_ai.parent) < get_dist(closest_marker, parent_ai.parent))
+				closest_marker = a_marker
+		*/
+		for(var/datum/construction_marker/new_marker in shuffle(unassigned_markers))
 			if(new_marker)
 				marker = new_marker
 				break
-		if(!marker)
+
+		if(QDELETED(marker))
 			parent_ai.action_completed(FINISHED_MOVE)
-	if(marker && get_dist(parent_ai.parent, marker.turf_reference) < 1)
+		else
+			marker.assign_builder(parent_ai)
+
+	if(!QDELETED(marker) && get_dist(parent_ai.parent, marker.turf_reference) < 1)
 		var/mob/living/builder = parent_ai.parent //parent is typecaste as datum, no loc associated
 		if(locate(marker.construction_type) in marker.turf_reference || marker.turf_reference.density)
 			marker.finish_construction(FALSE)
-			marker = null
-			Process()
 		else
 			new marker.construction_type(builder.loc)
 			marker.finish_construction(TRUE)
-			marker = null
-			Process()
 
 /datum/action_state/construction/GetTargetDir(smart_pathfind) //We give it a direction to the target
-	if(!marker) //Adds a marker if there isn't one already
+	if(QDELETED(marker)) //Adds a marker if there isn't one already
 		Process()
-	if(!marker)
+	if(QDELETED(marker)) //Process() gave no marker, no more stuff to build there
 		parent_ai.action_completed(FINISHED_MOVE)
 		OnComplete()
 		return
