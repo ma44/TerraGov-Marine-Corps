@@ -56,3 +56,6 @@
 
 /area/centcom/supplypod/loading/ert
 	name = "ERT Bay"
+
+/area/centcom/aitest
+	name = "\improper Artificial Intelligence Test Zone"
