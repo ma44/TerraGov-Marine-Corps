@@ -9,9 +9,9 @@ SUBSYSTEM_DEF(ai)
 	//Settings for the AI to obey
 	var/is_pacifist = FALSE //Will also ignore zones with any level of danger alongside no slashing
 
-	var/prob_sidestep_melee = 25 //Probability of a xeno side stepping while in melee every time its suppose to move
+	var/prob_sidestep_melee = 50 //Probability of a xeno side stepping while in melee every time its suppose to move
 
-	var/prob_melee_slash_multiplier = 0.5 //Default makes attacks that require prob() succeed 1/2th as often, good for stuff
+	var/prob_melee_slash_multiplier = 1 //Default makes attacks that require prob() succeed 1/2th as often, good for stuff
 
 	var/prioritize_nodes_with_enemies = FALSE //If xenos will beeline to nodes with seen enemies
 

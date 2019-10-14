@@ -16,14 +16,13 @@
 	parent2.afk_timer_id = addtimer(CALLBACK(GLOBAL_PROC, /proc/afk_message, src), 999 HOURS, TIMER_STOPPABLE)
 	if(SSai.randomized_xeno_tiers) //Equal chances of being young, mature, elder or ancient
 		parent2.upgrade_xeno(pick(list(0, XENO_UPGRADE_ONE, XENO_UPGRADE_TWO, XENO_UPGRADE_THREE)))
-	/*
 	if(can_construct)
 		action_state.OnComplete() //Removes random_move
 		action_state = new/datum/action_state/construction(src)
 	else
-	*/
+		action_state = new/datum/action_state/random_move/scout(src)
+		action_completed(FINISHED_MOVE)
 	parent2.a_intent = INTENT_HARM //Kill em all
-	action_state = new/datum/action_state/random_move/scout(src)
 
 /datum/component/ai_behavior/xeno/proc/AttemptGetTarget()
 	for(var/mob/living/carbon/human/human in cheap_get_humans_near(parent, 10))

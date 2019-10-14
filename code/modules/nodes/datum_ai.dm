@@ -32,6 +32,7 @@ Base datums for stuff like humans or xenos have possible actions to do as well a
 		return
 	RegisterSignal(parent, list(COMSIG_MOB_DEATH, COMSIG_PARENT_QDELETED), .proc/remove_everything)
 	action_state = new/datum/action_state/random_move(src)
+	Init() //Late initialize
 
 /datum/component/ai_behavior/proc/Init() //Basically a late initialize, currently used for ai xeno abilities
 
