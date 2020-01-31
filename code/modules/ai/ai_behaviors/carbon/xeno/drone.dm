@@ -1,6 +1,8 @@
 //A example drone that uses it's weeding ability provided no other weeds are nearby
 
 /datum/ai_behavior/carbon/xeno/drone
+	distance_to_maintain = 6
+	sidestep_prob = 0
 	var/datum/action/xeno_action/plant_weeds/plantweeds
 
 /datum/ai_behavior/carbon/xeno/drone/New()

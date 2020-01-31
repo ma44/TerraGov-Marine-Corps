@@ -13,6 +13,8 @@
 
 #define DAMAGE_REDUCTION_COEFFICIENT(armor) (0.1/((armor*armor*0.0001)+0.1)) //Armor offers diminishing returns.
 
+GLOBAL_LIST_EMPTY(projectiles_in_motion)
+
 //The actual bullet objects.
 /obj/projectile
 	name = "projectile"
@@ -70,6 +72,7 @@
 
 /obj/projectile/Destroy()
 	STOP_PROCESSING(SSprojectiles, src)
+	GLOB.projectiles_in_motion -= src
 	ammo = null
 	shot_from = null
 	original_target = null
@@ -134,6 +137,9 @@
 	if(!isturf(loc))
 		forceMove(get_turf(src))
 	starting_turf = loc
+
+	//We're in motion now
+	GLOB.projectiles_in_motion += src
 
 	if(target)
 		original_target = target
