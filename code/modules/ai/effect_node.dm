@@ -52,7 +52,7 @@ This means that the proc will pick out the *best* node
 
 /obj/effect/ai_node/proc/GetBestAdjNode(list/weight_modifiers)
 	//No weight modifier, return a adjacent random node
-	if(!weight_modifiers)
+	if(!weight_modifiers || islist(weight_modifiers) && !length(weight_modifiers))
 		return pick(adjacent_nodes)
 
 	var/obj/effect/ai_node/node_to_return = adjacent_nodes[1]

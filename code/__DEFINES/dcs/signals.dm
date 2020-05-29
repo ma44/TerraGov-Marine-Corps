@@ -467,8 +467,11 @@
 #define ACTION_REMOVED "removed_an_action"	//from base of /datum/action/proc/remove_action(): (datum/action)
 
 // Action state signal that's sent whenever the action state has a distance maintained with the target being walked to
-#define COMSIG_STATE_MAINTAINED_DISTANCE "action_state_maintained_dist_with_target"
+#define COMSIG_STATE_MAINTAINED_DISTANCE "action_state_maintained_dist_with_target" //(atom/target)
 #define COMSIG_OBSTRUCTED_MOVE "unable_to_step_towards_thing" //Tried to step in a direction and there was a obstruction
+
+//Signals related to stance; behavior modules pick up on these and sometimes does a thing when it's triggered by it
+#define COMSIG_SET_AI_MOVE_TARGET "setting_ai_move_target" //(atom/new_target)
 
 /*******Non-Signal Component Related Defines*******/
 

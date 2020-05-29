@@ -25,7 +25,7 @@
 			continue
 
 		if(get_dist(mob_to_process, atoms_to_walk_to[mob_to_process]) == distances_to_maintain[mob_to_process])
-			SEND_SIGNAL(mob_to_process, COMSIG_STATE_MAINTAINED_DISTANCE)
+			SEND_SIGNAL(mob_to_process, COMSIG_STATE_MAINTAINED_DISTANCE, atoms_to_walk_to[mob_to_process])
 			if(!(get_dir(mob_to_process, atoms_to_walk_to[mob_to_process]))) //We're right on top, move out of it
 				if(!step(mob_to_process, pick(CARDINAL_ALL_DIRS)))
 					SEND_SIGNAL(mob_to_process, COMSIG_OBSTRUCTED_MOVE)

@@ -14,14 +14,15 @@ The main purpose of this is to handle cleanup and setting up the initial ai beha
 
 	var/vars_to_use //What variables do we want to pass to behavior modules? Retrieved from GLOB lists
 
-/datum/component/ai_holder/Initialize(list/behavior_type)
+/datum/component/ai_holder/Initialize(behavior_type)
 	. = ..()
 	if(!ismob(parent)) //Requires a mob as the element action states needed to be apply depend on several mob defines like cached_multiplicative_slowdown or action_busy
 		stack_trace("An AI controller was initialized on a parent that isn't compatible with the ai component. Parent type: [parent.type]")
 		return COMPONENT_INCOMPATIBLE
 	if(isnull(behavior_type))
-		stack_trace("An AI controller was initialized without behavior types to add onto itself; component removed")
+		stack_trace("An AI controller was initialized without behavior modules to add onto itself; component removed")
 		return COMPONENT_INCOMPATIBLE
+
 	var/node_to_spawn_at //Temp storage holder for the node we will want to spawn at
 	for(var/obj/effect/ai_node/node in range(7))
 		node_to_spawn_at = node
@@ -32,12 +33,23 @@ The main purpose of this is to handle cleanup and setting up the initial ai beha
 		message_admins("Notice: An AI controller was initialized but wasn't close enough to a node; if you were spawning AI component users, then do it closer to a node.")
 		return COMPONENT_INCOMPATIBLE
 	//This is here so we only make a mind if there's a node nearby for the parent to go onto
-	behavior_modules = behavior_type
 	current_node = node_to_spawn_at
+
 	//ai_behavior = new behavior_type(src, parent)
 	//ai_behavior.current_node = node_to_spawn_at
 	//ai_behavior.late_initialize() //We gotta give the ai behavior things like what node to spawn at before it wants to start an action
 	RegisterSignal(parent, list(COMSIG_PARENT_PREQDELETED, COMSIG_MOB_DEATH), .proc/clean_up)
+	apply_behavior_template(behavior_type)
+	cur_stance = AI_ROAMING
+	register_signals_for(AI_ROAMING) //Let's get moving
+
+//Initializes behavior modules to ultilize and giving them vars for further finetuning
+/datum/component/ai_holder/proc/apply_behavior_template(list/behaviors)
+	for(var/list/module in behaviors)
+		var/datum/behavior_module/new_module = new module[1]
+		behavior_modules += new_module //First index of each list is a type for a behavior module, rest of it is variable related
+		module.Remove(module[1]) //Remove the type it's suppose to spawn then send it to the appropriate module
+		new_module.apply_parameters(behaviors[module])
 
 //Removes registered signals and action states, useful for scenarios like when the parent is destroyed or a client is taking over
 /datum/component/ai_holder/proc/clean_up()
