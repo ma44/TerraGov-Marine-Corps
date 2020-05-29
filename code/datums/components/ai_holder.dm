@@ -9,7 +9,7 @@ The main purpose of this is to handle cleanup and setting up the initial ai beha
 /datum/component/ai_holder
 	var/datum/ai_behavior/ai_behavior //Calculates the action states to take and the parameters it gets; literally the brain
 	var/list/behavior_modules = list() //A list of behavior modules we loop through when processing
-	var/datum/ai_node/current_node //The current node we're at
+	var/obj/effect/ai_node/current_node //The current node we're at
 
 /datum/component/ai_holder/Initialize(list/behavior_type)
 	. = ..()
@@ -19,7 +19,6 @@ The main purpose of this is to handle cleanup and setting up the initial ai beha
 	if(isnull(behavior_type))
 		stack_trace("An AI controller was initialized without behavior types to add onto itself; component removed")
 		return COMPONENT_INCOMPATIBLE
-	var/atom/movable/movable_parent = parent
 	var/node_to_spawn_at //Temp storage holder for the node we will want to spawn at
 	for(var/obj/effect/ai_node/node in range(7))
 		node_to_spawn_at = node
@@ -40,17 +39,20 @@ The main purpose of this is to handle cleanup and setting up the initial ai beha
 //Removes registered signals and action states, useful for scenarios like when the parent is destroyed or a client is taking over
 /datum/component/ai_holder/proc/clean_up()
 	STOP_PROCESSING(SSprocessing, ai_behavior)
-	for(var/behavior in behavior_modules)
+	for(var/datum/behavior in behavior_modules)
 		STOP_PROCESSING(SSprocessing, behavior)
 	//ai_behavior.unregister_action_signals(ai_behavior.cur_action)
-	parent.RemoveElement(/datum/element/pathfinder)
+	//parent.RemoveElement(/datum/element/pathfinder)
 
-/dautm/component/ai_holder/proc/register_action_signals(datum/behavior_module/behave_modules)
-	if(islist(behave_modules))
-		for(var/behavior in behave_modules)
-			register_action_signals
+//Tell behavior modules to register for signals related to this stance
+/datum/component/ai_holder/proc/register_signals_for(stance)
+	for(var/datum/behavior_module/behavior in behavior_modules)
+		behavior.register_stance_signals(stance)
 
-/dautm/component/ai_holder/proc/unregister_action_signals(datum/behavior_module/behave_modules)
+//Tell behavior modules to unregister signals related to this stance
+/datum/component/ai_holder/proc/unregister_signals_for(stance)
+	for(var/datum/behavior_module/behavior in behavior_modules)
+		behavior.unregister_stance_signals(stance)
 
 /datum/component/ai_holder/Destroy()
 	clean_up()
