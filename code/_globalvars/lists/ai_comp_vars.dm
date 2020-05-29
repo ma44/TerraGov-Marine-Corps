@@ -1,0 +1,2 @@
+//GLOBAL_LIST_INIT(ai_roamer,
+//				list(BEHAVE_MODULE_MOVEMENT

@@ -10,6 +10,9 @@ The main purpose of this is to handle cleanup and setting up the initial ai beha
 	var/datum/ai_behavior/ai_behavior //Calculates the action states to take and the parameters it gets; literally the brain
 	var/list/behavior_modules = list() //A list of behavior modules we loop through when processing
 	var/obj/effect/ai_node/current_node //The current node we're at
+	var/cur_stance //Current action we're doing
+
+	var/vars_to_use //What variables do we want to pass to behavior modules? Retrieved from GLOB lists
 
 /datum/component/ai_holder/Initialize(list/behavior_type)
 	. = ..()
