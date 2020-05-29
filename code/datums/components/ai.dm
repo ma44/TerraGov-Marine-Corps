@@ -6,52 +6,39 @@ The main purpose of this is to handle cleanup and setting up the initial ai beha
 */
 
 //The most basic of AI; can pathfind to a turf and path around objects in it's path if needed to
-/datum/component/ai_holder
+/datum/component/ai_controller
 	var/datum/ai_behavior/ai_behavior //Calculates the action states to take and the parameters it gets; literally the brain
-	var/list/behavior_modules = list() //A list of behavior modules we loop through when processing
-	var/datum/ai_node/current_node //The current node we're at
 
-/datum/component/ai_holder/Initialize(list/behavior_type)
+/datum/component/ai_controller/Initialize(behavior_type)
 	. = ..()
 	if(!ismob(parent)) //Requires a mob as the element action states needed to be apply depend on several mob defines like cached_multiplicative_slowdown or action_busy
 		stack_trace("An AI controller was initialized on a parent that isn't compatible with the ai component. Parent type: [parent.type]")
 		return COMPONENT_INCOMPATIBLE
 	if(isnull(behavior_type))
-		stack_trace("An AI controller was initialized without behavior types to add onto itself; component removed")
+		stack_trace("An AI controller was initialized without a mind to initialize parameter; component removed")
 		return COMPONENT_INCOMPATIBLE
 	var/atom/movable/movable_parent = parent
 	var/node_to_spawn_at //Temp storage holder for the node we will want to spawn at
 	for(var/obj/effect/ai_node/node in range(7))
 		node_to_spawn_at = node
-		//movable_parent.forceMove(node.loc)
+		movable_parent.forceMove(node.loc)
 		break
 	if(isnull(node_to_spawn_at))
 		stack_trace("An AI controller was being attached to a parent however it was unable to locate a node nearby to attach itself to; component removed.")
 		message_admins("Notice: An AI controller was initialized but wasn't close enough to a node; if you were spawning AI component users, then do it closer to a node.")
 		return COMPONENT_INCOMPATIBLE
 	//This is here so we only make a mind if there's a node nearby for the parent to go onto
-	behavior_modules = behavior_type
-	current_node = node_to_spawn_at
-	//ai_behavior = new behavior_type(src, parent)
-	//ai_behavior.current_node = node_to_spawn_at
-	//ai_behavior.late_initialize() //We gotta give the ai behavior things like what node to spawn at before it wants to start an action
+	ai_behavior = new behavior_type(src, parent)
+	ai_behavior.current_node = node_to_spawn_at
+	ai_behavior.late_initialize() //We gotta give the ai behavior things like what node to spawn at before it wants to start an action
 	RegisterSignal(parent, list(COMSIG_PARENT_PREQDELETED, COMSIG_MOB_DEATH), .proc/clean_up)
 
 //Removes registered signals and action states, useful for scenarios like when the parent is destroyed or a client is taking over
-/datum/component/ai_holder/proc/clean_up()
+/datum/component/ai_controller/proc/clean_up()
 	STOP_PROCESSING(SSprocessing, ai_behavior)
-	for(var/behavior in behavior_modules)
-		STOP_PROCESSING(SSprocessing, behavior)
-	//ai_behavior.unregister_action_signals(ai_behavior.cur_action)
+	ai_behavior.unregister_action_signals(ai_behavior.cur_action)
 	parent.RemoveElement(/datum/element/pathfinder)
 
-/dautm/component/ai_holder/proc/register_action_signals(datum/behavior_module/behave_modules)
-	if(islist(behave_modules))
-		for(var/behavior in behave_modules)
-			register_action_signals
-
-/dautm/component/ai_holder/proc/unregister_action_signals(datum/behavior_module/behave_modules)
-
-/datum/component/ai_holder/Destroy()
+/datum/component/ai_controller/Destroy()
 	clean_up()
 	return ..()
