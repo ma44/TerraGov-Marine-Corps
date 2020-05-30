@@ -15,4 +15,4 @@ BEHAVE_MODULE_PATROL, list(preferred weights)
 */
 
 //Template for an AI to just roam around
-GLOBAL_LIST_INIT(ai_roamer, list(list(BEHAVE_MODULE_MOVEMENT, 1, 0), list(BEHAVE_MODULE_PATROL, list())))
+GLOBAL_LIST_INIT(ai_roamer, list(BEHAVE_MODULE_MOVEMENT = list(1, 0), BEHAVE_MODULE_PATROL = list(list())))

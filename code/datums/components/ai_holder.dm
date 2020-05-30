@@ -23,17 +23,14 @@ The main purpose of this is to handle cleanup and setting up the initial ai beha
 		stack_trace("An AI controller was initialized without behavior modules to add onto itself; component removed")
 		return COMPONENT_INCOMPATIBLE
 
-	var/node_to_spawn_at //Temp storage holder for the node we will want to spawn at
-	for(var/obj/effect/ai_node/node in range(7))
-		node_to_spawn_at = node
+	for(var/obj/effect/ai_node/node in range(9))
+		current_node = node
 		//movable_parent.forceMove(node.loc)
 		break
-	if(isnull(node_to_spawn_at))
+	if(isnull(current_node))
 		stack_trace("An AI controller was being attached to a parent however it was unable to locate a node nearby to attach itself to; component removed.")
 		message_admins("Notice: An AI controller was initialized but wasn't close enough to a node; if you were spawning AI component users, then do it closer to a node.")
 		return COMPONENT_INCOMPATIBLE
-	//This is here so we only make a mind if there's a node nearby for the parent to go onto
-	current_node = node_to_spawn_at
 
 	//ai_behavior = new behavior_type(src, parent)
 	//ai_behavior.current_node = node_to_spawn_at
@@ -45,11 +42,23 @@ The main purpose of this is to handle cleanup and setting up the initial ai beha
 
 //Initializes behavior modules to ultilize and giving them vars for further finetuning
 /datum/component/ai_holder/proc/apply_behavior_template(list/behaviors)
-	for(var/list/module in behaviors)
+	/*
+	var/list/stupid_layer = behaviors[1]
+	for(var/list/module in stupid_layer)
+		to_chat(world, stupid_layer)
+		to_chat(world, module)
+		to_chat(world, module[1])
 		var/datum/behavior_module/new_module = new module[1]
 		behavior_modules += new_module //First index of each list is a type for a behavior module, rest of it is variable related
 		module.Remove(module[1]) //Remove the type it's suppose to spawn then send it to the appropriate module
-		new_module.apply_parameters(behaviors[module])
+		new_module.apply_parameters(stupid_layer[module])
+	*/
+	for(var/module_path in behaviors)
+		var/datum/behavior_module/module = new module_path
+		module.source_holder = src
+		behavior_modules += module
+		module.apply_parameters(behaviors[module_path])
+		module.initial_signal_registration()
 
 //Removes registered signals and action states, useful for scenarios like when the parent is destroyed or a client is taking over
 /datum/component/ai_holder/proc/clean_up()

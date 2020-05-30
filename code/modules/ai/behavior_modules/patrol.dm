@@ -14,8 +14,8 @@ preferred_weights
 /datum/behavior_module/patrol/register_stance_signals(stance)
 	switch(stance)
 		if(AI_ROAMING)
-			source_holder.current_node = source_holder.current_node.GetBestAdjNode(preferred_weights)
 			RegisterSignal(source_holder.parent, COMSIG_STATE_MAINTAINED_DISTANCE, .proc/node_reached)
+			SEND_SIGNAL(source_holder.parent, COMSIG_SET_AI_MOVE_TARGET, source_holder.current_node.GetBestAdjNode(preferred_weights))
 
 /datum/behavior_module/patrol/unregister_stance_signals(stance)
 	switch(stance)
@@ -25,6 +25,7 @@ preferred_weights
 //We reached a node yay
 /datum/behavior_module/patrol/proc/node_reached(datum/source, atom/target)
 	to_chat(world, "we made it bois")
-	to_chat(world, source)
-	to_chat(world, target)
+	to_chat(world, "[source]")
+	to_chat(world, "target next")
+	to_chat(world, "[target]")
 	source_holder.current_node = target

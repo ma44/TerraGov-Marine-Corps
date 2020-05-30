@@ -5,14 +5,6 @@
 	var/atom/target //Thing we're walking towards
 	var/sidestep_prob //Chance of sidestepping when distance is maintained and ready to move again
 
-	//Wait for a signal to get us to move
-/datum/behavior_module/movement/inital_register_signals()
-	RegisterSignal(source_holder.parent, list(COMSIG_SET_AI_MOVE_TARGET), .proc/set_new_move_target)
-
-/datum/behavior_module/movement/proc/set_new_move_target(datum/source, atom/new_target)
-	target = new_target
-	source_holder.parent.AddElement(/datum/element/pathfinder, new_target, dist_to_maintain, sidestep_prob)
-
 /*
 From first to last index of params
 dist_to_maintain
@@ -22,3 +14,13 @@ sidestep_prob
 	dist_to_maintain = values[1]
 	sidestep_prob = values[2]
 
+/datum/behavior_module/movement/initial_signal_registration()
+	RegisterSignal(source_holder.parent, list(COMSIG_SET_AI_MOVE_TARGET), .proc/set_new_move_target)
+
+/datum/behavior_module/movement/proc/set_new_move_target(datum/source, atom/new_target)
+	to_chat(world, "intercepted")
+	to_chat(world, "[source]")
+	to_chat(world, "[new_target]")
+	source_holder.parent.RemoveElement(/datum/element/pathfinder)
+	target = new_target
+	source_holder.parent.AddElement(/datum/element/pathfinder, new_target, dist_to_maintain, sidestep_prob)
