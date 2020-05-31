@@ -472,6 +472,7 @@
 
 //Signals related to stance; behavior modules pick up on these and sometimes does a thing when it's triggered by it
 #define COMSIG_SET_AI_MOVE_TARGET "setting_ai_move_target" //(atom/new_target)
+#define COMSIG_MADE_IT_TO_NODE "ai_moved_to_node" //(/obj/effect/ai_node/the_node)
 
 /*******Non-Signal Component Related Defines*******/
 

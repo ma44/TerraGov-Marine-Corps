@@ -24,8 +24,6 @@ preferred_weights
 
 //We reached a node yay
 /datum/behavior_module/patrol/proc/node_reached(datum/source, atom/target)
-	to_chat(world, "we made it bois")
-	to_chat(world, "[source]")
-	to_chat(world, "target next")
-	to_chat(world, "[target]")
 	source_holder.current_node = target
+	SEND_SIGNAL(source_holder.parent, COMSIG_MADE_IT_TO_NODE, source_holder.current_node)
+	SEND_SIGNAL(source_holder.parent, COMSIG_SET_AI_MOVE_TARGET, source_holder.current_node.GetBestAdjNode(preferred_weights))
