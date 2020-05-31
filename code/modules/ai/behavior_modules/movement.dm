@@ -5,11 +5,6 @@
 	var/atom/target //Thing we're walking towards
 	var/sidestep_prob //Chance of sidestepping when distance is maintained and ready to move again
 
-/*
-From first to last index of params
-dist_to_maintain
-sidestep_prob
-*/
 /datum/behavior_module/movement/apply_parameters(list/values)
 	dist_to_maintain = values[1]
 	sidestep_prob = values[2]
