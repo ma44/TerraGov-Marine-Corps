@@ -33,7 +33,7 @@
 	if(glob_list_only)
 		for(var/atom/movable/thing in filter_through)
 			var/atom/movable/movable_parent = source_holder.parent
-			if((movable_parent.z == thing.z) && (get_dist(source_holder.parent, thing) <= search_distance))
+			if((movable_parent.z != thing.z) || (get_dist(source_holder.parent, thing) >= search_distance) || thing == source_holder.parent)
 				continue
 			list_to_send += thing
 
@@ -41,6 +41,8 @@
 		var/is_type //Is the thing a type present in the parameters or nah
 		filter_through += range(search_distance, source_holder.parent)
 		for(var/atom/movable/thing in filter_through)
+			if(thing == source_holder.parent)
+				return
 			is_type = FALSE
 			for(var/type in typepaths_to_find)
 				if(istype(thing, type))
@@ -52,7 +54,6 @@
 				continue
 
 			list_to_send += thing
-
 
 	if(require_alive)
 		for(var/mob/mob_thing in list_to_send)

@@ -6,7 +6,6 @@ Registers signals, handles the pathfinding element addition/removal alongside ma
 */
 
 /datum/ai_behavior
-
 	var/atom/atom_to_walk_to //An atom for the overall AI to walk to; this is a cache
 	var/distance_to_maintain = 1 //Default distance to maintain from a target while in combat usually
 	var/sidestep_prob = 0 //Prob chance of sidestepping (left or right) when distance maintained with target

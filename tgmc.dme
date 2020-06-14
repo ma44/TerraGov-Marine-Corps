@@ -871,6 +871,7 @@
 #include "code\modules\ai\ai_behaviors\carbon\carbon.dm"
 #include "code\modules\ai\ai_behaviors\carbon\xeno\xeno.dm"
 #include "code\modules\ai\behavior_modules\_behavior_module.dm"
+#include "code\modules\ai\behavior_modules\action_trigger.dm"
 #include "code\modules\ai\behavior_modules\combat.dm"
 #include "code\modules\ai\behavior_modules\fleeing.dm"
 #include "code\modules\ai\behavior_modules\movement.dm"

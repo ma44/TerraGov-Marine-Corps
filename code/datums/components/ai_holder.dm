@@ -10,9 +10,12 @@ The main purpose of this is to handle cleanup and setting up the initial ai beha
 	var/datum/ai_behavior/ai_behavior //Calculates the action states to take and the parameters it gets; literally the brain
 	var/list/behavior_modules = list() //A list of behavior modules we loop through when processing
 	var/obj/effect/ai_node/current_node //The current node we're at
-	var/cur_stance //Current action we're doing
 
-	var/vars_to_use //What variables do we want to pass to behavior modules? Retrieved from GLOB lists
+	//Variables related to stance and movement determination
+	var/atom/move_target //Cached variable of the atom we're currently moving to VIA pathfinder element
+
+	var/cur_stance //Current action we're doing; makes behavior modules determine what signals to intercept and such
+	//Assoc list with the key being the "action"/stance, value being the priority level
 
 /datum/component/ai_holder/Initialize(behavior_type)
 	. = ..()
@@ -36,23 +39,34 @@ The main purpose of this is to handle cleanup and setting up the initial ai beha
 	//ai_behavior.current_node = node_to_spawn_at
 	//ai_behavior.late_initialize() //We gotta give the ai behavior things like what node to spawn at before it wants to start an action
 	RegisterSignal(parent, list(COMSIG_PARENT_PREQDELETED, COMSIG_MOB_DEATH), .proc/clean_up)
+	RegisterSignal(parent, COMSIG_AI_ATTEMPT_CHANGE_STANCE, .proc/attempt_change_stance)
 	apply_behavior_template(behavior_type)
-	cur_stance = AI_ROAMING
+	cur_stance = list(AI_ROAMING = 1)
 	register_signals_for(AI_ROAMING) //Let's get moving
+
+//Attempts to override the current stance
+/datum/component/ai_holder/proc/attempt_change_stance(datum/source, new_stance, priority)
+/*
+	to_chat(world, "begin of change stance attempt")
+	to_chat(world, "new stance [new_stance]")
+	to_chat(world, "priority level given [priority]")
+	to_chat(world, "current stance [cur_stance[1]]")
+	to_chat(world, "current stance priority [cur_stance[cur_stance[1]]]")
+	to_chat(world, "end of change stance attempt")
+*/
+	if(cur_stance[1] == new_stance) //Already the stance, no need to refresh it
+		return
+	if(priority <= cur_stance[cur_stance[1]]) //Gotta have a higher priority to override it
+		return
+	to_chat(world, "CHANGED STANCE")
+	unregister_signals_for(cur_stance[1])
+	parent.RemoveElement(/datum/element/pathfinder)
+	cur_stance = list(new_stance)
+	cur_stance[new_stance] = priority
+	register_signals_for(cur_stance)
 
 //Initializes behavior modules to ultilize and giving them vars for further finetuning
 /datum/component/ai_holder/proc/apply_behavior_template(list/behaviors)
-	/*
-	var/list/stupid_layer = behaviors[1]
-	for(var/list/module in stupid_layer)
-		to_chat(world, stupid_layer)
-		to_chat(world, module)
-		to_chat(world, module[1])
-		var/datum/behavior_module/new_module = new module[1]
-		behavior_modules += new_module //First index of each list is a type for a behavior module, rest of it is variable related
-		module.Remove(module[1]) //Remove the type it's suppose to spawn then send it to the appropriate module
-		new_module.apply_parameters(stupid_layer[module])
-	*/
 	for(var/module_path in behaviors)
 		var/datum/behavior_module/module = new module_path
 		module.source_holder = src
@@ -64,7 +78,9 @@ The main purpose of this is to handle cleanup and setting up the initial ai beha
 /datum/component/ai_holder/proc/clean_up()
 	STOP_PROCESSING(SSprocessing, ai_behavior)
 	for(var/datum/behavior in behavior_modules)
+		unregister_signals_for(cur_stance)
 		STOP_PROCESSING(SSprocessing, behavior)
+		qdel(behavior)
 	//ai_behavior.unregister_action_signals(ai_behavior.cur_action)
 	//parent.RemoveElement(/datum/element/pathfinder)
 

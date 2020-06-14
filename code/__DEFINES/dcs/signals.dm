@@ -474,6 +474,7 @@
 #define COMSIG_SET_AI_MOVE_TARGET "setting_ai_move_target" // (atom/new_target)
 #define COMSIG_MADE_IT_TO_NODE "ai_moved_to_node" // (/obj/effect/ai_node/the_node)
 #define COMSIG_AI_SEARCH_DETECTED "ai_detected_something_while_searching" // (list/things_that_met_criteria)
+#define COMSIG_AI_ATTEMPT_CHANGE_STANCE "ai_attempting_to_change_stance" // (new_stance, priority_level)
 
 /*******Non-Signal Component Related Defines*******/
 

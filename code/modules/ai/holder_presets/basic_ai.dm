@@ -11,3 +11,9 @@
 /mob/living/carbon/human/node_pathing/Initialize()
 	. = ..()
 	AddComponent(/datum/component/ai_holder, GLOB.ai_roamer)
+
+/mob/living/carbon/human/killer_thing
+
+/mob/living/carbon/human/killer_thing/Initialize()
+	. = ..()
+	AddComponent(/datum/component/ai_holder, GLOB.ai_aggro)
