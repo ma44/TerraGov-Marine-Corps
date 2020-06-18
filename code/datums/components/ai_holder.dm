@@ -58,8 +58,7 @@ The main purpose of this is to handle cleanup and setting up the initial ai beha
 		return
 	if(priority <= cur_stance[cur_stance[1]]) //Gotta have a higher priority to override it
 		return
-	to_chat(world, "CHANGED STANCE")
-	unregister_signals_for(cur_stance[1])
+	unregister_signals_for(cur_stance)
 	parent.RemoveElement(/datum/element/pathfinder)
 	cur_stance = list(new_stance)
 	cur_stance[new_stance] = priority

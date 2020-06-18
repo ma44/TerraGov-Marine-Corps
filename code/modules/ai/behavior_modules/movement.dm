@@ -13,9 +13,6 @@
 	RegisterSignal(source_holder.parent, COMSIG_SET_AI_MOVE_TARGET, .proc/set_new_move_target)
 
 /datum/behavior_module/movement/proc/set_new_move_target(datum/source, atom/new_target)
-	to_chat(world, "intercepted")
-	to_chat(world, "[source]")
-	to_chat(world, "[new_target]")
 	source_holder.parent.RemoveElement(/datum/element/pathfinder)
 	target = new_target
 	source_holder.parent.AddElement(/datum/element/pathfinder, new_target, dist_to_maintain, sidestep_prob)

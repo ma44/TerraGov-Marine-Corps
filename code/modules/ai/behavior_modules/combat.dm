@@ -34,4 +34,4 @@
 		var/mob/source_mob = source_holder.parent
 		switch(attack_type)
 			if(HUMAN_ATTACKS)
-				source_mob.ClickOn(the_target, src)
+				source_mob.ClickOn(the_target)

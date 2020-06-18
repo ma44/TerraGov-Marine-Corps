@@ -15,6 +15,5 @@
 	for(var/atom/thing in things)
 		for(var/type_to_find in typepath_triggers) //The signal to send being the key while the type is a value is intended
 			if(istype(thing, typepath_triggers[type_to_find]))
-				to_chat(world, typepath_triggers[type_to_find])
 				SEND_SIGNAL(source_holder.parent, type_to_find, thing)
 				return
