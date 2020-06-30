@@ -237,21 +237,7 @@
 	},
 /area/mainship/squads/alpha)
 "aaJ" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/squads/alpha)
-"aaK" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/open/floor/mainship{
 	pixel_z = -1
 	},
@@ -260,51 +246,20 @@
 /obj/machinery/door/airlock/mainship/marine/alpha{
 	dir = 4
 	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/open/floor/mainship{
 	pixel_z = -1
 	},
 /area/mainship/squads/alpha)
 "aaM" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/hallways/starboard_hallway)
-"aaN" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /turf/open/floor/mainship{
 	pixel_z = -1
 	},
 /area/mainship/hallways/starboard_hallway)
 "aaO" = (
-/obj/structure/cable{
-	icon_state = "0-4";
-	d2 = 4
-	},
+/obj/structure/cable,
 /obj/machinery/power/apc/mainship,
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/engineering/lower_engine_monitoring)
-"aaP" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
 /turf/open/floor/mainship{
 	pixel_z = -1
 	},
@@ -327,31 +282,20 @@
 	},
 /area/mainship/engineering/lower_engine_monitoring)
 "aaS" = (
-/obj/structure/cable/yellow{
-	d2 = 2;
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/machinery/power/apc/mainship,
 /turf/open/floor/mainship{
 	pixel_z = -1
 	},
 /area/mainship/engineering/engine_core)
 "aaT" = (
-/obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /turf/open/floor/mainship{
 	pixel_z = -1
 	},
 /area/mainship/engineering/engine_core)
 "aaU" = (
-/obj/structure/cable/yellow{
-	icon_state = "0-8";
-	d1 = 2;
-	d2 = 4
-	},
+/obj/structure/cable,
 /obj/machinery/power/fusion_engine/preset,
 /turf/open/floor/mainship{
 	pixel_z = -1
@@ -429,52 +373,8 @@
 	pixel_z = -1
 	},
 /area/mainship/squads/alpha)
-"abd" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/hallways/starboard_hallway)
-"abe" = (
-/obj/structure/cable{
-	icon_state = "4-8";
-	d1 = 4;
-	d2 = 8
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/hallways/starboard_hallway)
 "abf" = (
-/obj/structure/cable{
-	icon_state = "4-8";
-	d1 = 4;
-	d2 = 8
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/engineering/lower_engine_monitoring)
-"abg" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /turf/open/floor/mainship{
 	pixel_z = -1
 	},
@@ -492,44 +392,9 @@
 	pixel_z = -1
 	},
 /area/mainship/engineering/lower_engine_monitoring)
-"abj" = (
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/engineering/engine_core)
-"abk" = (
-/obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/engineering/engine_core)
 "abl" = (
 /obj/machinery/camera/autoname/mainship{
 	dir = 8
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/hallways/starboard_hallway)
-"abm" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
 	},
 /turf/open/floor/mainship{
 	pixel_z = -1
@@ -539,10 +404,7 @@
 /obj/machinery/power/monitor{
 	name = "Main Power Grid Monitoring"
 	},
-/obj/structure/cable{
-	icon_state = "0-4";
-	d2 = 4
-	},
+/obj/structure/cable,
 /turf/open/floor/mainship{
 	pixel_z = -1
 	},
@@ -593,10 +455,7 @@
 	},
 /area/mainship/squads/bravo)
 "abu" = (
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/machinery/power/apc/mainship,
 /turf/open/floor/mainship{
 	pixel_z = -1
@@ -638,36 +497,6 @@
 	pixel_z = -1
 	},
 /area/mainship/hallways/starboard_hallway)
-"abA" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/engineering/lower_engine_monitoring)
-"abB" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/engineering/lower_engine_monitoring)
 "abC" = (
 /obj/machinery/camera/autoname/mainship,
 /turf/open/floor/mainship{
@@ -680,36 +509,6 @@
 	pixel_z = -1
 	},
 /area/mainship/engineering/lower_engine_monitoring)
-"abE" = (
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/engineering/engine_core)
-"abF" = (
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/engineering/engine_core)
 "abG" = (
 /obj/machinery/fuelcell_recycler,
 /turf/open/floor/mainship{
@@ -725,31 +524,13 @@
 	},
 /area/mainship/squads/bravo)
 "abI" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/squads/bravo)
-"abJ" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/open/floor/mainship{
 	pixel_z = -1
 	},
 /area/mainship/squads/bravo)
 "abK" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/door/airlock/mainship/marine/bravo{
 	dir = 4
 	},
@@ -757,21 +538,6 @@
 	pixel_z = -1
 	},
 /area/mainship/squads/bravo)
-"abL" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/hallways/starboard_hallway)
 "abM" = (
 /obj/machinery/light{
 	dir = 4
@@ -787,21 +553,6 @@
 	pixel_z = -1
 	},
 /area/mainship/engineering/lower_engine_monitoring)
-"abO" = (
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/engineering/engine_core)
 "abP" = (
 /obj/machinery/light,
 /turf/open/floor/mainship{
@@ -812,10 +563,7 @@
 /obj/machinery/power/terminal{
 	dir = 1
 	},
-/obj/structure/cable/yellow{
-	d2 = 2;
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /turf/open/floor/mainship{
 	pixel_z = -1
 	},
@@ -824,10 +572,7 @@
 /obj/machinery/power/monitor{
 	name = "Core Power Monitoring"
 	},
-/obj/structure/cable/yellow{
-	d2 = 2;
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /turf/open/floor/mainship{
 	pixel_z = -1
 	},
@@ -878,56 +623,6 @@
 	pixel_z = -1
 	},
 /area/mainship/squads/bravo)
-"abZ" = (
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/engineering/lower_engine_monitoring)
-"aca" = (
-/obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/engineering/lower_engine_monitoring)
-"acb" = (
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/engineering/lower_engine_monitoring)
-"acc" = (
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/engineering/lower_engine_monitoring)
 "acd" = (
 /obj/machinery/light{
 	dir = 1
@@ -936,16 +631,6 @@
 	pixel_z = -1
 	},
 /area/mainship/engineering/lower_engine_monitoring)
-"ace" = (
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/engineering/engine_core)
 "acf" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -985,41 +670,6 @@
 	pixel_z = -1
 	},
 /area/mainship/squads/bravo)
-"ack" = (
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/engineering/lower_engine_monitoring)
-"acl" = (
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/engineering/lower_engine_monitoring)
-"acm" = (
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/engineering/engine_core)
 "acn" = (
 /turf/open/floor/mainship{
 	pixel_z = -1
@@ -1143,9 +793,7 @@
 	},
 /area/mainship/engineering/engine_core)
 "acF" = (
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/machinery/power/apc/mainship{
 	dir = 4
 	},
@@ -1180,10 +828,7 @@
 /area/mainship/hallways/hangar)
 "acK" = (
 /obj/machinery/power/apc/mainship,
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /turf/open/floor/mainship{
 	pixel_z = -1
 	},
@@ -1221,46 +866,13 @@
 	},
 /area/mainship/shipboard/starboard_point_defense)
 "acP" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/open/floor/mainship{
 	pixel_z = -1
 	},
 /area/mainship/shipboard/starboard_point_defense)
 "acQ" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/hallways/hangar)
-"acR" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/hallways/hangar)
-"acS" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/open/floor/mainship{
 	pixel_z = -1
 	},
@@ -1269,70 +881,11 @@
 /obj/docking_port/stationary/marine_dropship/hangar/one,
 /turf/open/floor/plating,
 /area/mainship/hallways/hangar)
-"acU" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/hallways/starboard_hallway)
-"acV" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/hallways/starboard_hallway)
-"acW" = (
-/obj/structure/cable{
-	icon_state = "4-8";
-	d1 = 4;
-	d2 = 8
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/hallways/starboard_hallway)
 "acX" = (
 /obj/machinery/door/airlock/mainship/maint{
 	name = "\improper Shuttle Hanger"
 	},
-/obj/structure/cable{
-	icon_state = "4-8";
-	d1 = 4;
-	d2 = 8
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/shipboard/starboard_point_defense)
-"acY" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /turf/open/floor/mainship{
 	pixel_z = -1
 	},
@@ -1369,16 +922,6 @@
 /area/mainship/hallways/hangar)
 "ade" = (
 /obj/structure/ship_ammo/minirocket/illumination,
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/hallways/hangar)
-"adf" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /turf/open/floor/mainship{
 	pixel_z = -1
 	},
@@ -1454,11 +997,7 @@
 	},
 /area/mainship/hallways/hangar)
 "adq" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/open/floor/mainship{
 	pixel_z = -1
 	},
@@ -1477,11 +1016,7 @@
 	},
 /area/mainship/squads/req)
 "adt" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/open/floor/mainship{
 	pixel_z = -1
 	},
@@ -1492,11 +1027,7 @@
 	},
 /area/mainship/living/cryo_cells)
 "adv" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/open/floor/mainship{
 	pixel_z = -1
 	},
@@ -1507,25 +1038,13 @@
 	},
 /area/mainship/hull/lower_hull)
 "adx" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /turf/open/floor/mainship{
 	pixel_z = -1
 	},
 /area/mainship/hull/lower_hull)
 "ady" = (
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
 /obj/machinery/power/apc/mainship,
 /turf/open/floor/mainship{
 	pixel_z = -1
@@ -1592,10 +1111,7 @@
 	},
 /area/mainship/medical/surgery_hallway)
 "adI" = (
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/machinery/power/apc/mainship,
 /turf/open/floor/mainship{
 	pixel_z = -1
@@ -1689,16 +1205,6 @@
 	pixel_z = -1
 	},
 /area/mainship/hull/lower_hull)
-"adT" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/hull/lower_hull)
 "adU" = (
 /obj/effect/landmark/start/job/tankcrewman,
 /turf/open/floor/mainship{
@@ -1757,71 +1263,13 @@
 	pixel_z = -1
 	},
 /area/mainship/hallways/hangar)
-"aeb" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/medical/surgery_hallway)
-"aec" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/medical/surgery_hallway)
-"aed" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/medical/surgery_hallway)
-"aee" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/medical/surgery_hallway)
 "aef" = (
 /turf/open/floor/mainship{
 	pixel_z = -1
 	},
 /area/mainship/medical/operating_room_one)
 "aeg" = (
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/machinery/power/apc/mainship{
 	dir = 8
 	},
@@ -1934,49 +1382,22 @@
 	pixel_z = -1
 	},
 /area/mainship/hallways/hangar)
-"aew" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/medical/surgery_hallway)
 "aex" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/door/airlock/mainship/medical/or/or1,
 /turf/open/floor/mainship{
 	pixel_z = -1
 	},
 /area/mainship/medical/operating_room_one)
 "aey" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/open/floor/mainship{
 	pixel_z = -1
 	},
 /area/mainship/medical/operating_room_one)
 "aez" = (
 /obj/machinery/optable,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/item/tank/anesthetic,
 /obj/item/clothing/mask/breath/medical,
 /turf/open/floor/mainship{
@@ -1984,11 +1405,7 @@
 	},
 /area/mainship/medical/operating_room_one)
 "aeA" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /obj/machinery/iv_drip,
 /turf/open/floor/mainship{
 	pixel_z = -1
@@ -2035,10 +1452,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/machinery/power/apc/hyper,
 /turf/open/floor/mainship{
 	pixel_z = -1
@@ -2182,42 +1596,14 @@
 	},
 /area/mainship/command/telecomms)
 "aeZ" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /turf/open/floor/mainship{
 	pixel_z = -1
 	},
 /area/mainship/command/telecomms)
 "afa" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/camera/autoname/mainship,
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/command/telecomms)
-"afb" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/command/telecomms)
-"afc" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
 /turf/open/floor/mainship{
 	pixel_z = -1
 	},
@@ -2248,11 +1634,7 @@
 	},
 /area/mainship/command/cic)
 "afh" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/open/floor/mainship{
 	pixel_z = -1
 	},
@@ -2305,16 +1687,6 @@
 	pixel_z = -1
 	},
 /area/mainship/hull/lower_hull)
-"afo" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/command/telecomms)
 "afp" = (
 /obj/structure/table/mainship,
 /obj/machinery/computer/squad_changer,
@@ -2345,24 +1717,11 @@
 	dir = 1
 	},
 /obj/machinery/power/apc/hyper,
-/obj/structure/cable{
-	icon_state = "0-4";
-	d2 = 4
-	},
+/obj/structure/cable,
 /turf/open/floor/mainship{
 	pixel_z = -1
 	},
 /area/mainship/command/cic)
-"aft" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/hallways/hangar)
 "afu" = (
 /obj/machinery/chem_dispenser,
 /turf/open/floor/mainship{
@@ -2383,10 +1742,7 @@
 	pixel_y = 3
 	},
 /obj/machinery/reagentgrinder,
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /turf/open/floor/mainship{
 	pixel_z = -1
 	},
@@ -2532,36 +1888,6 @@
 	pixel_z = -1
 	},
 /area/mainship/medical/chemistry)
-"afR" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/medical/chemistry)
-"afS" = (
-/obj/structure/cable{
-	icon_state = "4-8";
-	d1 = 4;
-	d2 = 8
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/medical/chemistry)
-"afT" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/medical/chemistry)
 "afU" = (
 /obj/structure/table/mainship,
 /obj/item/storage/box/pillbottles,
@@ -2588,10 +1914,7 @@
 	},
 /area/mainship/medical/operating_room_two)
 "afX" = (
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/machinery/power/apc/mainship{
 	dir = 8
 	},
@@ -2692,33 +2015,21 @@
 	},
 /area/mainship/medical/chemistry)
 "agj" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/door/airlock/mainship/medical/or/or2,
 /turf/open/floor/mainship{
 	pixel_z = -1
 	},
 /area/mainship/medical/operating_room_two)
 "agk" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/open/floor/mainship{
 	pixel_z = -1
 	},
 /area/mainship/medical/operating_room_two)
 "agl" = (
 /obj/machinery/optable,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/item/tank/anesthetic,
 /obj/item/clothing/mask/breath/medical,
 /turf/open/floor/mainship{
@@ -2726,11 +2037,7 @@
 	},
 /area/mainship/medical/operating_room_two)
 "agm" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /obj/machinery/iv_drip,
 /turf/open/floor/mainship{
 	pixel_z = -1
@@ -2784,12 +2091,6 @@
 	pixel_z = -1
 	},
 /area/mainship/shipboard/weapon_room)
-"agu" = (
-/obj/effect/landmark/start/job/masteratarms,
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/command/cic)
 "agv" = (
 /obj/structure/table/mainship,
 /obj/machinery/computer/shuttle/shuttle_control/dropship2,
@@ -2886,11 +2187,7 @@
 	},
 /area/mainship/command/telecomms)
 "agI" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/door/airlock/mainship/secure/tcomms{
 	name = "Telecommunications"
 	},
@@ -2899,50 +2196,11 @@
 	},
 /area/mainship/shipboard/weapon_room)
 "agJ" = (
-/obj/structure/cable{
-	icon_state = "4-8";
-	d1 = 4;
-	d2 = 8
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /turf/open/floor/mainship{
 	pixel_z = -1
 	},
 /area/mainship/shipboard/weapon_room)
-"agK" = (
-/obj/structure/cable{
-	icon_state = "4-8";
-	d1 = 4;
-	d2 = 8
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/shipboard/weapon_room)
-"agL" = (
-/obj/structure/cable{
-	icon_state = "4-8";
-	d1 = 4;
-	d2 = 8
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/hallways/hangar)
-"agM" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/hallways/hangar)
 "agN" = (
 /obj/machinery/landinglight/ds2/delayone{
 	dir = 8
@@ -3070,30 +2328,7 @@
 /obj/machinery/power/apc/mainship{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "0-4";
-	d2 = 4
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/living/cryo_cells)
-"ahe" = (
-/obj/structure/cable{
-	icon_state = "4-8";
-	d1 = 4;
-	d2 = 8
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/living/cryo_cells)
-"ahf" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /turf/open/floor/mainship{
 	pixel_z = -1
 	},
@@ -3161,12 +2396,6 @@
 	pixel_z = -1
 	},
 /area/mainship/shipboard/weapon_room)
-"ahp" = (
-/obj/effect/landmark/start/job/commandmasteratarms,
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/command/cic)
 "ahq" = (
 /obj/machinery/computer/station_alert,
 /obj/structure/table/mainship,
@@ -3290,10 +2519,7 @@
 	},
 /area/mainship/medical/operating_room_three)
 "ahF" = (
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/machinery/power/apc/mainship{
 	dir = 8
 	},
@@ -3363,32 +2589,20 @@
 /area/mainship/medical/surgery_hallway)
 "ahP" = (
 /obj/machinery/door/airlock/mainship/medical/or/or3,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/open/floor/mainship{
 	pixel_z = -1
 	},
 /area/mainship/medical/operating_room_three)
 "ahQ" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/open/floor/mainship{
 	pixel_z = -1
 	},
 /area/mainship/medical/operating_room_three)
 "ahR" = (
 /obj/machinery/optable,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/item/tank/anesthetic,
 /obj/item/clothing/mask/breath/medical,
 /turf/open/floor/mainship{
@@ -3396,11 +2610,7 @@
 	},
 /area/mainship/medical/operating_room_three)
 "ahS" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /obj/machinery/iv_drip,
 /turf/open/floor/mainship{
 	pixel_z = -1
@@ -3682,10 +2892,7 @@
 	},
 /area/mainship/medical/operating_room_four)
 "aiG" = (
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/machinery/power/apc/mainship{
 	dir = 8
 	},
@@ -3699,109 +2906,22 @@
 	pixel_z = -1
 	},
 /area/mainship/living/cryo_cells)
-"aiI" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/medical/surgery_hallway)
-"aiJ" = (
-/obj/structure/cable{
-	icon_state = "4-8";
-	d1 = 4;
-	d2 = 8
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/medical/surgery_hallway)
-"aiK" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/medical/surgery_hallway)
-"aiL" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/medical/surgery_hallway)
-"aiM" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/medical/surgery_hallway)
 "aiN" = (
 /obj/machinery/door/airlock/mainship/medical/or/or4,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/open/floor/mainship{
 	pixel_z = -1
 	},
 /area/mainship/medical/operating_room_four)
 "aiO" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/open/floor/mainship{
 	pixel_z = -1
 	},
 /area/mainship/medical/operating_room_four)
 "aiP" = (
 /obj/machinery/optable,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/item/tank/anesthetic,
 /obj/item/clothing/mask/breath/medical,
 /turf/open/floor/mainship{
@@ -3809,11 +2929,7 @@
 	},
 /area/mainship/medical/operating_room_four)
 "aiQ" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /obj/machinery/iv_drip,
 /turf/open/floor/mainship{
 	pixel_z = -1
@@ -4005,101 +3121,14 @@
 	},
 /area/mainship/hallways/port_hallway)
 "ajt" = (
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/machinery/power/apc/mainship,
 /turf/open/floor/mainship{
 	pixel_z = -1
 	},
 /area/mainship/hallways/port_hallway)
-"aju" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/hallways/hangar)
-"ajv" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/hallways/hangar)
 "ajw" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/hallways/port_hallway)
-"ajx" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/hallways/port_hallway)
-"ajy" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/hallways/port_hallway)
-"ajz" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/hallways/port_hallway)
-"ajA" = (
-/obj/structure/cable{
-	icon_state = "4-8";
-	d1 = 4;
-	d2 = 8
-	},
+/obj/structure/cable,
 /turf/open/floor/mainship{
 	pixel_z = -1
 	},
@@ -4113,11 +3142,7 @@
 	},
 /area/mainship/shipboard/port_point_defense)
 "ajC" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /turf/open/floor/mainship{
 	pixel_z = -1
 	},
@@ -4153,26 +3178,6 @@
 	pixel_z = -1
 	},
 /area/mainship/hallways/port_hallway)
-"ajI" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/hallways/port_hallway)
-"ajJ" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/shipboard/port_point_defense)
 "ajK" = (
 /obj/docking_port/stationary/ert/target{
 	name = "Port";
@@ -4452,21 +3457,6 @@
 	pixel_z = -1
 	},
 /area/mainship/squads/charlie)
-"akx" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/hallways/port_hallway)
 "aky" = (
 /obj/effect/decal/warning_stripes/thin{
 	dir = 2
@@ -4477,21 +3467,13 @@
 /obj/machinery/door/airlock/mainship/secure{
 	name = "Self Destruct Room"
 	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/open/floor/mainship{
 	pixel_z = -1
 	},
 /area/mainship/command/self_destruct)
 "akA" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /turf/open/floor/mainship{
 	pixel_z = -1
 	},
@@ -4504,42 +3486,8 @@
 	pixel_z = -1
 	},
 /area/mainship/squads/req)
-"akC" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/command/self_destruct)
-"akD" = (
-/obj/structure/cable{
-	icon_state = "4-8";
-	d1 = 4;
-	d2 = 8
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/command/self_destruct)
 "akE" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/squads/charlie)
-"akF" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/open/floor/mainship{
 	pixel_z = -1
 	},
@@ -4548,30 +3496,11 @@
 /obj/machinery/door/airlock/mainship/marine/charlie{
 	dir = 4
 	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/open/floor/mainship{
 	pixel_z = -1
 	},
 /area/mainship/squads/charlie)
-"akH" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/hallways/port_hallway)
 "akI" = (
 /obj/machinery/light{
 	dir = 4
@@ -4580,36 +3509,6 @@
 	pixel_z = -1
 	},
 /area/mainship/hallways/port_hallway)
-"akJ" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/command/self_destruct)
-"akK" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/command/self_destruct)
-"akL" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/command/self_destruct)
 "akM" = (
 /obj/machinery/self_destruct/console,
 /turf/open/floor/mainship{
@@ -4617,10 +3516,7 @@
 	},
 /area/mainship/command/self_destruct)
 "akN" = (
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
 /obj/machinery/power/apc/mainship/hardened{
 	dir = 8
 	},
@@ -4741,10 +3637,7 @@
 	},
 /area/mainship/squads/delta)
 "alc" = (
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/machinery/power/apc/mainship,
 /turf/open/floor/mainship{
 	pixel_z = -1
@@ -4793,11 +3686,7 @@
 	},
 /area/mainship/squads/delta)
 "alj" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /turf/open/floor/mainship{
 	pixel_z = -1
 	},
@@ -4808,22 +3697,8 @@
 	pixel_z = -1
 	},
 /area/mainship/squads/req)
-"all" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/squads/delta)
 "alm" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/door/airlock/mainship/marine/delta{
 	dir = 4
 	},
@@ -4831,16 +3706,6 @@
 	pixel_z = -1
 	},
 /area/mainship/squads/delta)
-"aln" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/turf/open/floor/mainship{
-	pixel_z = -1
-	},
-/area/mainship/hallways/port_hallway)
 "alo" = (
 /obj/machinery/light,
 /turf/open/floor/mainship{
@@ -6297,7 +5162,7 @@ aaa
 aaa
 aoJ
 aeI
-afb
+aeZ
 aoJ
 afK
 afd
@@ -6424,7 +5289,7 @@ aaa
 aaa
 aoJ
 aeJ
-afb
+aeZ
 aoJ
 afL
 afd
@@ -6551,7 +5416,7 @@ aaa
 aaa
 aoJ
 aoJ
-afb
+aeZ
 aoJ
 aoJ
 awM
@@ -6678,7 +5543,7 @@ aaa
 aaa
 aoJ
 aeK
-afb
+aeZ
 aoJ
 afM
 agc
@@ -6805,11 +5670,11 @@ aaa
 aaa
 aoJ
 aeL
-afc
-afo
-afo
-afo
-afo
+aeZ
+aeZ
+aeZ
+aeZ
+aeZ
 aeZ
 afd
 afd
@@ -6937,7 +5802,7 @@ aoJ
 afd
 afd
 ags
-afb
+aeZ
 ahn
 afd
 afd
@@ -7318,7 +6183,7 @@ ael
 ael
 ael
 ael
-agK
+agJ
 ael
 ael
 ael
@@ -7445,7 +6310,7 @@ ael
 ael
 ael
 ael
-agK
+agJ
 ael
 ael
 ael
@@ -7572,7 +6437,7 @@ ael
 ael
 ael
 ael
-agK
+agJ
 ael
 ael
 ael
@@ -7699,7 +6564,7 @@ acH
 acH
 acH
 acH
-agL
+acQ
 acH
 acH
 acH
@@ -7826,19 +6691,19 @@ acH
 acH
 acH
 acH
-agM
-adf
-adf
-adf
-adf
-adf
-adf
-adf
-adf
-adf
-adf
-adf
-aju
+acQ
+acQ
+acQ
+acQ
+acQ
+acQ
+acQ
+acQ
+acQ
+acQ
+acQ
+acQ
+acQ
 acH
 bgb
 aaa
@@ -7965,7 +6830,7 @@ adX
 acH
 acH
 acH
-acS
+acQ
 acH
 bgb
 aaa
@@ -8092,7 +6957,7 @@ bOu
 bOu
 bOu
 ajj
-acS
+acQ
 acH
 bgb
 aaa
@@ -8219,7 +7084,7 @@ bOu
 bOu
 bOu
 ajk
-acS
+acQ
 acH
 bgb
 aaa
@@ -8346,7 +7211,7 @@ bOu
 bOu
 bOu
 ajl
-acS
+acQ
 acH
 bgb
 aaa
@@ -8473,7 +7338,7 @@ bOu
 bOu
 bOu
 ajm
-acS
+acQ
 acH
 bgb
 aaa
@@ -8600,7 +7465,7 @@ bOu
 bOu
 aky
 ajj
-acS
+acQ
 acH
 bgb
 aaa
@@ -8727,7 +7592,7 @@ bOu
 bOu
 aky
 ajk
-acS
+acQ
 acH
 bgb
 aaa
@@ -8854,7 +7719,7 @@ bOu
 bOu
 aky
 ajl
-acS
+acQ
 acH
 bgb
 aaa
@@ -8981,7 +7846,7 @@ bOu
 bOu
 bOu
 ajm
-acS
+acQ
 ajF
 bgb
 aaa
@@ -9108,7 +7973,7 @@ bOu
 bOu
 bOu
 ajj
-acS
+acQ
 acH
 bgb
 aaa
@@ -9235,7 +8100,7 @@ bOu
 bOu
 bOu
 ajk
-acS
+acQ
 acH
 bgb
 aaa
@@ -9362,7 +8227,7 @@ bOu
 bOu
 bOu
 ajl
-acS
+acQ
 acH
 bgb
 aaa
@@ -9489,7 +8354,7 @@ agN
 aen
 aen
 acH
-acS
+acQ
 acH
 bgb
 aaa
@@ -9616,7 +8481,7 @@ acH
 acH
 acH
 acH
-acS
+acQ
 acH
 bgb
 aaa
@@ -9730,9 +8595,9 @@ amH
 afp
 afq
 afq
-agu
+afq
 agO
-ahp
+afq
 afq
 afq
 ahX
@@ -9743,7 +8608,7 @@ bgb
 acH
 acH
 acH
-acS
+acQ
 acH
 bgb
 aaa
@@ -9870,7 +8735,7 @@ bgb
 acH
 acH
 acH
-ajv
+acQ
 acH
 bgb
 aaa
@@ -9997,7 +8862,7 @@ bgb
 acH
 acH
 acH
-acS
+acQ
 acH
 bgb
 aaa
@@ -10124,7 +8989,7 @@ bgb
 acH
 acH
 acH
-acS
+acQ
 ajF
 bgb
 aaa
@@ -10251,7 +9116,7 @@ bgb
 acH
 acH
 acH
-acS
+acQ
 acH
 bgb
 aaa
@@ -10378,7 +9243,7 @@ bgb
 acH
 acH
 acH
-acS
+acQ
 acH
 bgb
 aaa
@@ -10505,7 +9370,7 @@ bgb
 acH
 acH
 acH
-acS
+acQ
 acH
 bgb
 aaa
@@ -10609,14 +9474,14 @@ aaa
 bgb
 acH
 acQ
-adf
-adf
-adf
-adf
-adf
-adf
-adf
-aft
+acQ
+acQ
+acQ
+acQ
+acQ
+acQ
+acQ
+acQ
 acH
 acH
 acH
@@ -10632,7 +9497,7 @@ acH
 acH
 acH
 acH
-acS
+acQ
 acH
 bgb
 aaa
@@ -10735,7 +9600,7 @@ aaa
 aaa
 bgb
 acK
-acR
+acQ
 acH
 ado
 ado
@@ -10759,7 +9624,7 @@ adZ
 aeR
 aeR
 acH
-acS
+acQ
 acH
 bgb
 aaa
@@ -10862,7 +9727,7 @@ aaa
 aaa
 bgb
 acI
-acS
+acQ
 adg
 bOu
 bOu
@@ -10886,7 +9751,7 @@ bOu
 bOu
 bOu
 ajn
-acS
+acQ
 ajF
 bgb
 aaa
@@ -10989,7 +9854,7 @@ aaa
 aaa
 bgb
 acH
-acS
+acQ
 adh
 bOu
 bOu
@@ -11013,7 +9878,7 @@ bOu
 bOu
 bOu
 ajo
-acS
+acQ
 acH
 bgb
 aaa
@@ -11116,7 +9981,7 @@ aaa
 aaa
 bgb
 acH
-acS
+acQ
 adi
 bOu
 bOu
@@ -11140,7 +10005,7 @@ bOu
 bOu
 bOu
 ajp
-acS
+acQ
 acH
 bgb
 aaa
@@ -11243,7 +10108,7 @@ aaa
 aaa
 bgb
 acH
-acS
+acQ
 adj
 bOu
 bOu
@@ -11267,7 +10132,7 @@ bOu
 bOu
 bOu
 ajq
-acS
+acQ
 acH
 bgb
 aaa
@@ -11370,7 +10235,7 @@ aaa
 aaa
 bgb
 acH
-acS
+acQ
 adg
 bOu
 bOu
@@ -11394,7 +10259,7 @@ bOu
 bOu
 aky
 ajn
-acS
+acQ
 acH
 bgb
 aaa
@@ -11497,7 +10362,7 @@ aaa
 aaa
 bgb
 acH
-acS
+acQ
 adh
 bOu
 bOu
@@ -11521,7 +10386,7 @@ bOu
 bOu
 aky
 ajo
-acS
+acQ
 acH
 bgb
 aaa
@@ -11624,7 +10489,7 @@ aaa
 aaa
 bgb
 acH
-acS
+acQ
 adi
 bOu
 bOu
@@ -11648,7 +10513,7 @@ bOu
 bOu
 aky
 ajp
-ajv
+acQ
 acH
 bgb
 aaa
@@ -11751,7 +10616,7 @@ aaa
 aaa
 bgb
 acH
-acS
+acQ
 adj
 bOu
 bOu
@@ -11775,7 +10640,7 @@ bOu
 bOu
 bOu
 ajq
-acS
+acQ
 acH
 bgb
 aaa
@@ -11878,7 +10743,7 @@ aaa
 aaa
 bgb
 acH
-acS
+acQ
 adg
 bOu
 bOu
@@ -11902,7 +10767,7 @@ bOu
 bOu
 bOu
 ajn
-acS
+acQ
 acH
 bgb
 aaa
@@ -12005,7 +10870,7 @@ aaa
 aaa
 bgb
 acH
-acS
+acQ
 adh
 bOu
 bOu
@@ -12029,7 +10894,7 @@ bOu
 bOu
 bOu
 ajo
-acS
+acQ
 ajF
 bgb
 aaa
@@ -12132,7 +10997,7 @@ aaa
 aaa
 bgb
 acH
-acS
+acQ
 adi
 bOu
 bOu
@@ -12156,7 +11021,7 @@ bOu
 bOu
 bOu
 ajp
-acS
+acQ
 acH
 bgb
 aaa
@@ -12259,7 +11124,7 @@ aaa
 aaa
 bgb
 acI
-acS
+acQ
 acH
 adp
 adG
@@ -12283,7 +11148,7 @@ aea
 aev
 adp
 acH
-acS
+acQ
 acH
 bgb
 aaa
@@ -12386,7 +11251,7 @@ aaa
 aaa
 bgb
 acH
-acS
+acQ
 acH
 acH
 acH
@@ -12410,7 +11275,7 @@ acH
 acH
 acH
 acH
-acS
+acQ
 acH
 bgb
 aaa
@@ -12513,7 +11378,7 @@ aaa
 aaa
 bgb
 acL
-acS
+acQ
 acH
 acH
 acH
@@ -12537,7 +11402,7 @@ acH
 acH
 acH
 acH
-acS
+acQ
 acH
 bgb
 aaa
@@ -12640,11 +11505,8 @@ aaa
 aaa
 aWf
 aaG
-acU
-abm
-adq
-adq
-aeb
+aaM
+aaM
 adq
 adq
 adq
@@ -12660,7 +11522,10 @@ adq
 adq
 adq
 adq
-aiI
+adq
+adq
+adq
+adq
 adH
 adH
 ajr
@@ -12771,7 +11636,7 @@ aaM
 aaG
 adr
 adH
-aec
+adq
 adH
 adr
 adH
@@ -12787,7 +11652,7 @@ aia
 adH
 adr
 adH
-aiJ
+adq
 adH
 adr
 ajr
@@ -12898,7 +11763,7 @@ aaM
 aaG
 blP
 bDl
-aec
+adq
 adH
 blP
 buq
@@ -12914,7 +11779,7 @@ blP
 blP
 blP
 adH
-aiJ
+adq
 bDl
 blP
 ajr
@@ -13025,12 +11890,12 @@ aaM
 aaG
 blP
 adI
-aed
+adq
 adq
 adq
 afh
 afh
-afR
+afh
 afv
 blP
 agV
@@ -13041,7 +11906,7 @@ aib
 blP
 adH
 adq
-aiK
+adq
 aiT
 blP
 ajr
@@ -13152,12 +12017,12 @@ aaM
 aaG
 blP
 adJ
-aec
+adq
 adH
 adH
 buq
 afv
-afS
+afh
 agg
 blP
 agW
@@ -13168,7 +12033,7 @@ aic
 blP
 aiw
 adH
-aiL
+adq
 aiU
 blP
 ajr
@@ -13279,12 +12144,12 @@ aaM
 aaG
 blP
 adJ
-aec
+adq
 adH
 adH
 buq
 afw
-afT
+afh
 agh
 blP
 agX
@@ -13295,7 +12160,7 @@ aid
 blP
 aix
 adH
-aec
+adq
 aiV
 blP
 ajr
@@ -13406,7 +12271,7 @@ aaM
 aaG
 blP
 adK
-aec
+adq
 adH
 adH
 buq
@@ -13422,7 +12287,7 @@ aie
 blP
 aiw
 adH
-aec
+adq
 aiW
 blP
 ajr
@@ -13533,7 +12398,7 @@ aaM
 aaG
 blP
 adJ
-aec
+adq
 adH
 adH
 blP
@@ -13549,7 +12414,7 @@ blP
 blP
 adL
 adH
-aec
+adq
 aiX
 blP
 ajr
@@ -13660,7 +12525,7 @@ aaM
 aaG
 blP
 adH
-aec
+adq
 adH
 adH
 afi
@@ -13676,7 +12541,7 @@ afi
 adH
 adH
 adH
-aec
+adq
 aiY
 blP
 ajr
@@ -13787,27 +12652,27 @@ aaM
 aaG
 blP
 adL
-aee
-aew
 adq
 adq
 adq
 adq
-aeb
 adq
 adq
 adq
 adq
-aew
 adq
 adq
 adq
 adq
-aiM
+adq
+adq
+adq
+adq
+adq
 adH
 blP
 ajr
-ajx
+ajw
 ajG
 bRF
 bRF
@@ -13934,7 +12799,7 @@ aiN
 aoT
 bsC
 ajs
-ajx
+ajw
 ajr
 ajr
 ajr
@@ -14061,7 +12926,7 @@ aiO
 aiF
 bsC
 ajr
-ajx
+ajw
 ajr
 ajr
 ajr
@@ -15169,11 +14034,11 @@ aae
 aat
 aWH
 aas
-aaK
+aaJ
 aaZ
 baV
 abv
-abJ
+abI
 abq
 baV
 abT
@@ -15211,11 +14076,11 @@ ajQ
 akj
 bWZ
 aki
-akF
+akE
 akS
 bWZ
 ald
-all
+alj
 akY
 cbn
 alr
@@ -15296,11 +14161,11 @@ aWH
 aWH
 aWH
 aam
-aaK
+aaJ
 aba
 baV
 abw
-abJ
+abI
 abP
 baV
 baV
@@ -15338,11 +14203,11 @@ bWZ
 bWZ
 bWZ
 ajZ
-akF
+akE
 akT
 bWZ
 ale
-all
+alj
 alp
 cbn
 cbn
@@ -15423,11 +14288,11 @@ aaf
 aau
 aWH
 aas
-aaK
+aaJ
 aas
 baV
 abq
-abJ
+abI
 abq
 baV
 abS
@@ -15465,11 +14330,11 @@ ajR
 akk
 bWZ
 aki
-akF
+akE
 aki
 bWZ
 akY
-all
+alj
 akY
 cbn
 alq
@@ -15550,19 +14415,19 @@ aag
 aas
 aWH
 aas
-aaK
+aaJ
 abb
 baV
 abv
-abJ
+abI
 abq
 baV
 abq
 acu
 baV
 aaG
-acU
-abm
+aaM
+aaM
 adt
 adt
 adt
@@ -15592,11 +14457,11 @@ ajS
 aki
 bWZ
 aki
-akF
+akE
 akS
 bWZ
 ald
-all
+alj
 akY
 cbn
 akY
@@ -15677,11 +14542,11 @@ aah
 aas
 aaA
 aas
-aaK
+aaJ
 aba
 baV
 abw
-abJ
+abI
 abq
 abV
 abq
@@ -15719,11 +14584,11 @@ ajT
 aki
 akp
 aki
-akF
+akE
 akT
 bWZ
 ale
-all
+alj
 akY
 alt
 akY
@@ -15804,11 +14669,11 @@ aaf
 aas
 aWH
 aas
-aaK
+aaJ
 aas
 baV
 abq
-abJ
+abI
 abq
 baV
 abq
@@ -15846,11 +14711,11 @@ ajU
 aki
 bWZ
 aki
-akF
+akE
 aki
 bWZ
 akY
-all
+alj
 akY
 cbn
 akY
@@ -15931,11 +14796,11 @@ aag
 aat
 aWH
 aas
-aaK
+aaJ
 abb
 baV
 abv
-abJ
+abI
 abq
 baV
 abT
@@ -15973,11 +14838,11 @@ ajS
 akj
 bWZ
 aki
-akF
+akE
 akS
 bWZ
 ald
-all
+alj
 akY
 cbn
 alr
@@ -16058,11 +14923,11 @@ aWH
 aWH
 aWH
 aam
-aaK
+aaJ
 aba
 baV
 abw
-abJ
+abI
 abP
 baV
 baV
@@ -16100,11 +14965,11 @@ bWZ
 bWZ
 bWZ
 ajZ
-akF
+akE
 akT
 bWZ
 ale
-all
+alj
 alp
 cbn
 cbn
@@ -16185,11 +15050,11 @@ aai
 aau
 aWH
 aas
-aaK
+aaJ
 aas
 baV
 abx
-abJ
+abI
 abq
 baV
 abS
@@ -16227,11 +15092,11 @@ ajV
 akk
 bWZ
 aki
-akF
+akE
 akU
 bWZ
 alf
-all
+alj
 akY
 cbn
 alq
@@ -16312,11 +15177,11 @@ aaj
 aas
 aWH
 aas
-aaK
+aaJ
 abc
 baV
 abv
-abJ
+abI
 abq
 baV
 abq
@@ -16335,7 +15200,7 @@ aeC
 afZ
 adR
 agE
-ahe
+adv
 ahA
 adR
 ahV
@@ -16354,11 +15219,11 @@ ajW
 aki
 bWZ
 aki
-akF
+akE
 akS
 bWZ
 ald
-all
+alj
 akY
 cbn
 akY
@@ -16439,11 +15304,11 @@ aak
 aas
 aaB
 aas
-aaK
+aaJ
 aba
 baV
 abw
-abJ
+abI
 abq
 abW
 abq
@@ -16462,7 +15327,7 @@ adu
 adu
 adu
 adu
-ahe
+adv
 adu
 adu
 adu
@@ -16481,11 +15346,11 @@ ajX
 aki
 akq
 aki
-akF
+akE
 akT
 bWZ
 ale
-all
+alj
 akY
 alu
 akY
@@ -16566,11 +15431,11 @@ aaj
 aas
 aWH
 aaI
-aaK
+aaJ
 aas
 baV
 abq
-abJ
+abI
 abq
 baV
 abq
@@ -16589,7 +15454,7 @@ adu
 adu
 adu
 adu
-ahe
+adv
 adu
 adu
 adu
@@ -16608,11 +15473,11 @@ ajW
 aki
 bWZ
 aki
-akF
+akE
 aki
 bWZ
 akY
-all
+alj
 akY
 cbn
 akY
@@ -16693,19 +15558,19 @@ aai
 aat
 aWH
 aas
-aaK
+aaJ
 abb
 baV
 abv
-abJ
+abI
 abq
 baV
 abT
 acw
 baV
 aaG
-acU
-abm
+aaM
+aaM
 adv
 adv
 adv
@@ -16716,7 +15581,7 @@ adv
 adv
 adv
 adv
-ahf
+adv
 adu
 adu
 adu
@@ -16735,11 +15600,11 @@ ajV
 akj
 bWZ
 akw
-akF
+akE
 akS
 bWZ
 ald
-all
+alj
 akY
 cbn
 alr
@@ -16820,18 +15685,18 @@ aWH
 aWH
 aWH
 aam
-aaK
+aaJ
 aba
 baV
 abw
-abJ
+abI
 abP
 baV
 baV
 baV
 baV
 aaG
-acU
+aaM
 adl
 blZ
 blZ
@@ -16855,18 +15720,18 @@ blZ
 blZ
 blZ
 ajt
-ajy
+ajw
 ajr
 bWZ
 bWZ
 bWZ
 bWZ
 ajZ
-akF
+akE
 akT
 bWZ
 ale
-all
+alj
 alp
 cbn
 cbn
@@ -16947,11 +15812,11 @@ aal
 aav
 aWH
 aas
-aaK
+aaJ
 aas
 baV
 aby
-abJ
+abI
 abq
 baV
 aci
@@ -16989,11 +15854,11 @@ ajY
 akl
 bWZ
 aki
-akF
+akE
 aki
 bWZ
 alh
-all
+alj
 akY
 cbn
 alA
@@ -17074,11 +15939,11 @@ aam
 aas
 aaC
 aas
-aaK
+aaJ
 abb
 baV
 abv
-abJ
+abI
 abq
 abX
 abq
@@ -17116,11 +15981,11 @@ ajZ
 aki
 akr
 aki
-akF
+akE
 akV
 bWZ
 ald
-all
+alj
 akY
 alv
 akY
@@ -17201,11 +16066,11 @@ aWH
 aWH
 aWH
 aaI
-aaK
+aaJ
 aba
 baV
 abw
-abJ
+abI
 abq
 baV
 baV
@@ -17243,11 +16108,11 @@ bWZ
 bWZ
 bWZ
 aki
-akF
+akE
 akT
 bWZ
 ale
-all
+alj
 akY
 cbn
 cbn
@@ -17328,11 +16193,11 @@ aam
 aas
 aaD
 aas
-aaK
+aaJ
 aaV
 baV
 abr
-abJ
+abI
 abq
 abY
 abq
@@ -17370,11 +16235,11 @@ ajZ
 aki
 aks
 aki
-akF
+akE
 aki
 bWZ
 akZ
-all
+alj
 akY
 alw
 akY
@@ -17455,11 +16320,11 @@ aan
 aaw
 aWH
 aas
-aaK
+aaJ
 abb
 baV
 abv
-abJ
+abI
 abq
 baV
 acj
@@ -17497,11 +16362,11 @@ aka
 akm
 bWZ
 aki
-akF
+akE
 akS
 bWZ
 ald
-all
+alj
 akY
 cbn
 alB
@@ -17836,18 +16701,18 @@ aaa
 aaa
 aWf
 aaG
-aaN
-abd
-abm
-abm
-abL
-abm
-abm
-abm
-abm
-abm
-abm
-acV
+aaM
+aaM
+aaM
+aaM
+aaM
+aaM
+aaM
+aaM
+aaM
+aaM
+aaM
+aaM
 aaG
 adw
 adw
@@ -17871,18 +16736,18 @@ aVB
 adw
 adw
 ajr
-ajz
-ajI
-ajI
-ajI
-ajI
-ajI
-akx
-akH
-ajI
-ajI
-ajI
-aln
+ajw
+ajw
+ajw
+ajw
+ajw
+ajw
+ajw
+ajw
+ajw
+ajw
+ajw
+ajw
 ajr
 bRF
 aaa
@@ -17964,7 +16829,7 @@ aaa
 aWf
 aaG
 aaG
-abe
+aaM
 aaG
 aaG
 abM
@@ -17974,7 +16839,7 @@ aaG
 aaG
 aaG
 aaG
-abe
+aaM
 aaG
 adw
 adw
@@ -17998,13 +16863,13 @@ aVB
 adw
 adw
 ajr
-ajA
+ajw
 ajr
 ajr
 ajr
 ajr
 ajr
-ajA
+ajw
 akI
 ajr
 ajr
@@ -18101,7 +16966,7 @@ aaQ
 bpX
 bpX
 acN
-abe
+aaM
 aaG
 adw
 adw
@@ -18125,7 +16990,7 @@ aVB
 adw
 adw
 ajr
-ajA
+ajw
 ajH
 asv
 asv
@@ -18220,15 +17085,15 @@ bpX
 aaO
 abf
 abn
-abA
+abf
 abN
 abQ
-abZ
+abf
 aaQ
 aaQ
 bpX
 aaG
-abe
+aaM
 aaG
 adw
 adw
@@ -18252,14 +17117,14 @@ aVB
 adw
 adw
 ajr
-ajA
+ajw
 ajr
 asv
 akc
 akc
 akt
 akA
-akJ
+akA
 akc
 akt
 akc
@@ -18344,18 +17209,18 @@ aaa
 aaa
 aaa
 bpX
-aaP
-abg
-abg
-abB
+aaQ
+abf
+abf
+abf
 abN
 abQ
-aca
-abZ
+abf
+aaQ
 acB
 bpX
 aaG
-abe
+aaM
 aaG
 adw
 adw
@@ -18379,14 +17244,14 @@ aVB
 adw
 adw
 ajr
-ajA
+ajw
 ajr
 asv
 akc
 akn
 axn
 axn
-akK
+akA
 axn
 axn
 akn
@@ -18474,15 +17339,15 @@ bpX
 aaQ
 abh
 aaQ
-aaP
+abf
 abN
 abQ
-acb
-ack
+abf
+abf
 aaQ
 bpX
 aaG
-abe
+aaM
 aaG
 adw
 adw
@@ -18506,14 +17371,14 @@ aVB
 adw
 adw
 ajr
-ajA
+ajw
 ajr
 asv
 akc
 pNG
 akc
 akc
-akK
+akA
 akc
 akc
 avY
@@ -18605,11 +17470,11 @@ abC
 bpX
 bpX
 aaQ
-ack
+abf
 bpX
 bpX
 aaG
-abe
+aaM
 aaG
 adw
 adw
@@ -18633,14 +17498,14 @@ aVB
 adw
 adw
 ajr
-ajA
+ajw
 ajr
 asv
 akd
 pNG
 akc
-akC
-akL
+akA
+akA
 akc
 akc
 avY
@@ -18731,12 +17596,12 @@ abp
 aaQ
 bpX
 abR
-acc
-acl
+abf
+abf
 acC
 bpX
 acN
-abe
+aaM
 aaG
 adw
 adw
@@ -18760,13 +17625,13 @@ aVB
 adw
 adw
 ajr
-ajA
+ajw
 ajH
 asv
 akc
 akn
 akc
-akD
+akA
 akM
 akc
 akc
@@ -18859,11 +17724,11 @@ abD
 bpX
 bpX
 acd
-ack
+abf
 bpX
 bpX
 aaG
-abe
+aaM
 aaG
 adw
 adw
@@ -18887,14 +17752,14 @@ aVB
 adw
 adw
 ajr
-ajA
+ajw
 ajr
 asv
 akc
 pNG
 akc
 akA
-akJ
+akA
 akc
 akc
 avY
@@ -18980,17 +17845,17 @@ aaa
 aaa
 brQ
 aaS
-abj
-abj
-abE
-abj
-abj
-abj
-acm
+acn
+acn
+acn
+acn
+acn
+acn
+aaT
 acD
 brQ
 aaG
-abe
+aaM
 aaG
 adw
 adw
@@ -19014,14 +17879,14 @@ aVB
 adw
 adw
 ajr
-ajA
+ajw
 ajr
 asv
 akc
 pNG
 akc
 akc
-akD
+akA
 akc
 akc
 avY
@@ -19107,17 +17972,17 @@ aaa
 aaa
 brQ
 aaT
-abk
-abk
-abF
-abO
-abO
-ace
-acn
+aaT
+aaT
+aaT
+aaT
+aaT
+aaT
+aaT
 acE
 brQ
 aaG
-abe
+aaM
 aaG
 adw
 adw
@@ -19141,14 +18006,14 @@ aVB
 adw
 adw
 ajr
-ajA
+ajw
 ajr
 asv
 akc
 akn
 lAe
 lAe
-akD
+akA
 lAe
 lAe
 akn
@@ -19244,13 +18109,13 @@ aco
 acD
 brQ
 aaG
-acW
-abm
+aaM
+aaM
 adx
-adT
-adT
-adT
-adT
+adx
+adx
+adx
+adx
 afn
 adw
 adw
@@ -19268,7 +18133,7 @@ adw
 adw
 adw
 ajr
-ajA
+ajw
 ajr
 asv
 akc
@@ -19498,7 +18363,7 @@ aax
 aaE
 acF
 acP
-acY
+acP
 aWV
 adz
 adA
@@ -19523,7 +18388,7 @@ adw
 adw
 caM
 ajC
-ajJ
+ajC
 ajM
 ake
 ajD
