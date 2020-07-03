@@ -6,12 +6,15 @@
 	var/list/glob_list_only = list() //If TRUE, assume that the list to filter through all are the type we're looking for and may or may not be in range of the AI
 	var/list/require_alive = list() //If TRUE, requires that the thing must be "alive" (if it's a mob), otherwise will be alright if dead/alive
 
-/datum/element/behavior_module/search/Attach(atom/thing_being_attached, typepaths_to_find, search_distance, glob_list_only, require_alive)
+	element_flags = ELEMENT_DETACH | ELEMENT_BESPOKE
+	id_arg_index = 5
+
+/datum/element/behavior_module/search/Attach(atom/thing_being_attached, search_distance, glob_list_only, require_alive, typepaths_to_find)
 	. = ..()
-	src.typepaths_to_find[thing_being_attached] = typepaths_to_find
 	src.search_distance[thing_being_attached] = search_distance
 	src.glob_list_only[thing_being_attached] = glob_list_only
 	src.require_alive[thing_being_attached] = require_alive
+	src.typepaths_to_find[thing_being_attached] = typepaths_to_find
 
 /datum/element/behavior_module/search/Detach(datum/source)
 	typepaths_to_find.Remove(source)

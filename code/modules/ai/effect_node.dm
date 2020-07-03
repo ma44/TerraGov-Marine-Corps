@@ -66,18 +66,20 @@ This means that the proc will pick out the *best* node
 
 	var/obj/effect/ai_node/node_to_return = adjacent_nodes[1]
 	var/current_best_node = 0
+	var/current_score
 	for(var/n in shuffle(adjacent_nodes)) //We keep a score for the nodes and see which one is best
 		var/obj/effect/ai_node/node = n
-		var/current_score = 0
-		for(var/i in 1 to length(weight_modifiers))
-			current_score += GET_WEIGHT(src, i)
-
+		current_score = 0
+		for(var/weight in weight_modifiers)
+			current_score += NODE_GET_VALUE_OF_WEIGHT(src, weight) * weight_modifiers[weight]
+		to_chat(world, "[dir2text(get_dir(src, n))] score is [current_score]")
 		if(current_score >= current_best_node)
 			current_best_node = current_score
 			node_to_return = node
-		current_score = 0
+			to_chat(world, "that direction has the best score so far")
 
 	if(node_to_return)
+		to_chat(world, "[dir2text(get_dir(src, node_to_return))] is the most favored option at [current_best_node]")
 		return node_to_return
 
 /obj/effect/ai_node/proc/MakeAdjacents()

@@ -5,6 +5,7 @@
 /datum/element/behavior_module/patrol
 	var/list/preferred_weights = list() //What weights does this want to go towards? see /obj/effect/ai_node/proc/GetBestAdjNode()
 	var/list/current_nodes = list() //Rather than constantly asking the component for what node this thing is "at", cache it here
+	element_flags = ELEMENT_DETACH | ELEMENT_BESPOKE
 	id_arg_index = 2
 
 /datum/element/behavior_module/patrol/Attach(atom/thing_being_attached, list/preferred_weights = list())
@@ -47,10 +48,7 @@
 			UnregisterSignal(the_ai_thing, COMSIG_STATE_MAINTAINED_DISTANCE)
 
 /datum/element/behavior_module/patrol/proc/node_reached(datum/source, obj/effect/ai_node/the_node)
-	var/datum/component/ai_holder/ai_holder = source.GetComponent(/datum/component/ai_holder)
-	the_node.weights[NODE_LAST_VISITED] = min(0, the_node.weights[NODE_LAST_VISITED] - 10)
-	if(ai_holder) //If it exists let's update a variable
-		ai_holder.current_node = the_node
+	the_node.weights[NODE_LAST_VISITED] = 0
 	current_nodes[source] = the_node
 	SEND_SIGNAL(source, COMSIG_MADE_IT_TO_NODE, the_node)
 	SEND_SIGNAL(source, COMSIG_SET_AI_MOVE_TARGET, the_node.GetBestAdjNode(preferred_weights[source]))

@@ -4,6 +4,9 @@
 /datum/element/behavior_module/action_trigger
 	var/list/typepath_triggers = list()
 
+	element_flags = ELEMENT_DETACH | ELEMENT_BESPOKE
+	id_arg_index = 2
+
 /datum/element/behavior_module/action_trigger/Attach(atom/thing_being_attached, list/typepath_triggers)
 	. = ..()
 	src.typepath_triggers[thing_being_attached] = typepath_triggers
@@ -18,8 +21,10 @@
 
 // Filter through the list to see if we should trigger some other behavior modules or not
 /datum/element/behavior_module/action_trigger/proc/filter_through_list(datum/source, things)
+	var/associative_layer_one //Temp var for accessing a layered associative list
 	for(var/atom/thing in things)
 		for(var/type_to_find in typepath_triggers[source]) //The signal to send being the key while the type is a value is intended
 			if(istype(thing, type_to_find))
-				SEND_SIGNAL(source, typepath_triggers[source[type_to_find]], thing)
+				associative_layer_one = typepath_triggers[source]
+				SEND_SIGNAL(source, associative_layer_one[type_to_find], thing)
 				return

@@ -36,11 +36,16 @@ The main purpose of this is to handle cleanup and setting up the initial ai beha
 		return COMPONENT_INCOMPATIBLE
 
 	RegisterSignal(parent, COMSIG_AI_ATTEMPT_CHANGE_STANCE, .proc/attempt_change_stance)
+	RegisterSignal(parent, COMSIG_MADE_IT_TO_NODE, .proc/change_current_node)
 	apply_behavior_template(behavior_types)
 	cur_stance = list(AI_ROAMING = 1)
 	SEND_SIGNAL(parent, COMSIG_AI_CHANGE_STANCE, AI_ROAMING)
 	var/mob/mob_parent = parent
 	mob_parent.a_intent = INTENT_HARM //TODO: behavior module that changes intents of a thing based on signals
+
+//Changes the current ai node
+/datum/component/ai_holder/proc/change_current_node(datum/source, new_node)
+	current_node = new_node
 
 //Attempts to override the current stance
 /datum/component/ai_holder/proc/attempt_change_stance(datum/source, new_stance, priority)
@@ -54,15 +59,8 @@ The main purpose of this is to handle cleanup and setting up the initial ai beha
 
 //Initializes behavior modules to ultilize and giving them vars for further finetuning
 /datum/component/ai_holder/proc/apply_behavior_template(behavior_types)
-	var/list/some_args //Layers of lists, everywhere
-	for(var/element_typepath in behavior_types)
-		//to_chat(world, "BEHAVIOR TEMPLATE: [json_encode(behavior_types[element_typepath])]")
-		some_args = list(element_typepath)
-		for(var/param in behavior_types[element_typepath])
-			some_args += param
-			to_chat(world, "param [json_encode(param)]")
-		to_chat(world, "ATTEMPT ATTACH ELEMENT")
-		parent._AddElement(some_args)
+	for(var/parameters in behavior_types)
+		parent._AddElement(parameters)
 
 /*
 	var/list/some_args //arglist() is pain
@@ -72,7 +70,7 @@ The main purpose of this is to handle cleanup and setting up the initial ai beha
 		for(var/parameter in behavior_types[element_typepath])
 			some_args += parameter
 */
-		parent._AddElement(some_args)
+		//parent._AddElement(some_args)
 
 		/*
 		var/datum/behavior_module/module = new module_path
