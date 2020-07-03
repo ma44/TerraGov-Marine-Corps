@@ -1,5 +1,5 @@
 GLOBAL_LIST_EMPTY(allnodes)
 
-//To be implemented in later updates
-GLOBAL_LIST_EMPTY(nodes_with_enemies)
-GLOBAL_LIST_EMPTY(nodes_with_construction)
+#define NODE_ENEMY_PRESENCE "enemy_presence_here"
+#define NODE_DANGER_SCALE "danger_here"
+#define NODE_LAST_VISITED "last_visit_scale"

@@ -8,10 +8,19 @@
 	anchored = TRUE //No pulling those nodes yo
 	invisibility = INVISIBILITY_OBSERVER //Not visible at all
 	var/list/adjacent_nodes = list() // list of adjacent landmark nodes
-	var/list/weights = list(ENEMY_PRESENCE = 0, DANGER_SCALE = 0) //List of weights for the overall things happening at this node
+	var/list/weights = list(NODE_ENEMY_PRESENCE = 0, NODE_DANGER_SCALE = 0, NODE_LAST_VISITED = 0) //List of weights for the overall things happening at this node
+
+/obj/effect/ai_node/Initialize()
+	. = ..()
+	START_PROCESSING(SSprocessing, src)
 
 /obj/effect/ai_node/LateInitialize()
 	MakeAdjacents()
+	. = ..()
+
+/obj/effect/ai_node/process()
+	..()
+	weights[NODE_LAST_VISITED] += 1
 
 /obj/effect/ai_node/proc/increment_weight(name, amount)
 	weights[name] = max(0, weights[name] + amount)

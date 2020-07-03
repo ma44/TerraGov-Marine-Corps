@@ -14,6 +14,18 @@
 	STOP_PROCESSING(SSpathfinding, src)
 	return ..()
 
+/datum/element/pathfinder/Attach(mob/target, atom/atom_to_walk_to, distance_to_maintain = 0, stutter_step = 0)
+	. = ..()
+	if(QDELETED(target))
+		return ELEMENT_INCOMPATIBLE
+	if(!ismob(target))
+		return ELEMENT_INCOMPATIBLE
+	if(!atom_to_walk_to)
+		return ELEMENT_INCOMPATIBLE
+	distances_to_maintain[target] = distance_to_maintain
+	atoms_to_walk_to[target] = atom_to_walk_to
+	stutter_step_prob[target] = stutter_step
+
 /datum/element/pathfinder/process()
 	for(var/mob in distances_to_maintain)
 		var/mob/mob_to_process = mob
@@ -50,11 +62,11 @@ distance to maintain: mob will try to be at this distance away from the atom to 
 stutter_step: a prob() chance to go left or right of the mob's direction towards the target when distance has been maintained
 */
 
-/datum/element/pathfinder/Attach(mob/target, atom/atom_to_walk_to, distance_to_maintain = 0, stutter_step = 0)
+/datum/element/pathfinder/Attach(atom/movable/target, atom/atom_to_walk_to, distance_to_maintain = 0, stutter_step = 0)
 	. = ..()
 	if(QDELETED(target))
 		return ELEMENT_INCOMPATIBLE
-	if(!ismob(target))
+	if(!ismovableatom(target))
 		return ELEMENT_INCOMPATIBLE
 	if(!atom_to_walk_to)
 		return ELEMENT_INCOMPATIBLE

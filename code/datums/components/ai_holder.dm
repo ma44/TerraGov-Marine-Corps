@@ -17,12 +17,12 @@ The main purpose of this is to handle cleanup and setting up the initial ai beha
 	var/cur_stance //Current action we're doing; makes behavior modules determine what signals to intercept and such
 	//Assoc list with the key being the "action"/stance, value being the priority level
 
-/datum/component/ai_holder/Initialize(behavior_type)
+/datum/component/ai_holder/Initialize(behavior_types)
 	. = ..()
 	if(!ismob(parent)) //Requires a mob as the element action states needed to be apply depend on several mob defines like cached_multiplicative_slowdown or action_busy
 		stack_trace("An AI controller was initialized on a parent that isn't compatible with the ai component. Parent type: [parent.type]")
 		return COMPONENT_INCOMPATIBLE
-	if(isnull(behavior_type))
+	if(isnull(behavior_types))
 		stack_trace("An AI controller was initialized without behavior modules to add onto itself; component removed")
 		return COMPONENT_INCOMPATIBLE
 
@@ -35,44 +35,42 @@ The main purpose of this is to handle cleanup and setting up the initial ai beha
 		message_admins("Notice: An AI controller was initialized but wasn't close enough to a node; if you were spawning AI component users, then do it closer to a node.")
 		return COMPONENT_INCOMPATIBLE
 
-	//ai_behavior = new behavior_type(src, parent)
-	//ai_behavior.current_node = node_to_spawn_at
-	//ai_behavior.late_initialize() //We gotta give the ai behavior things like what node to spawn at before it wants to start an action
-	RegisterSignal(parent, list(COMSIG_PARENT_PREQDELETED, COMSIG_MOB_DEATH), .proc/clean_up)
 	RegisterSignal(parent, COMSIG_AI_ATTEMPT_CHANGE_STANCE, .proc/attempt_change_stance)
-	apply_behavior_template(behavior_type)
+	apply_behavior_template(behavior_types)
 	cur_stance = list(AI_ROAMING = 1)
-	register_signals_for(AI_ROAMING) //Let's get moving
+	SEND_SIGNAL(parent, COMSIG_AI_CHANGE_STANCE, AI_ROAMING)
+	var/mob/mob_parent = parent
+	mob_parent.a_intent = INTENT_HARM //TODO: behavior module that changes intents of a thing based on signals
 
 //Attempts to override the current stance
 /datum/component/ai_holder/proc/attempt_change_stance(datum/source, new_stance, priority)
-/*
-	to_chat(world, "begin of change stance attempt")
-	to_chat(world, "new stance [new_stance]")
-	to_chat(world, "priority level given [priority]")
-	to_chat(world, "current stance [cur_stance[1]]")
-	to_chat(world, "current stance priority [cur_stance[cur_stance[1]]]")
-	to_chat(world, "end of change stance attempt")
-*/
 	if(cur_stance[1] == new_stance) //Already the stance, no need to refresh it
 		return
 	if(priority <= cur_stance[cur_stance[1]]) //Gotta have a higher priority to override it
 		return
-	unregister_signals_for(cur_stance)
-	parent.RemoveElement(/datum/element/pathfinder)
 	cur_stance = list(new_stance)
 	cur_stance[new_stance] = priority
-	register_signals_for(cur_stance)
+	SEND_SIGNAL(parent, COMSIG_AI_CHANGE_STANCE, new_stance)
 
 //Initializes behavior modules to ultilize and giving them vars for further finetuning
-/datum/component/ai_holder/proc/apply_behavior_template(list/behaviors)
-	for(var/module_path in behaviors)
+/datum/component/ai_holder/proc/apply_behavior_template(behavior_types)
+	var/list/some_args //arglist() is pain
+	for(var/element_typepath in behavior_types)
+		some_args = list(element_typepath)
+		behavior_modules += element_typepath
+		for(var/parameter in behavior_types[element_typepath])
+			some_args += parameter
+
+		parent._AddElement(some_args)
+
+		/*
 		var/datum/behavior_module/module = new module_path
 		module.source_holder = src
 		behavior_modules += module
 		module.apply_parameters(behaviors[module_path])
 		module.initial_signal_registration()
-
+		*/
+/*
 //Removes registered signals and action states, useful for scenarios like when the parent is destroyed or a client is taking over
 /datum/component/ai_holder/proc/clean_up()
 	STOP_PROCESSING(SSprocessing, ai_behavior)
@@ -82,7 +80,8 @@ The main purpose of this is to handle cleanup and setting up the initial ai beha
 		qdel(behavior)
 	//ai_behavior.unregister_action_signals(ai_behavior.cur_action)
 	//parent.RemoveElement(/datum/element/pathfinder)
-
+*/
+/*
 //Tell behavior modules to register for signals related to this stance
 /datum/component/ai_holder/proc/register_signals_for(stance)
 	for(var/datum/behavior_module/behavior in behavior_modules)
@@ -92,7 +91,9 @@ The main purpose of this is to handle cleanup and setting up the initial ai beha
 /datum/component/ai_holder/proc/unregister_signals_for(stance)
 	for(var/datum/behavior_module/behavior in behavior_modules)
 		behavior.unregister_stance_signals(stance)
-
+*/
+/*
 /datum/component/ai_holder/Destroy()
 	clean_up()
 	return ..()
+*/
