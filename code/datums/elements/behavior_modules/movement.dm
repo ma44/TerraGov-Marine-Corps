@@ -1,9 +1,9 @@
 //Intercepts a certain signal to then plot a move course according to parameters
 
 /datum/element/behavior_module/movement
-	var/list/move_destinations = list() //Thing we're walking towards; cached for sending as a parameter via signals
 	var/list/distances_to_maintain = list() //How much distance we want to maintain from something
 	var/list/sidestep_probs = list() //Chance of sidestepping when distance is maintained and ready to move again
+	id_arg_index = 3
 
 /datum/element/behavior_module/movement/Attach(atom/thing_being_attached, distance_to_maintain = 0, side_step_prob = 0)
 	if(!ismovableatom(thing_being_attached))
@@ -14,7 +14,6 @@
 
 /datum/element/behavior_module/movement/Detach(datum/source)
 	UnregisterSignal(source, COMSIG_SET_AI_MOVE_TARGET)
-	move_destinations.Remove(source)
 	distances_to_maintain.Remove(source)
 	sidestep_probs.Remove(source)
 	return ..()

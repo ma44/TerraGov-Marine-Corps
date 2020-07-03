@@ -39,7 +39,7 @@ BEHAVE_MODULE_COMBAT,	what signal types make the AI decide to attack (based on p
 
 //Template for an AI to just roam around
 GLOBAL_LIST_INIT(ai_roamer, list(BEHAVE_MODULE_MOVEMENT = list(1, 0),
-								BEHAVE_MODULE_PATROL = list(list(NODE_LAST_VISITED), list(1))
+								BEHAVE_MODULE_PATROL = list(), //list(NODE_LAST_VISITED = 1))
 								))
 
 /*
@@ -52,14 +52,14 @@ GLOBAL_LIST_INIT(ai_aggro, list(BEHAVE_MODULE_MOVEMENT = list(1, 25),
 
 GLOBAL_LIST_INIT(ai_human_hunter, list(BEHAVE_MODULE_MOVEMENT = list(1, 25),
 								BEHAVE_MODULE_SEARCH = list(list(/mob/living/carbon/human = COMSIG_AI_DETECT_HUMAN), 9, TRUE, TRUE),
-								BEHAVE_MODULE_PATROL = list(list(NODE_LAST_VISITED), list(1)),
+								BEHAVE_MODULE_PATROL = list(), //list(NODE_LAST_VISITED = 1)),
 								BEHAVE_MODULE_ACTION_TRIGGER = list(list(/mob/living/carbon/human = COMSIG_AI_DETECT_XENO)),
 								BEHAVE_MODULE_COMBAT = list(list(COMSIG_AI_DETECT_HUMAN))
 								))
 
 GLOBAL_LIST_INIT(ai_xeno_hunter, list(BEHAVE_MODULE_MOVEMENT = list(1, 25),
 								BEHAVE_MODULE_SEARCH = list(list(/mob/living/carbon/xenomorph = COMSIG_AI_DETECT_XENO), 9, TRUE, TRUE),
-								BEHAVE_MODULE_PATROL = list(list(NODE_LAST_VISITED), list(1)),
+								BEHAVE_MODULE_PATROL = list(), //list(NODE_LAST_VISITED = 1)),
 								BEHAVE_MODULE_ACTION_TRIGGER = list(list(/mob/living/carbon/xenomorph = COMSIG_AI_DETECT_XENO)),
 								BEHAVE_MODULE_COMBAT = list(list(COMSIG_AI_DETECT_XENO))
 								))

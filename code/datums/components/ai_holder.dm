@@ -54,13 +54,24 @@ The main purpose of this is to handle cleanup and setting up the initial ai beha
 
 //Initializes behavior modules to ultilize and giving them vars for further finetuning
 /datum/component/ai_holder/proc/apply_behavior_template(behavior_types)
+	var/list/some_args //Layers of lists, everywhere
+	for(var/element_typepath in behavior_types)
+		//to_chat(world, "BEHAVIOR TEMPLATE: [json_encode(behavior_types[element_typepath])]")
+		some_args = list(element_typepath)
+		for(var/param in behavior_types[element_typepath])
+			some_args += param
+			to_chat(world, "param [json_encode(param)]")
+		to_chat(world, "ATTEMPT ATTACH ELEMENT")
+		parent._AddElement(some_args)
+
+/*
 	var/list/some_args //arglist() is pain
 	for(var/element_typepath in behavior_types)
 		some_args = list(element_typepath)
 		behavior_modules += element_typepath
 		for(var/parameter in behavior_types[element_typepath])
 			some_args += parameter
-
+*/
 		parent._AddElement(some_args)
 
 		/*
