@@ -20,11 +20,14 @@
 	RegisterSignal(thing_being_attached, COMSIG_AI_SEARCH_DETECTED, .proc/filter_through_list)
 
 // Filter through the list to see if we should trigger some other behavior modules or not
-/datum/element/behavior_module/action_trigger/proc/filter_through_list(datum/source, things)
+/datum/element/behavior_module/action_trigger/proc/filter_through_list(datum/source, list/things)
 	var/associative_layer_one //Temp var for accessing a layered associative list
 	for(var/atom/thing in things)
 		for(var/type_to_find in typepath_triggers[source]) //The signal to send being the key while the type is a value is intended
-			if(istype(thing, type_to_find))
-				associative_layer_one = typepath_triggers[source]
-				SEND_SIGNAL(source, associative_layer_one[type_to_find], thing)
-				return
+			to_chat(world, "foreach")
+			if(!istype(thing, type_to_find))
+				continue
+			associative_layer_one = typepath_triggers[source]
+			SEND_SIGNAL(source, associative_layer_one[type_to_find], thing)
+			to_chat(world, "SENT SIGNAL [json_encode(source)], [json_encode(associative_layer_one[type_to_find])], [json_encode(typepath_triggers[source])]")
+			return

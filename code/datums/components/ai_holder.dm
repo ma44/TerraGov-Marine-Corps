@@ -49,17 +49,20 @@ The main purpose of this is to handle cleanup and setting up the initial ai beha
 
 //Attempts to override the current stance
 /datum/component/ai_holder/proc/attempt_change_stance(datum/source, new_stance, priority)
+	to_chat(world, "CHANGING STANCE")
 	if(cur_stance[1] == new_stance) //Already the stance, no need to refresh it
 		return
 	if(priority <= cur_stance[cur_stance[1]]) //Gotta have a higher priority to override it
 		return
+	to_chat(world, "STANCE CHANGED")
 	cur_stance = list(new_stance)
 	cur_stance[new_stance] = priority
+	parent.RemoveElement(/datum/element/pathfinder)
 	SEND_SIGNAL(parent, COMSIG_AI_CHANGE_STANCE, new_stance)
 
 //Initializes behavior modules to ultilize and giving them vars for further finetuning
 /datum/component/ai_holder/proc/apply_behavior_template(list/behavior_types)
-	var/list/copied_behaviors = behavior_types.Copy() //_AddElement modifies the list, we don't want to have a ref to the GLOB we use
+	var/list/copied_behaviors = behavior_types.Copy() //_AddElement modifies the list, we don't want to have a ref to the list we were provided (like GLOBs)
 	for(var/I = 1 to behavior_types.len)
 		copied_behaviors[I] = behavior_types[I].Copy()
 	for(var/parameters in copied_behaviors)

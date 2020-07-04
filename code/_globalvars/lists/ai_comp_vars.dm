@@ -7,7 +7,7 @@
 
 #define PREFERRED_WEIGHTS "preferred_weights"
 
-//AI component stances
+//Stances for determining signals to be ultilized for AI
 #define AI_ROAMING "ai_is_roaming"
 #define AI_ATTACKING "ai_is_attacking"
 
@@ -43,18 +43,10 @@ GLOBAL_LIST_INIT(ai_roamer, list(
 								list(BEHAVE_MODULE_PATROL, list(NODE_LAST_VISITED = 1))
 								))
 
-/*
-GLOBAL_LIST_INIT(ai_aggro, list(BEHAVE_MODULE_MOVEMENT = list(1, 25),
-								BEHAVE_MODULE_PATROL = list(list()),
-								BEHAVE_MODULE_SEARCH = list(list(/mob/living/carbon/human), 9, TRUE, TRUE),
-								BEHAVE_MODULE_COMBAT = list(list(/mob/living/carbon/human), FALSE, HUMAN_ATTACKS)
-								))
-*/
-
 GLOBAL_LIST_INIT(ai_human_hunter, list(
 								list(BEHAVE_MODULE_MOVEMENT, 1, 25),
 								list(BEHAVE_MODULE_PATROL, list(NODE_LAST_VISITED = 1)),
-								list(BEHAVE_MODULE_ACTION_TRIGGER, list(/mob/living/carbon/human = COMSIG_AI_DETECT_XENO)),
+								list(BEHAVE_MODULE_ACTION_TRIGGER, list(/mob/living/carbon/human = COMSIG_AI_DETECT_HUMAN)),
 								list(BEHAVE_MODULE_COMBAT, list(COMSIG_AI_DETECT_HUMAN)),
 								list(BEHAVE_MODULE_SEARCH, 9, TRUE, TRUE, list(/mob/living/carbon/human = COMSIG_AI_DETECT_HUMAN))
 								))
