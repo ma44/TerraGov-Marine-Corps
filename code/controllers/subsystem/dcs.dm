@@ -12,6 +12,8 @@ PROCESSING_SUBSYSTEM_DEF(dcs)
 	var/element_id = eletype
 
 	if(!ispath(eletype, /datum/element))
+		to_chat(world, "if code dies here you're screwed")
+		to_chat(world, "TYPEPATH: [json_encode(eletype)]")
 		CRASH("Attempted to instantiate [eletype] as a /datum/element")
 
 	if(initial(eletype.element_flags) & ELEMENT_BESPOKE)
@@ -50,4 +52,5 @@ PROCESSING_SUBSYSTEM_DEF(dcs)
 	if(length(named_arguments))
 		named_arguments = sortList(named_arguments)
 		fullid += named_arguments
+	to_chat(world, "ID FROM ARGS: [json_encode(list2params(fullid))]")
 	return list2params(fullid)

@@ -58,51 +58,9 @@ The main purpose of this is to handle cleanup and setting up the initial ai beha
 	SEND_SIGNAL(parent, COMSIG_AI_CHANGE_STANCE, new_stance)
 
 //Initializes behavior modules to ultilize and giving them vars for further finetuning
-/datum/component/ai_holder/proc/apply_behavior_template(behavior_types)
-	for(var/parameters in behavior_types)
+/datum/component/ai_holder/proc/apply_behavior_template(list/behavior_types)
+	var/list/copied_behaviors = behavior_types.Copy() //_AddElement modifies the list, we don't want to have a ref to the GLOB we use
+	for(var/I = 1 to behavior_types.len)
+		copied_behaviors[I] = behavior_types[I].Copy()
+	for(var/parameters in copied_behaviors)
 		parent._AddElement(parameters)
-
-/*
-	var/list/some_args //arglist() is pain
-	for(var/element_typepath in behavior_types)
-		some_args = list(element_typepath)
-		behavior_modules += element_typepath
-		for(var/parameter in behavior_types[element_typepath])
-			some_args += parameter
-*/
-		//parent._AddElement(some_args)
-
-		/*
-		var/datum/behavior_module/module = new module_path
-		module.source_holder = src
-		behavior_modules += module
-		module.apply_parameters(behaviors[module_path])
-		module.initial_signal_registration()
-		*/
-/*
-//Removes registered signals and action states, useful for scenarios like when the parent is destroyed or a client is taking over
-/datum/component/ai_holder/proc/clean_up()
-	STOP_PROCESSING(SSprocessing, ai_behavior)
-	for(var/datum/behavior in behavior_modules)
-		unregister_signals_for(cur_stance)
-		STOP_PROCESSING(SSprocessing, behavior)
-		qdel(behavior)
-	//ai_behavior.unregister_action_signals(ai_behavior.cur_action)
-	//parent.RemoveElement(/datum/element/pathfinder)
-*/
-/*
-//Tell behavior modules to register for signals related to this stance
-/datum/component/ai_holder/proc/register_signals_for(stance)
-	for(var/datum/behavior_module/behavior in behavior_modules)
-		behavior.register_stance_signals(stance)
-
-//Tell behavior modules to unregister signals related to this stance
-/datum/component/ai_holder/proc/unregister_signals_for(stance)
-	for(var/datum/behavior_module/behavior in behavior_modules)
-		behavior.unregister_stance_signals(stance)
-*/
-/*
-/datum/component/ai_holder/Destroy()
-	clean_up()
-	return ..()
-*/

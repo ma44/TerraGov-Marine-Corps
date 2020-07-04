@@ -72,14 +72,14 @@ This means that the proc will pick out the *best* node
 		current_score = 0
 		for(var/weight in weight_modifiers)
 			current_score += NODE_GET_VALUE_OF_WEIGHT(src, weight) * weight_modifiers[weight]
-		to_chat(world, "[dir2text(get_dir(src, n))] score is [current_score]")
+		//to_chat(world, "[dir2text(get_dir(src, n))] score is [current_score]")
 		if(current_score >= current_best_node)
 			current_best_node = current_score
 			node_to_return = node
-			to_chat(world, "that direction has the best score so far")
+		//	to_chat(world, "that direction has the best score so far")
 
 	if(node_to_return)
-		to_chat(world, "[dir2text(get_dir(src, node_to_return))] is the most favored option at [current_best_node]")
+	//	to_chat(world, "[dir2text(get_dir(src, node_to_return))] is the most favored option at [current_best_node]")
 		return node_to_return
 
 /obj/effect/ai_node/proc/MakeAdjacents()

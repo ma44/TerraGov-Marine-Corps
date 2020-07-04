@@ -22,14 +22,6 @@
 		current_nodes[thing_being_attached] = ai_holder.current_node
 	. = ..()
 	src.preferred_weights[thing_being_attached] = preferred_weights
-	/*
-	var/assoc_list //Can't have a #define key = value at compile, thanks byond
-	for(var/weight in preferred_weights)
-		assoc_list = list(weight)
-		assoc_list[weight] = preferred_weights_multipliers[1]
-		preferred_weights_multipliers.Cut(1)
-	src.preferred_weights[thing_being_attached] = assoc_list
-	*/
 
 /datum/element/behavior_module/patrol/Detach(datum/source)
 	preferred_weights.Remove(source)

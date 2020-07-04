@@ -43,7 +43,8 @@
 /datum/proc/_AddElement(list/arguments)
 	var/datum/element/ele = SSdcs.GetElement(arguments)
 	arguments[1] = src
-	to_chat(world, "ELEMENT TEMPLATE: [json_encode(args)]")
+	to_chat(world, "ELEMENT PARAMS SUPPLIED: [json_encode(arguments)]")
+	to_chat(world, "ELE TYPE VIA GetElement(arguments): [json_encode(ele)]")
 	if(ele.Attach(arglist(arguments)) == ELEMENT_INCOMPATIBLE)
 		CRASH("Incompatible [arguments[1]] assigned to a [type]! args: [json_encode(args)]")
 
