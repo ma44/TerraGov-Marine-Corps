@@ -1,4 +1,3 @@
-#define NODE_LAST_VISITED "last_visit_scale"
 
 //A behavior module that picks out the best node to go towards based on some parameters
 
@@ -43,4 +42,4 @@
 	the_node.weights[NODE_LAST_VISITED] = 0
 	current_nodes[source] = the_node
 	SEND_SIGNAL(source, COMSIG_MADE_IT_TO_NODE, the_node)
-	SEND_SIGNAL(source, COMSIG_SET_AI_MOVE_TARGET, the_node.GetBestAdjNode(preferred_weights[source]))
+	SEND_SIGNAL(source, COMSIG_SET_AI_MOVE_TARGET, current_nodes[source].GetBestAdjNode(preferred_weights[source]))

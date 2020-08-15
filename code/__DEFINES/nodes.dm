@@ -7,3 +7,8 @@
 //DEFINES for AI behavior to utilize to show off what it's currently doing
 #define MOVING_TO_NODE "moving_to_a_node" //Move to a node
 #define MOVING_TO_ATOM "moving_to_an_atom" //We want to move to this thing and probably hit it; can be just about anything like a mob or machinery
+
+//Weights for what's happening around a node; useful for picking a place to go towards
+#define NODE_ENEMY_PRESENCE "enemy_presence_here"
+#define NODE_DANGER_SCALE "danger_here"
+#define NODE_LAST_VISITED "last_visit_scale"

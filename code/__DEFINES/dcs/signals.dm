@@ -498,6 +498,7 @@
 #define COMSIG_AI_SEARCH_DETECTED "ai_detected_something_while_searching" // (list/things_that_met_criteria)
 #define COMSIG_AI_ATTEMPT_CHANGE_STANCE "ai_attempting_to_change_stance" // (new_stance, priority_level)
 #define COMSIG_AI_CHANGE_STANCE "ai_changing_stance" // (new_stance)
+#define COMSIG_AI_DETECTED_SOMETHING "ai_detected_something" // (list/things_detected)
 
 /*******Non-Signal Component Related Defines*******/
 

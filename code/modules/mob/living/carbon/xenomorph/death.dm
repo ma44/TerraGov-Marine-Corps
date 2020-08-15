@@ -41,10 +41,6 @@
 	GLOB.round_statistics.total_xeno_deaths++
 	SSblackbox.record_feedback("tally", "round_statistics", 1, "total_xeno_deaths")
 
-	var/isAI = GetComponent(/datum/component/ai_controller)
-	if (isAI)
-		gib()
-
 	return ..()
 
 

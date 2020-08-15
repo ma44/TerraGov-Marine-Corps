@@ -31,6 +31,7 @@
 	for(var/atom/ai_controlled in things_attached)
 		var/list/filter_through //Things we gotta filter through
 		for(var/typepath in typepaths_to_find[ai_controlled])
+			//This setup would do nicely if GLOB lists could be set up like associative lists so I don't need to switch()
 			switch(typepath) //However if there's a certan type, we'll ultilize the GLOB list of it rather than range()
 				if(/mob/living/carbon/human) //There should be a better way of doing this
 					filter_through += GLOB.human_mob_list
@@ -75,4 +76,5 @@
 					list_to_send -= mob_thing
 
 		if(length(list_to_send))
-			SEND_SIGNAL(ai_controlled, COMSIG_AI_SEARCH_DETECTED, list_to_send)
+			SEND_SIGNAL(ai_controlled, typepaths_to_find[ai_controlled], list_to_send)
+			to_chat(world, "sent signal regarding search behavior: signal com [typepaths_to_find[ai_controlled]]")

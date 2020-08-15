@@ -11,12 +11,6 @@
 #define AI_ROAMING "ai_is_roaming"
 #define AI_ATTACKING "ai_is_attacking"
 
-//Signals related to specific typepaths found in a list
-#define COMSIG_AI_DETECT_HUMAN "list_filter_detect_human_type"
-#define COMSIG_AI_DETECT_XENO "list_filter_detect_xeno_type"
-
-#define NODE_LAST_VISITED "last_visit_scale"
-
 /*
 Index order for variables passed to behavior modules
 
@@ -46,15 +40,15 @@ GLOBAL_LIST_INIT(ai_roamer, list(
 GLOBAL_LIST_INIT(ai_human_hunter, list(
 								list(BEHAVE_MODULE_MOVEMENT, 1, 25),
 								list(BEHAVE_MODULE_PATROL, list(NODE_LAST_VISITED = 1)),
-								list(BEHAVE_MODULE_ACTION_TRIGGER, list(/mob/living/carbon/human = COMSIG_AI_DETECT_HUMAN)),
-								list(BEHAVE_MODULE_COMBAT, list(COMSIG_AI_DETECT_HUMAN)),
-								list(BEHAVE_MODULE_SEARCH, 9, TRUE, TRUE, list(/mob/living/carbon/human = COMSIG_AI_DETECT_HUMAN))
+								list(BEHAVE_MODULE_ACTION_TRIGGER, list(/mob/living/carbon/human = COMSIG_AI_DETECTED_SOMETHING)),
+								list(BEHAVE_MODULE_COMBAT, list(COMSIG_AI_DETECTED_SOMETHING)),
+								list(BEHAVE_MODULE_SEARCH, 9, TRUE, TRUE, list(/mob/living/carbon/human = COMSIG_AI_DETECTED_SOMETHING))
 								))
 
 GLOBAL_LIST_INIT(ai_xeno_hunter, list(
 								list(BEHAVE_MODULE_MOVEMENT, 1, 25),
 								list(BEHAVE_MODULE_PATROL, list(NODE_LAST_VISITED = 1)),
-								list(BEHAVE_MODULE_ACTION_TRIGGER, list(/mob/living/carbon/xenomorph = COMSIG_AI_DETECT_XENO)),
-								list(BEHAVE_MODULE_COMBAT, list(COMSIG_AI_DETECT_XENO)),
-								list(BEHAVE_MODULE_SEARCH, 9, TRUE, TRUE, list(/mob/living/carbon/xenomorph = COMSIG_AI_DETECT_XENO))
+								list(BEHAVE_MODULE_ACTION_TRIGGER, list(/mob/living/carbon/xenomorph = COMSIG_AI_DETECTED_SOMETHING)),
+								list(BEHAVE_MODULE_COMBAT, list(COMSIG_AI_DETECTED_SOMETHING)),
+								list(BEHAVE_MODULE_SEARCH, 9, TRUE, TRUE, list(/mob/living/carbon/xenomorph = COMSIG_AI_DETECTED_SOMETHING))
 								))
