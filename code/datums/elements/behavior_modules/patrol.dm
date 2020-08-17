@@ -33,7 +33,7 @@
 			RegisterSignal(the_ai_thing, COMSIG_STATE_MAINTAINED_DISTANCE, .proc/node_reached)
 			SEND_SIGNAL(the_ai_thing, COMSIG_SET_AI_MOVE_TARGET, current_nodes[the_ai_thing].GetBestAdjNode(preferred_weights[the_ai_thing]))
 
-/datum/element/behavior_module/patrol/unregister_stance_signals(the_ai_thing, stance)
+/datum/element/behavior_module/patrol/unregister_stance_signals(atom/the_ai_thing, stance)
 	switch(stance)
 		if(AI_ROAMING)
 			UnregisterSignal(the_ai_thing, COMSIG_STATE_MAINTAINED_DISTANCE)

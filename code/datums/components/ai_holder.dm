@@ -48,19 +48,15 @@ The main purpose of this is to handle cleanup and setting up the initial ai beha
 	current_node = new_node
 
 //Attempts to override the current stance
-/datum/component/ai_holder/proc/attempt_change_stance(datum/source, new_stance, priority)
-	to_chat(world, "CHANGING STANCE")
+/datum/component/ai_holder/proc/attempt_change_stance(datum/source, new_stance, priority, forced_change = FALSE)
 	if(cur_stance[1] == new_stance) //Already the stance, no need to refresh it
-		to_chat(world, "FAILED STANCE CHANGE: [new_stance] SAME AS [cur_stance[1]]")
 		return
-	if(priority <= cur_stance[cur_stance[1]]) //Gotta have a higher priority to override it
-		to_chat(world, "FAILED STANCE CHANGE: [new_stance] priority !<= [cur_stance[cur_stance[1]]]")
+	if((priority <= cur_stance[cur_stance[1]]) && !forced_change) //Gotta have a higher priority or specific parameter to override it
 		return
-	to_chat(world, "STANCE CHANGED from [cur_stance[1]] to [new_stance]")
-	cur_stance = list(new_stance)
-	cur_stance[new_stance] = priority
 	parent.RemoveElement(/datum/element/pathfinder)
-	SEND_SIGNAL(parent, COMSIG_AI_CHANGE_STANCE, new_stance)
+	SEND_SIGNAL(parent, COMSIG_AI_CHANGE_STANCE, new_stance, cur_stance[1])
+	cur_stance = list(new_stance)
+	cur_stance[new_stance] = priority //Thanks associative list
 
 //Initializes behavior modules to ultilize and giving them vars for further finetuning
 /datum/component/ai_holder/proc/apply_behavior_template(list/behavior_types)

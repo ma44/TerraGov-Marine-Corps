@@ -67,20 +67,15 @@ This means that the proc will pick out the *best* node
 	var/obj/effect/ai_node/node_to_return = adjacent_nodes[1]
 	var/current_best_node = 0
 	var/current_score
-	for(var/n in shuffle(adjacent_nodes)) //We keep a score for the nodes and see which one is best
-		var/obj/effect/ai_node/node = n
+	for(var/obj/effect/ai_node/node in shuffle(adjacent_nodes)) //We keep a score for the nodes and see which one is best
 		current_score = 0
 		for(var/weight in weight_modifiers)
-			to_chat(world, "value returned from GET_VALUE_OF_WEIGHT [weight] is: [NODE_GET_VALUE_OF_WEIGHT(src, weight)]")
-			current_score += NODE_GET_VALUE_OF_WEIGHT(src, weight) * weight_modifiers[weight]
-		to_chat(world, "[dir2text(get_dir(src, n))] score is [current_score]")
+			current_score += NODE_GET_VALUE_OF_WEIGHT(node, weight) * weight_modifiers[weight]
 		if(current_score >= current_best_node)
 			current_best_node = current_score
 			node_to_return = node
-			to_chat(world, "that direction has the best score so far")
 
 	if(node_to_return)
-		to_chat(world, "[dir2text(get_dir(src, node_to_return))] is the most favored option at [current_best_node]")
 		return node_to_return
 
 /obj/effect/ai_node/proc/MakeAdjacents()
@@ -96,8 +91,8 @@ This means that the proc will pick out the *best* node
 
 	//If there's no adjacent nodes then let's throw a runtime (for mappers) and at admins (if they by any chance were spawning these in)
 	if(!length(adjacent_nodes))
-		message_admins("[ADMIN_VERBOSEJMP(src.loc)] was unable to connect to any considered-adjacent nodes; place them correctly if you were spawning these in otherwise report this.")
-		stack_trace("An ai node was initialized but no considered-adjacent nodes were nearby; this can be because of a mapping/admin spawning issue.")
+		message_admins("[ADMIN_VERBOSEJMP(src.loc)] was unable to connect to any considered-adjacent nodes; place them correctly if you were spawning these in, otherwise report this.")
+		stack_trace("An ai node was initialized but no considered-adjacent nodes were nearby; this can be because of a mapping/admin spawning issue. X Y Z coords is [src.x] [src.y] [src.z]")
 
 /obj/effect/ai_node/debug //A debug version of the AINode; makes it visible to allow for easy var editing
 	icon_state = "x6" //Pure white 'X' with black borders

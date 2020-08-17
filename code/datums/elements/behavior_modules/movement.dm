@@ -21,6 +21,5 @@
 	RegisterSignal(thing_being_attached, COMSIG_SET_AI_MOVE_TARGET, .proc/set_new_move_target)
 
 /datum/element/behavior_module/movement/proc/set_new_move_target(datum/source, atom/new_target)
-	to_chat(world, "SETTING NEW MOVE TARGET OF [json_encode(source)] TO [json_encode(new_target)]")
 	source.RemoveElement(/datum/element/pathfinder) //Source SHOULD be a mob attached to this element because of signl interception and such
 	source.AddElement(/datum/element/pathfinder, new_target, distances_to_maintain[source], sidestep_probs[source])

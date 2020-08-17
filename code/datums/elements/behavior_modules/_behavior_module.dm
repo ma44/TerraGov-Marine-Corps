@@ -27,9 +27,9 @@ These modules allow for mix and matching of various behaviors together
 	things_attached.Remove(source)
 	return ..()
 
-//Change the stance of a ai controlled thing to another
-/datum/element/behavior_module/proc/change_stance(datum/source, new_stance)
-	unregister_stance_signals(source, new_stance)
+//Change the stance of an ai controlled thing to another
+/datum/element/behavior_module/proc/change_stance(datum/source, new_stance, old_stance)
+	unregister_stance_signals(source, old_stance)
 	register_stance_signals(source, new_stance)
 
 //After attaching to something, do some signal registrations for the start

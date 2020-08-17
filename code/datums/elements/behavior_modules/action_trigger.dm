@@ -24,10 +24,8 @@
 	var/associative_layer_one //Temp var for accessing a layered associative list
 	for(var/atom/thing in things)
 		for(var/type_to_find in typepath_triggers[source]) //The signal to send being the key while the type is a value is intended
-			to_chat(world, "foreach action trigger")
 			if(!istype(thing, type_to_find))
 				continue
 			associative_layer_one = typepath_triggers[source]
 			SEND_SIGNAL(source, associative_layer_one[type_to_find], thing)
-			to_chat(world, "SENT SIGNAL [json_encode(source)], [json_encode(associative_layer_one[type_to_find])], [json_encode(typepath_triggers[source])]")
 			return

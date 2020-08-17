@@ -22,8 +22,7 @@ BEHAVE_MODULE_PATROL, list(preferred weights defines),
 
 BEHAVE_MODULE_SEARCH,	search_distance radius in tiles,
 						foreach GLOB list TRUE/FALSE,
-						requires thing that satisfies typepath check to be alive TRUE/FALSE
-						list(typepaths_to_find = sigtype to send),
+						sigtype = typepaths_to_find,
 
 BEHAVE_MODULE_ACTION_TRIGGER, signal to send = typepath to look for
 
@@ -40,15 +39,16 @@ GLOBAL_LIST_INIT(ai_roamer, list(
 GLOBAL_LIST_INIT(ai_human_hunter, list(
 								list(BEHAVE_MODULE_MOVEMENT, 1, 25),
 								list(BEHAVE_MODULE_PATROL, list(NODE_LAST_VISITED = 1)),
-								list(BEHAVE_MODULE_ACTION_TRIGGER, list(/mob/living/carbon/human = COMSIG_AI_DETECTED_SOMETHING)),
-								list(BEHAVE_MODULE_COMBAT, list(COMSIG_AI_DETECTED_SOMETHING)),
-								list(BEHAVE_MODULE_SEARCH, 9, TRUE, TRUE, list(/mob/living/carbon/human = COMSIG_AI_DETECTED_SOMETHING))
+								//list(BEHAVE_MODULE_ACTION_TRIGGER, list(/mob/living/carbon/human = COMSIG_SEARCH_DETECTED_SOMETHING)),
+								list(BEHAVE_MODULE_COMBAT, list(COMSIG_SEARCH_DETECTED_SOMETHING)),
+								//list(BEHAVE_MODULE_SEARCH, 9, TRUE, list(list(/mob/living/carbon/human) = COMSIG_SEARCH_DETECTED_SOMETHING))
+								list(BEHAVE_MODULE_SEARCH, 9, TRUE, list(COMSIG_SEARCH_DETECTED_SOMETHING = list(/mob/living/carbon/human)))
 								))
 
 GLOBAL_LIST_INIT(ai_xeno_hunter, list(
 								list(BEHAVE_MODULE_MOVEMENT, 1, 25),
 								list(BEHAVE_MODULE_PATROL, list(NODE_LAST_VISITED = 1)),
-								list(BEHAVE_MODULE_ACTION_TRIGGER, list(/mob/living/carbon/xenomorph = COMSIG_AI_DETECTED_SOMETHING)),
-								list(BEHAVE_MODULE_COMBAT, list(COMSIG_AI_DETECTED_SOMETHING)),
-								list(BEHAVE_MODULE_SEARCH, 9, TRUE, TRUE, list(/mob/living/carbon/xenomorph = COMSIG_AI_DETECTED_SOMETHING))
+								//list(BEHAVE_MODULE_ACTION_TRIGGER, list(/mob/living/carbon/xenomorph = COMSIG_SEARCH_DETECTED_SOMETHING)),
+								list(BEHAVE_MODULE_COMBAT, list(COMSIG_SEARCH_DETECTED_SOMETHING)),
+								list(BEHAVE_MODULE_SEARCH, 9, TRUE, list(COMSIG_SEARCH_DETECTED_SOMETHING = list(/mob/living/carbon/xenomorph)))
 								))
