@@ -4,7 +4,7 @@ These modules allow for mix and matching of various behaviors together
 */
 
 /datum/element/behavior_module
-	var/list/things_attached = list() //A list of things attached to this behavior module, cached for stance signals and such
+	var/list/things_attached = list() //A list of things attached to this behavior module, cached for stance signal (de)registrations and such
 
 /datum/element/behavior_module/Attach(atom/thing_being_attached)
 	. = ..()

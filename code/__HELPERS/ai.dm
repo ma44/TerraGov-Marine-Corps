@@ -34,12 +34,12 @@
 Returns the closest thing to the source_mob out of the input list
 */
 
-/proc/get_closest_thing_in_list(source_mob, list/input_list)
-	var/mob/likely_target //What we currently wanna kill
-	var/likely_target_dist = -INFINITY //Distance from source mob to the likely target
+/proc/get_closest_thing_in_list(atom/source_mob, list/input_list)
+	var/atom/likely_target //What we currently wanna kill
+	var/likely_target_dist = INFINITY //Distance from source mob to the likely target
 
-	for(var/thing in input_list)
-		if(get_dist(source_mob, typecastedthing) > likely_target_dist)
+	for(var/atom/thing in input_list)
+		if(get_dist(source_mob, thing) < likely_target_dist)
 			likely_target_dist = get_dist(source_mob, thing)
 			likely_target = thing
 
