@@ -22,11 +22,12 @@ BEHAVE_MODULE_PATROL, list(preferred weights defines),
 
 BEHAVE_MODULE_SEARCH,	search_distance radius in tiles,
 						foreach GLOB list TRUE/FALSE,
-						sigtype = typepaths_to_find,
+						sigtype = typepaths_to_find
 
 BEHAVE_MODULE_ACTION_TRIGGER, signal to send = typepath to look for
 
-BEHAVE_MODULE_COMBAT,	what signal types make the AI decide to attack (based on param)
+BEHAVE_MODULE_COMBAT,	what signal types make the AI decide to attack (based on param),
+						if we allow designating new targets when we already have a target
 
 */
 
@@ -40,7 +41,7 @@ GLOBAL_LIST_INIT(ai_human_hunter, list(
 								list(BEHAVE_MODULE_MOVEMENT, 1, 25),
 								list(BEHAVE_MODULE_PATROL, list(NODE_LAST_VISITED = 1)),
 								//list(BEHAVE_MODULE_ACTION_TRIGGER, list(/mob/living/carbon/human = COMSIG_SEARCH_DETECTED_SOMETHING)),
-								list(BEHAVE_MODULE_COMBAT, list(COMSIG_SEARCH_DETECTED_SOMETHING)),
+								list(BEHAVE_MODULE_COMBAT, list(COMSIG_SEARCH_DETECTED_SOMETHING), TRUE),
 								//list(BEHAVE_MODULE_SEARCH, 9, TRUE, list(list(/mob/living/carbon/human) = COMSIG_SEARCH_DETECTED_SOMETHING))
 								list(BEHAVE_MODULE_SEARCH, 9, TRUE, list(COMSIG_SEARCH_DETECTED_SOMETHING = list(/mob/living/carbon/human)))
 								))
@@ -49,6 +50,6 @@ GLOBAL_LIST_INIT(ai_xeno_hunter, list(
 								list(BEHAVE_MODULE_MOVEMENT, 1, 25),
 								list(BEHAVE_MODULE_PATROL, list(NODE_LAST_VISITED = 1)),
 								//list(BEHAVE_MODULE_ACTION_TRIGGER, list(/mob/living/carbon/xenomorph = COMSIG_SEARCH_DETECTED_SOMETHING)),
-								list(BEHAVE_MODULE_COMBAT, list(COMSIG_SEARCH_DETECTED_SOMETHING)),
+								list(BEHAVE_MODULE_COMBAT, list(COMSIG_SEARCH_DETECTED_SOMETHING), TRUE),
 								list(BEHAVE_MODULE_SEARCH, 9, TRUE, list(COMSIG_SEARCH_DETECTED_SOMETHING = list(/mob/living/carbon/xenomorph)))
 								))

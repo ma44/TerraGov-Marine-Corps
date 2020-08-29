@@ -3,42 +3,44 @@
 /datum/element/behavior_module/combat
 	var/list/typepaths_to_trigger = list() //Tyeppaths that trigger this module to designate it as a target
 	var/list/targets = list() //Cached list of targets for signal registration and removal
+	var/list/allow_overriding_target = list() //If we want to allow designating a new target to override the old one
 
-/datum/element/behavior_module/combat/Attach(atom/thing_being_attached, list/typepaths_to_trigger)
+/datum/element/behavior_module/combat/Attach(atom/thing_being_attached, list/typepaths_to_trigger, allow_overriding_target = FALSE)
 	. = ..()
 	src.typepaths_to_trigger[thing_being_attached] = typepaths_to_trigger
+	src.allow_overriding_target[thing_being_attached] = allow_overriding_target
 
 /datum/element/behavior_module/combat/Detach(datum/source)
-	//for(var/signal in typepaths_to_trigger[source])
-	//	UnregisterSignal(source, signal)
 	UnregisterSignal(source, COMSIG_SEARCH_DETECTED_SOMETHING, .proc/designate_target)
 	typepaths_to_trigger.Remove(source)
+	allow_overriding_target.Remove(source)
 	undesignate_target(source, targets[source])
 	return ..()
 
+/datum/element/behavior_module/combat/New()
+	..()
+	START_PROCESSING(SSprocessing, src)
+
 /datum/element/behavior_module/combat/initial_signal_registration(atom/thing_being_attached)
-	//for(var/signal in typepaths_to_trigger[thing_being_attached])
-	//	to_chat(world, "[signal] signal output register")
 	RegisterSignal(thing_being_attached, COMSIG_SEARCH_DETECTED_SOMETHING, .proc/designate_target)
 
 /datum/element/behavior_module/combat/register_stance_signals(datum/source, stance)
 	switch(stance)
 		if(AI_ATTACKING)
-			//for(var/signal in typepaths_to_trigger[source]) ALLOW REFRESHING OF TARGET FOR NOW
-			//	UnregisterSignal(source, signal)
 			RegisterSignal(source, COMSIG_STATE_MAINTAINED_DISTANCE, .proc/attempt_attack_target)
 
 /datum/element/behavior_module/combat/unregister_stance_signals(datum/source, stance)
 	switch(stance)
 		if(AI_ATTACKING)
-			//for(var/signal in typepaths_to_trigger[source])
-			//	RegisterSignal(source, signal, .proc/designate_target)
 			UnregisterSignal(source, COMSIG_STATE_MAINTAINED_DISTANCE)
 
 /datum/element/behavior_module/combat/proc/designate_target(datum/source, the_target)
-	var/atom/actual_target //Here for now until target prioritization is made
+	if(!allow_overriding_target[source] && targets[source]) //Can we override targets if we already got one or nah?
+		return
+
+	var/atom/actual_target
 	if(islist(the_target))
-		actual_target = pick(the_target)
+		actual_target = get_closest_thing_in_list(the_target)
 	else
 		actual_target = the_target
 	SEND_SIGNAL(source, COMSIG_AI_ATTEMPT_CHANGE_STANCE, AI_ATTACKING, 2)
