@@ -506,6 +506,7 @@
 #define COMSIG_AI_ATTEMPT_CHANGE_STANCE "ai_attempting_to_change_stance" // (new_stance, priority_level)
 #define COMSIG_AI_CHANGE_STANCE "ai_changing_stance" // (new_stance)
 #define COMSIG_SEARCH_DETECTED_SOMETHING "search_detected_something" // (list/things_detected)
+#define COMSIG_TRIGGER_SEARCH_MODULE "trigger_search_module" // (send_signal)
 
 /*******Non-Signal Component Related Defines*******/
 

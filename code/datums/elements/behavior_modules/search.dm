@@ -13,11 +13,13 @@
 	src.search_distance[thing_being_attached] = search_distance
 	src.glob_list_only[thing_being_attached] = glob_list_only
 	src.typepaths_to_find[thing_being_attached] = typepaths_to_find
+	RegisterSignal(thing_being_attached, COMSIG_TRIGGER_SEARCH_MODULE, .proc/execute_search)
 
 /datum/element/behavior_module/search/Detach(datum/source)
 	search_distance.Remove(source)
 	glob_list_only.Remove(source)
 	typepaths_to_find.Remove(source)
+	UnregisterSignal(source, COMSIG_TRIGGER_SEARCH_MODULE)
 	return ..()
 
 /datum/element/behavior_module/search/New()
@@ -25,6 +27,12 @@
 	START_PROCESSING(SSprocessing, src)
 
 /datum/element/behavior_module/search/process()
+	execute_search(send_signal = TRUE)
+
+//Execute a search right now instead of waiting on process(); send_signal means it will send a signal with the list to the AI when set to true
+//This will also always return a list of what it found
+
+/datum/element/behavior_module/search/proc/execute_search(send_signal = FALSE)
 	var/list/list_to_send = list() //List of things we wanna send VIA as a parameter of a paired sigtype
 	for(var/atom/ai_controlled in things_attached)
 		var/list/filter_through //Things we gotta filter through like GLOB lists or range() if we use them
@@ -47,7 +55,7 @@
 				var/atom/movable/movable_parent = ai_controlled
 				if((movable_parent.z != thing.z) || (get_dist(ai_controlled, thing) >= search_distance[ai_controlled]) || thing == ai_controlled)
 					continue
-				if(ismob(thing)) //TODO: YEET THIS WITH "TARGET PRIORIZATION" BEHAVIOR MODULE
+				if(ismob(thing))
 					var/mob/thing2 = thing
 					if(thing2.stat == DEAD)
 						continue
@@ -73,4 +81,6 @@
 					list_to_send += thing
 
 		if(length(list_to_send))
-			SEND_SIGNAL(ai_controlled, layered_list[1], list_to_send)
+			if(send_signal)
+				SEND_SIGNAL(ai_controlled, layered_list[1], list_to_send)
+	return list_to_send

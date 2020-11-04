@@ -51,11 +51,13 @@
 	SEND_SIGNAL(source, COMSIG_SET_AI_MOVE_TARGET, actual_target)
 
 /datum/element/behavior_module/combat/proc/undesignate_target(datum/source, atom/the_target)
-	to_chat("undesignating target: [the_target]")
+	to_chat(world, "undesignating target: [the_target]")
 	if(!QDELETED(the_target))
 		UnregisterSignal(the_target, COMSIG_MOB_DEATH)
 		targets.Remove(the_target)
-	SEND_SIGNAL(source, COMSIG_AI_ATTEMPT_CHANGE_STANCE, AI_ROAMING, 1, forced_change = TRUE)
+	SEND_SIGNAL(source, COMSIG_TRIGGER_SEARCH_MODULE, send_signal = TRUE) //If this search succeeds, then we have another target to kill and should continue being in our combat stance
+	if(!targets[source])
+		SEND_SIGNAL(source, COMSIG_AI_ATTEMPT_CHANGE_STANCE, AI_ROAMING, 1, forced_change = TRUE)
 
 /datum/element/behavior_module/combat/proc/attempt_attack_target(datum/source, atom/the_target)
 	if(ismob(source))
