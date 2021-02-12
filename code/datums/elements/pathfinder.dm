@@ -25,19 +25,16 @@ stutter_step: a prob() chance to go left or right of the mob's direction towards
 	. = ..()
 	if(QDELETED(target))
 		return ELEMENT_INCOMPATIBLE
+
 	if(!ismob(target))
 		return ELEMENT_INCOMPATIBLE
+
 	if(!atom_to_walk_to)
 		return ELEMENT_INCOMPATIBLE
+
 	distances_to_maintain[target] = distance_to_maintain
 	atoms_to_walk_to[target] = atom_to_walk_to
 	stutter_step_prob[target] = stutter_step
-
-/datum/element/pathfinder/Detach(datum/source)
-	distances_to_maintain.Remove(source)
-	atoms_to_walk_to.Remove(source)
-	stutter_step_prob.Remove(source)
-	return ..()
 
 /datum/element/pathfinder/process()
 	for(var/mob in distances_to_maintain)
@@ -67,3 +64,9 @@ stutter_step: a prob() chance to go left or right of the mob's direction towards
 		if(!step_to(mob_to_process, atoms_to_walk_to[mob_to_process]))
 			SEND_SIGNAL(mob_to_process, COMSIG_OBSTRUCTED_MOVE)
 		mob_to_process.last_move_time = world.time
+
+/datum/element/pathfinder/Detach(datum/source)
+	distances_to_maintain.Remove(source)
+	atoms_to_walk_to.Remove(source)
+	stutter_step_prob.Remove(source)
+	return ..()

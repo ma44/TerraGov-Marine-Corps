@@ -1,8 +1,8 @@
 /**
  * Resin walls
- * 
+ *
  * Used mostly be xenomorphs
- */ 
+ */
 /turf/closed/wall/resin
 	name = "resin wall"
 	desc = "Weird slime solidified into a wall."
@@ -84,13 +84,15 @@
 			take_damage(rand(50, 100))
 
 
-/turf/closed/wall/resin/attack_alien(mob/living/carbon/xenomorph/M)
-	M.visible_message("<span class='xenonotice'>\The [M] starts tearing down \the [src]!</span>", \
+/turf/closed/wall/resin/attack_alien(mob/living/carbon/xenomorph/X, damage_amount = X.xeno_caste.melee_damage, damage_type = BRUTE, damage_flag = "", effects = TRUE, armor_penetration = 0, isrightclick = FALSE)
+	X.visible_message("<span class='xenonotice'>\The [X] starts tearing down \the [src]!</span>", \
 	"<span class='xenonotice'>We start to tear down \the [src].</span>")
-	if(!do_after(M, 4 SECONDS, TRUE, M, BUSY_ICON_GENERIC))
+	if(!do_after(X, 4 SECONDS, TRUE, X, BUSY_ICON_GENERIC))
 		return
-	M.do_attack_animation(src, ATTACK_EFFECT_CLAW)
-	M.visible_message("<span class='xenonotice'>\The [M] tears down \the [src]!</span>", \
+	if(!istype(src)) // Prevent jumping to other turfs if do_after completes with the wall already gone
+		return
+	X.do_attack_animation(src, ATTACK_EFFECT_CLAW)
+	X.visible_message("<span class='xenonotice'>\The [X] tears down \the [src]!</span>", \
 	"<span class='xenonotice'>We tear down \the [src].</span>")
 	playsound(src, "alien_resin_break", 25)
 	take_damage(max_integrity) // Ensure its destroyed
@@ -124,11 +126,10 @@
 	playsound(src, "alien_resin_break", 25)
 
 
-/turf/closed/wall/resin/CanPass(atom/movable/mover, turf/target)
+/turf/closed/wall/resin/CanAllowThrough(atom/movable/mover, turf/target)
+	. = ..()
 	if(istype(mover) && CHECK_BITFIELD(mover.flags_pass, PASSGLASS))
 		return !opacity
-	return !density
-
 
 /turf/closed/wall/resin/dismantle_wall(devastated = 0, explode = 0)
 	ScrapeAway()
@@ -156,17 +157,19 @@
 	max_integrity = 100
 
 	/// Total health possible for a wall after regenerating at max health
-	var/max_upgradable_health = 600 
-	/// How much the walls integrity heals per tick (2 seconds)
-	var/heal_per_tick = 10
-	/// How much the walls max_integrity increases per tick (2 seconds)
-	var/max_upgrade_per_tick = 1
+	var/max_upgradable_health = 600
+	/// How much the walls integrity heals per tick (5 seconds)
+	var/heal_per_tick = 25
+	/// How much the walls max_integrity increases per tick (5 seconds)
+	var/max_upgrade_per_tick = 3
 	/// How long should the wall stop healing for when taking dmg
 	var/cooldown_on_taking_dmg = 30 SECONDS
+	///Whether we have a timer already to stop from clogging up the timer ss
+	var/existingtimer = FALSE
 
 /turf/closed/wall/resin/regenerating/Initialize(mapload, ...)
 	. = ..()
-	START_PROCESSING(SSobj, src)
+	START_PROCESSING(SSslowprocess, src)
 
 /**
  * Try to start processing on the wall.
@@ -175,12 +178,14 @@
 /turf/closed/wall/resin/regenerating/proc/start_healing()
 	if(wall_integrity == max_upgradable_health)
 		return
-	START_PROCESSING(SSobj, src)
+	if(wall_integrity <= 0)
+		return
+	existingtimer = FALSE
+	START_PROCESSING(SSslowprocess, src)
 
 /turf/closed/wall/resin/regenerating/process()
 	if(wall_integrity == max_upgradable_health)
-		STOP_PROCESSING(SSobj, src)
-		return
+		return PROCESS_KILL
 	repair_damage(heal_per_tick)
 	if(wall_integrity == max_integrity)
 		max_integrity = min(max_integrity + max_upgrade_per_tick, max_upgradable_health)
@@ -188,10 +193,13 @@
 /turf/closed/wall/resin/regenerating/take_damage(damage)
 	var/destroyed = (wall_integrity - damage <= 0)
 	. = ..()
-	STOP_PROCESSING(SSobj, src)
+	STOP_PROCESSING(SSslowprocess, src)
 	if(destroyed) // I can't check qdel because the turf is replaced instead
 		return
+	if(existingtimer)// Dont spam timers >:(
+		return
 	addtimer(CALLBACK(src, .proc/start_healing), cooldown_on_taking_dmg)
+	existingtimer = TRUE
 
 
 /* Hivelord walls, they start off stronger */

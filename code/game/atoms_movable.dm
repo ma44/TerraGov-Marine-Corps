@@ -19,6 +19,9 @@
 	var/atom/movable/moving_from_pull		//attempt to resume grab after moving instead of before.
 	var/glide_modifier_flags = NONE
 
+	var/status_flags = CANSTUN|CANKNOCKDOWN|CANKNOCKOUT|CANPUSH|CANUNCONSCIOUS	//bitflags defining which status effects can be inflicted (replaces canweaken, canstun, etc)
+	var/generic_canpass = TRUE
+
 	var/initial_language_holder = /datum/language_holder
 	var/datum/language_holder/language_holder
 	var/verb_say = "says"
@@ -38,7 +41,20 @@
 
 	var/datum/component/orbiter/orbiting
 
+	///Lazylist to keep track on the sources of illumination.
+	var/list/affected_dynamic_lights
+	///Highest-intensity light affecting us, which determines our visibility.
+	var/affecting_dynamic_lumi = 0
+
 //===========================================================================
+/atom/movable/Initialize(mapload, ...)
+	. = ..()
+	if(opacity)
+		AddElement(/datum/element/light_blocking)
+	if(light_system == MOVABLE_LIGHT)
+		AddComponent(/datum/component/overlay_lighting)
+
+
 /atom/movable/Destroy()
 	QDEL_NULL(proximity_monitor)
 	QDEL_NULL(language_holder)
@@ -405,10 +421,9 @@
 		dy = SOUTH
 	var/dist_travelled = 0
 	var/dist_since_sleep = 0
-	var/area/a = get_area(loc)
 	if(dist_x > dist_y)
 		var/error = dist_x/2 - dist_y
-		while(!gc_destroyed && target &&((((x < target.x && dx == EAST) || (x > target.x && dx == WEST)) && dist_travelled < range) || (a && a.has_gravity == 0)  || isspaceturf(loc)) && throwing && istype(loc, /turf))
+		while(!gc_destroyed && target &&((((x < target.x && dx == EAST) || (x > target.x && dx == WEST)) && dist_travelled < range) || isspaceturf(loc)) && throwing && istype(loc, /turf))
 			// only stop when we've gone the whole distance (or max throw range) and are on a non-space tile, or hit something, or hit the end of the map, or someone picks it up
 			if(error < 0)
 				var/atom/step = get_step(src, dy)
@@ -434,10 +449,9 @@
 				if(dist_since_sleep >= speed)
 					dist_since_sleep = 0
 					sleep(1)
-			a = get_area(loc)
 	else
 		var/error = dist_y/2 - dist_x
-		while(!gc_destroyed && target &&((((y < target.y && dy == NORTH) || (y > target.y && dy == SOUTH)) && dist_travelled < range) || a && a.has_gravity == 0 || isspaceturf(loc)) && throwing && istype(loc, /turf))
+		while(!gc_destroyed && target &&((((y < target.y && dy == NORTH) || (y > target.y && dy == SOUTH)) && dist_travelled < range) || isspaceturf(loc)) && throwing && istype(loc, /turf))
 			// only stop when we've gone the whole distance (or max throw range) and are on a non-space tile, or hit something, or hit the end of the map, or someone picks it up
 			if(error < 0)
 				var/atom/step = get_step(src, dx)
@@ -463,8 +477,6 @@
 				if(dist_since_sleep >= speed)
 					dist_since_sleep = 0
 					sleep(1)
-
-			a = get_area(loc)
 
 	//done throwing, either because it hit something or it finished moving
 	if(isobj(src) && throwing)
@@ -880,6 +892,8 @@
 
 
 /atom/movable/proc/resisted_against(datum/source) //COMSIG_LIVING_DO_RESIST
+	SIGNAL_HANDLER_DOES_SLEEP
+
 	var/mob/resisting_mob = source
 	if(resisting_mob.restrained(RESTRAINED_XENO_NEST))
 		return FALSE
@@ -898,3 +912,58 @@
 		return
 	. = throwing
 	throwing = new_throwing
+
+/atom/movable/CanAllowThrough(atom/movable/mover, turf/target)
+	. = ..()
+	if(mover in buckled_mobs)
+		return TRUE
+
+/// Returns true or false to allow src to move through the blocker, mover has final say
+/atom/movable/proc/CanPassThrough(atom/blocker, turf/target, blocker_opinion)
+	SHOULD_CALL_PARENT(TRUE)
+	return blocker_opinion
+
+///returns FALSE if there isnt line of sight to target within view dist and TRUE if there is
+/atom/movable/proc/line_of_sight(atom/target, view_dist = WORLD_VIEW_NUM)
+	if(QDELETED(target))
+		return FALSE
+
+	if(z != target.z) //No multi-z.
+		return FALSE
+
+	var/total_distance = get_dist(src, target)
+
+	if(total_distance > view_dist)
+		return FALSE
+
+	switch(total_distance)
+		if(-1)
+			if(target == src) //We can see ourselves alright.
+				return TRUE
+			else //Standard get_dist() error condition.
+				return FALSE
+		if(null) //Error, does not compute.
+			CRASH("get_dist returned null on line_of_sight() with [src] as src and [target] as target")
+		if(0, 1) //We can see our own tile and the next one regardless.
+			return TRUE
+
+	var/turf/turf_to_check = get_turf(src)
+	var/turf/target_turf = get_turf(target)
+
+	for(var/i in 1 to total_distance - 1)
+		turf_to_check = get_step(turf_to_check, get_dir(turf_to_check, target_turf))
+		if(IS_OPAQUE_TURF(turf_to_check))
+			return FALSE //First and last turfs' opacity don't matter, but the ones in-between do.
+		for(var/obj/stuff_in_turf in turf_to_check)
+			if(!stuff_in_turf.opacity)
+				continue //Transparent, we can see through it.
+			if(!CHECK_BITFIELD(stuff_in_turf.flags_atom, ON_BORDER))
+				return FALSE //Opaque and not on border. We can't see through this tile, it's over.
+			if(ISDIAGONALDIR(stuff_in_turf.dir))
+				return FALSE //Opaque fulltile window.
+			if(CHECK_BITFIELD(dir, stuff_in_turf.dir))
+				return FALSE //Same direction and opaque, blocks our view.
+			if(CHECK_BITFIELD(dir, REVERSE_DIR(stuff_in_turf.dir)))
+				return FALSE //Doesn't block this tile, but it does block the next, and this is not the last pass.
+
+	return TRUE

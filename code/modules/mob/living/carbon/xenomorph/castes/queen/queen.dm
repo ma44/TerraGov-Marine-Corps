@@ -27,8 +27,8 @@
 		/mob/living/carbon/xenomorph/proc/claw_toggle,
 		/mob/living/carbon/xenomorph/queen/proc/set_orders,
 		/mob/living/carbon/xenomorph/queen/proc/hive_Message,
-		/mob/living/carbon/xenomorph/proc/calldown_dropship
-		)
+		/mob/living/carbon/xenomorph/proc/hijack,
+	)
 
 // ***************************************
 // *********** Init
@@ -81,36 +81,17 @@
 /mob/living/carbon/xenomorph/queen/generate_name()
 	switch(upgrade)
 		if(XENO_UPGRADE_ZERO)
-			name = "[hive.prefix]Queen"			 //Young
+			name = "[hive.prefix]Queen ([nicknumber])"			 //Young
 		if(XENO_UPGRADE_ONE)
-			name = "[hive.prefix]Elder Queen"	 //Mature
+			name = "[hive.prefix]Elder Queen ([nicknumber])"	 //Mature
 		if(XENO_UPGRADE_TWO)
-			name = "[hive.prefix]Elder Empress"	 //Elder
+			name = "[hive.prefix]Elder Empress ([nicknumber])"	 //Elder
 		if(XENO_UPGRADE_THREE)
-			name = "[hive.prefix]Ancient Empress" //Ancient
+			name = "[hive.prefix]Ancient Empress ([nicknumber])" //Ancient
 
 	real_name = name
 	if(mind)
 		mind.name = name
-
-// ***************************************
-// *********** Icon
-// ***************************************
-/mob/living/carbon/xenomorph/queen/Topic(href, href_list)
-	. = ..()
-	if(.)
-		return
-
-	if(href_list["watch_xeno_number"])
-		if(!check_state())
-			return
-		var/xeno_num = text2num(href_list["watch_xeno_number"])
-		for(var/Y in hive.get_watchable_xenos())
-			var/mob/living/carbon/xenomorph/X = Y
-			if(X.nicknumber != xeno_num)
-				continue
-			SEND_SIGNAL(src, COMSIG_XENOMORPH_WATCHXENO, X)
-			break
 
 
 // ***************************************
@@ -130,3 +111,9 @@
 /mob/living/carbon/xenomorph/queen/proc/is_burrowed_larva_host(datum/source, list/mothers, list/silos)
 	if(!incapacitated(TRUE))
 		mothers += src //Adding us to the list.
+
+// ***************************************
+// *********** Queen Acidic Salve
+// ***************************************
+/datum/action/xeno_action/activable/psychic_cure/acidic_salve/queen
+	heal_range = HIVELORD_HEAL_RANGE

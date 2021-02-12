@@ -751,15 +751,9 @@
 	desc = "The lettuce is the only organic component. Beep."
 	icon_state = "roburger"
 	filling_color = "#CCCCCC"
-	list_reagents = list(/datum/reagent/consumable/nutriment = 4)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 6)
 	bitesize = 2
 	tastes = list("bun" = 4, "lettuce" = 2, "sludge" = 1)
-
-
-/obj/item/reagent_containers/food/snacks/roburger/Initialize()
-	. = ..()
-	if(prob(5))
-		reagents.add_reagent(/datum/reagent/nanites, 2)
 
 /obj/item/reagent_containers/food/snacks/roburgerbig
 	name = "roburger"
@@ -767,7 +761,7 @@
 	icon_state = "roburger"
 	filling_color = "#CCCCCC"
 	volume = 120
-	list_reagents = list(/datum/reagent/nanites = 70, /datum/reagent/consumable/nutriment = 6)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 10)
 	tastes = list("bun" = 4, "lettuce" = 2, "sludge" = 1)
 
 /obj/item/reagent_containers/food/snacks/xenoburger
@@ -1273,7 +1267,7 @@
 	icon_state = "larvasoup"
 	trash = /obj/item/trash/snack_bowl
 	filling_color = "#66801e"
-	list_reagents = list(/datum/reagent/consumable/larvajelly = 10)
+	list_reagents = list(/datum/reagent/consumable/larvajellyprepared = 1, /datum/reagent/consumable/nutriment = 4)
 	bitesize = 5
 	tastes = list("burning" = 1)
 
@@ -2872,6 +2866,6 @@
 //med pop
 /obj/item/reagent_containers/food/snacks/lollipop/tramadol
 	name = "Tram-pop"
-	desc = "Your reward for behaving so well in the medbay."
+	desc = "Your reward for behaving so well in the medbay. Can be eaten or put in the mask slot."
 	list_reagents = list(/datum/reagent/consumable/sugar = 1, /datum/reagent/medicine/tramadol = 4)
-	tastes = list("cough syrup" = 1)
+	tastes = list("cough syrup" = 1, "artificial sweetness" = 1)

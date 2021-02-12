@@ -167,6 +167,13 @@
 	spawn_type = /obj/item/card/id
 	spawn_number = 7
 
+/obj/item/storage/box/ids/dogtag
+	name = "box of spare Dogtags"
+	desc = "Has so many empty Dogtags."
+	icon_state = "id"
+	spawn_type = /obj/item/card/id/dogtag
+	spawn_number = 7
+
 /obj/item/storage/box/handcuffs
 	name = "box of handcuffs"
 	desc = "A box full of handcuffs."
@@ -270,7 +277,8 @@
 	icon_state = "lightmixed"
 	can_hold = list(
 		/obj/item/light_bulb/tube/large,
-		/obj/item/light_bulb/bulb)
+		/obj/item/light_bulb/bulb,
+	)
 
 /obj/item/storage/box/lights/mixed/Initialize(mapload, ...)
 	. = ..()
@@ -279,7 +287,13 @@
 	for(var/i in 1 to 7)
 		new /obj/item/light_bulb/bulb(src)
 
-
+/obj/item/storage/box/trampop
+	name = "box of Tram-pops"
+	desc = "Maybe if you behave the doctor will reward you with one."
+	icon_state = "trampop"
+	spawn_type = /obj/item/reagent_containers/food/snacks/lollipop/tramadol
+	spawn_number = 14
+	w_class = WEIGHT_CLASS_SMALL
 
 
 
@@ -299,6 +313,14 @@
 	icon_state = initial(icon_state)
 	if(!length(contents))
 		icon_state += "_e"
+
+/obj/item/storage/box/explosive_mines/large
+	name = "\improper M20 mine box"
+	desc = "A large secure box holding anti-personel proximity mines."
+	icon_state = "minebox"
+	max_storage_space = 20
+	spawn_type = /obj/item/explosive/mine
+	spawn_number = 10
 
 /obj/item/storage/box/explosive_mines/pmc
 	name = "\improper M20P mine box"
@@ -381,6 +403,12 @@
 	spawn_number = 15
 	spawn_type = /obj/item/explosive/grenade/phosphorus
 
+/obj/item/storage/box/nade_box/plasma_drain_gas
+	name = "\improper M40-T gas grenade box"
+	desc = "A secure box holding 25 M40-T gas grenades. 100% safe to use around masked marines."
+	icon_state = "marinebox"
+	spawn_type = /obj/item/explosive/grenade/drainbomb
+
 //ITEMS-----------------------------------//
 /obj/item/storage/box/lightstick
 	name = "box of lightsticks"
@@ -446,17 +474,19 @@
 	max_w_class = 4
 	storage_slots = 30
 	max_storage_space = 60	//SMG and pistol sized (tiny and small) mags can fit all 30 slots, normal (LMG and AR) fit 20
-	can_hold = list(/obj/item/ammo_magazine/pistol,
-					/obj/item/ammo_magazine/smg,
-					/obj/item/ammo_magazine/rifle,
-					/obj/item/ammo_magazine/magnum,
-					/obj/item/ammo_magazine/revolver,
-					/obj/item/ammo_magazine/acp,
-					/obj/item/ammo_magazine/standard_lmg,
-					/obj/item/ammo_magazine/standard_smartmachinegun,
-					/obj/item/ammo_magazine/m41ae2_hpr,
-					/obj/item/ammo_magazine/shotgun,
-					/obj/item/ammo_magazine/sniper)
+	can_hold = list(
+		/obj/item/ammo_magazine/pistol,
+		/obj/item/ammo_magazine/smg,
+		/obj/item/ammo_magazine/rifle,
+		/obj/item/ammo_magazine/magnum,
+		/obj/item/ammo_magazine/revolver,
+		/obj/item/ammo_magazine/acp,
+		/obj/item/ammo_magazine/standard_lmg,
+		/obj/item/ammo_magazine/standard_smartmachinegun,
+		/obj/item/ammo_magazine/m412l1_hpr,
+		/obj/item/ammo_magazine/shotgun,
+		/obj/item/ammo_magazine/sniper,
+	)
 
 	var/deployed = FALSE
 

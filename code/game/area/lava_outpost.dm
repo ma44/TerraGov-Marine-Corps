@@ -49,6 +49,7 @@
 /area/lavaland/medical
 	name = "Medical Clinic"
 	icon_state = "lava_med"
+	outside = FALSE
 
 /area/lavaland/medical/chemistry
 	name = "Medical Clinic Chemistry"
@@ -59,6 +60,9 @@
 	icon_state = "lava_cmo"
 
 //"Engineer"
+/area/lavaland/engie
+	outside = FALSE
+	icon_state = "lava_engine"
 
 /area/lavaland/engie/one
 	name = "Generator One"
@@ -72,19 +76,16 @@
 	name = "Generator Three"
 	icon_state = "lava_eng3"
 
-/area/lavaland/engie/refine
-	name = "Ore Processing Facility"
-	icon_state = "lava_eng4"
-
 /area/lavaland/engie/engine
 	name = "Engineering Facility"
-	icon_state = "lava_eng5"
+	icon_state = "lava_eng4"
 
 //Security
 
 /area/lavaland/security
 	name = "Prison Facility"
 	icon_state = "lava_sec_prison"
+	outside = FALSE
 
 /area/lavaland/security/storage
 	name = "Prison Facility Storage"
@@ -103,6 +104,7 @@
 /area/lavaland/civilian
 	name = "Civilian Housing"
 	icon_state = "lava_civ"
+	outside = FALSE
 
 /area/lavaland/civilian/cook
 	name = "Civilian Kitchen"
@@ -119,3 +121,48 @@
 /area/lavaland/civilian/cargo
 	name = "Civilian Cargo"
 	icon_state = "lava_civ_cargo"
+
+//Misc Locations
+
+/area/lavaland/misc/stationed
+	name = "Stationed Ship"
+	icon_state = "lava_misc_stationed"
+	outside = FALSE
+
+/area/lavaland/misc/outpost
+	name = "Abandoned Outpost"
+	icon_state = "lava_misc_outpost"
+	outside = FALSE
+
+/area/lavaland/misc/alienstorage
+	name = "Alien Storage"
+	icon_state = "lava_misc_alienstorage"
+	outside = FALSE
+
+/area/lavaland/misc/shack
+	name = "Shack"
+	icon_state = "lava_misc_shack"
+	outside = FALSE
+
+/area/lavaland/misc/genstorage
+	name = "General Storage"
+	icon_state =  "lava_misc_genstorage"
+	outside = FALSE
+
+/area/lavaland/misc/eastarmory
+	name = "Eastern Armory"
+	icon_state =  "lava_misc_armory1"
+	outside = FALSE
+
+/area/lavaland/misc/westarmory
+	name = "Western Armory"
+	icon_state =  "lava_misc_armory2"
+	outside = FALSE
+
+/area/lavaland/misc/refinery
+	name = "Ore Processing Facility"
+	icon_state = "lava_misc_refinery"
+
+/area/lavaland/misc/crashed
+	name = "Crashed Ship"
+	icon_state = "lava_misc_crashed"

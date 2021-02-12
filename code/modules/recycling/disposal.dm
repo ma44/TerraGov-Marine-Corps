@@ -394,7 +394,8 @@
 
 		qdel(H)
 
-/obj/machinery/disposal/CanPass(atom/movable/mover, turf/target)
+/obj/machinery/disposal/CanAllowThrough(atom/movable/mover, turf/target)
+	. = ..()
 	if(istype(mover, /obj/item) && mover.throwing)
 		var/obj/item/I = mover
 		if(prob(75))
@@ -1227,6 +1228,13 @@
 /obj/structure/disposalpipe/broken/Initialize()
 	. = ..()
 	update()
+
+//Water Pipe, just for decor
+/obj/structure/disposalpipe/water_pipe
+	icon_state = "water_pipe"
+	dpdir = 0 //Makes this not a real pipe
+	desc = "A inlet or outlet for fluids."
+
 
 //Called when welded, for broken pipe, remove and turn into scrap
 /obj/structure/disposalpipe/broken/welded()

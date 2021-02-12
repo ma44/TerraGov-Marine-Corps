@@ -14,11 +14,6 @@
 	. = ..()
 	var/list/traits = list()
 
-	var/list/entries = SScodex.retrieve_entries_for_string(general_codex_key)
-	var/datum/codex_entry/general_entry = LAZYACCESS(entries, 1)
-	if(general_entry && general_entry.mechanics_text)
-		traits += general_entry.mechanics_text
-
 	if(flags_gun_features & GUN_WIELDED_FIRING_ONLY)
 		traits += "This can only be fired with a two-handed grip."
 	else
@@ -96,6 +91,15 @@
 	if(burst_amount > 1)
 		traits += "Shots fired on burst mode: [burst_amount]"
 		traits += "Time between burst-fire: [(min((burst_delay * 2), (fire_delay * 3))) / 10] seconds"
+	if(/datum/action/item_action/aim_mode in actions_types)
+		traits += "Can be aimed with to shoot past allies."
+		traits += "Time between aimed shots: [(fire_delay + aim_fire_delay) / 10] seconds"
+
+	traits += "<br>"
+	var/list/entries = SScodex.retrieve_entries_for_string(general_codex_key)
+	var/datum/codex_entry/general_entry = LAZYACCESS(entries, 1)
+	if(general_entry && general_entry.mechanics_text)
+		traits += general_entry.mechanics_text
 
 	. += jointext(traits, "<br>")
 
@@ -177,7 +181,7 @@
 		It should be noted that the user will need to be aware and at the ready before discharging them."
 
 /datum/codex_entry/sniper_rifle
-	associated_paths = list(/obj/item/weapon/gun/rifle/sniper/M42A)
+	associated_paths = list(/obj/item/weapon/gun/rifle/sniper/antimaterial)
 	lore_text = "A rather strange gun in the TGMC's arsenal. The M42A \"Express\" originally was born out of it's younger brother the M42. Made by the same \
 	company who eventually went on to design the M56 smartgun system. Which the M42As specialized scope eventually adopted a modified IFF system similar to it's cousin the smartgun. <br><br>\
 	It was at first marketed to PMCs and civilians as an expensive accurate long range rifle but it failed due to the lack of need for such a thing for PMCs and the wide variety of options \

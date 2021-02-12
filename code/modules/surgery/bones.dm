@@ -12,8 +12,8 @@
 
 /datum/surgery_step/bone/glue_bone
 	allowed_tools = list(
-	/obj/item/tool/surgery/bonegel = 100,	  \
-	/obj/item/tool/screwdriver = 75
+		/obj/item/tool/surgery/bonegel = 100,
+		/obj/item/tool/screwdriver = 75,
 	)
 	can_infect = 1
 	blood_level = 1
@@ -40,8 +40,8 @@
 
 /datum/surgery_step/bone/set_bone
 	allowed_tools = list(
-	/obj/item/tool/surgery/bonesetter = 100, \
-	/obj/item/tool/wrench = 75	   \
+		/obj/item/tool/surgery/bonesetter = 100,
+		/obj/item/tool/wrench = 75,
 	)
 
 	min_duration = BONESETTER_MIN_DURATION
@@ -69,7 +69,6 @@
 	affected.remove_limb_flags(LIMB_BROKEN | LIMB_SPLINTED | LIMB_STABILIZED)
 	affected.add_limb_flags(LIMB_REPAIRED)
 	affected.bone_repair_stage = 0
-	affected.perma_injury = 0
 
 /datum/surgery_step/bone/set_bone/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/limb/affected)
 	if(affected.body_part == HEAD)

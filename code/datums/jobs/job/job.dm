@@ -143,8 +143,8 @@ GLOBAL_PROTECT(exp_specialmap)
 /datum/job/proc/radio_help_message(mob/M)
 	to_chat(M, {"
 <span class='role_body'>|______________________|</span>
-<span class='role_header'>You are a: [title]!</span>
-<span class='role_body'>As a [title] you answer to [supervisors]. Special circumstances may change this.</span>
+<span class='role_header'>You are \an [title]!</span>
+<span class='role_body'>As \an <b>[title]</b> you answer to [supervisors]. Special circumstances may change this.</span>
 <span class='role_body'>|______________________|</span>
 "})
 	if(!(job_flags & JOB_FLAG_NOHEADSET))
@@ -263,7 +263,6 @@ GLOBAL_PROTECT(exp_specialmap)
 /mob/living/carbon/human/apply_assigned_role_to_spawn(datum/job/assigned_role, client/player, datum/squad/assigned_squad, admin_action = FALSE)
 	. = ..()
 	comm_title = job.comm_title
-
 	if(job.outfit)
 		var/id_type = job.outfit.id ? job.outfit.id : /obj/item/card/id
 		var/obj/item/card/id/id_card = new id_type
@@ -275,12 +274,13 @@ GLOBAL_PROTECT(exp_specialmap)
 		job.outfit.handle_id(src)
 		job.outfit.equip(src)
 
-	if(job.job_flags & JOB_FLAG_ALLOWS_PREFS_GEAR)
+	if((job.job_flags & JOB_FLAG_ALLOWS_PREFS_GEAR) && player)
 		equip_preference_gear(player)
 
-	if(!src.assigned_squad)
+	if(!src.assigned_squad && assigned_squad)
 		job.equip_spawning_squad(src, assigned_squad, player)
-
+	
+	hud_set_job()
 
 /datum/job/proc/equip_spawning_squad(mob/living/carbon/human/new_character, datum/squad/assigned_squad, client/player)
 	return

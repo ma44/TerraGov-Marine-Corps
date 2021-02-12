@@ -26,7 +26,7 @@
 	set name = "Set transfer amount"
 	set category = "Object"
 	set src in view(1)
-	var/N = input("Amount per transfer from this:","[src]") as null|anything in possible_transfer_amounts
+	var/N = tgui_input_list(usr, "Amount per transfer from this:","[src]", possible_transfer_amounts)
 	if (N)
 		amount_per_transfer_from_this = N
 
@@ -44,13 +44,10 @@
 				qdel(src)
 
 
-/obj/structure/reagent_dispensers/CanPass(atom/movable/mover, turf/target)
+/obj/structure/reagent_dispensers/CanAllowThrough(atom/movable/mover, turf/target)
+	. = ..()
 	if(istype(mover) && CHECK_BITFIELD(mover.flags_pass, PASSTABLE))
-		return 1
-	else
-		return !density
-
-
+		return TRUE
 
 //Dispensers
 /obj/structure/reagent_dispensers/watertank
@@ -103,6 +100,7 @@
 		user.visible_message("[user] wrenches [src]'s faucet [modded ? "closed" : "open"].", \
 		"You wrench [src]'s faucet [modded ? "closed" : "open"]")
 		modded = !modded
+		log_attack("[key_name(user)] has wrenched [src] [modded ? "closed" : "open"] in [AREACOORD(user)]")
 		if(modded)
 			leak_fuel(amount_per_transfer_from_this)
 
@@ -159,11 +157,11 @@
 		return
 	exploding = TRUE
 	if (reagents.total_volume > 500)
-		explosion(loc, light_impact_range = 4, flame_range = 4)
+		explosion(loc, light_impact_range = 4, flame_range = 4, small_animation = TRUE)
 	else if (reagents.total_volume > 100)
-		explosion(loc, light_impact_range = 3, flame_range = 3)
+		explosion(loc, light_impact_range = 3, flame_range = 3, small_animation = TRUE)
 	else
-		explosion(loc, light_impact_range = 2, flame_range = 2)
+		explosion(loc, light_impact_range = 2, flame_range = 2, small_animation = TRUE)
 	qdel(src)
 
 /obj/structure/reagent_dispensers/fueltank/fire_act(temperature, volume)
@@ -172,7 +170,8 @@
 	return ..()
 
 /obj/structure/reagent_dispensers/fueltank/Move()
-	if (..() && modded)
+	. = ..()
+	if (. && modded)
 		leak_fuel(amount_per_transfer_from_this/10.0)
 
 /obj/structure/reagent_dispensers/fueltank/proc/leak_fuel(amount)

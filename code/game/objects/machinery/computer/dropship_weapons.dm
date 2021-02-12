@@ -12,12 +12,11 @@
 	var/obj/structure/dropship_equipment/selected_equipment //the currently selected equipment installed on the shuttle this console controls.
 	var/list/shuttle_equipments = list() //list of the equipments on the shuttle this console controls
 
-/obj/machinery/computer/dropship_weapons/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
-										datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/computer/dropship_weapons/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 
 	if(!ui)
-		ui = new(user, src, ui_key, "CAS", name, ui_x, ui_y, master_ui, state)
+		ui = new(user, src, "CAS", name)
 		ui.open()
 
 /obj/machinery/computer/dropship_weapons/ui_data(mob/user)
@@ -37,7 +36,7 @@
 	var/element_nbr = 1
 	for(var/X in shuttle.equipments)
 		var/obj/structure/dropship_equipment/E = X
-		.["equipment_data"] += list(list("name"= sanitize(copytext(E.name,1,MAX_MESSAGE_LEN)), "eqp_tag" = element_nbr, "is_weapon" = E.is_weapon, "is_interactable" = E.is_interactable))
+		.["equipment_data"] += list(list("name"= sanitize(copytext(E.name,1,MAX_MESSAGE_LEN)), "eqp_tag" = element_nbr, "is_weapon" = (E.dropship_equipment_flags & IS_WEAPON), "is_interactable" = (E.dropship_equipment_flags & IS_INTERACTABLE)))
 		element_nbr++
 
 	.["selected_eqp_name"] = ""
@@ -56,7 +55,7 @@
 
 	.["shuttle_mode"] = shuttle.mode == SHUTTLE_CALL
 
-/obj/machinery/computer/dropship_weapons/ui_act(action, params)
+/obj/machinery/computer/dropship_weapons/ui_act(action, list/params)
 	. = ..()
 	if(.)
 		return
@@ -92,15 +91,14 @@
 						return
 					if(shuttle.mode == SHUTTLE_HIJACK_LOCK)
 						return
-
-					if(!selected_equipment?.is_weapon)
+					if(!(selected_equipment?.dropship_equipment_flags & IS_WEAPON))
 						to_chat(L, "<span class='warning'>No weapon selected.</span>")
 						return
 					var/obj/structure/dropship_equipment/weapon/DEW = selected_equipment
 					if(!DEW.ammo_equipped || DEW.ammo_equipped.ammo_count <= 0)
 						to_chat(L, "<span class='warning'>[DEW] has no ammo.</span>")
 						return
-					if(DEW.last_fired > world.time - DEW.firing_delay)
+					if(!COOLDOWN_CHECK(DEW, last_fired))
 						to_chat(L, "<span class='warning'>[DEW] just fired, wait for it to cool down.</span>")
 						return
 					if(QDELETED(LT)) // Quick final check on the Laser target

@@ -10,6 +10,13 @@
 	temperature = TCMB
 	pressure = 0
 
+/area/space/Entered(atom/movable/AM, atom/oldloc)
+	. = ..()
+	if(isliving(AM))
+		to_chat(AM, "<span class='danger'>The cold vacuum instantly freezes you, maybe this was a bad idea?</span>")
+		var/mob/living/spaceman = AM
+		spaceman.adjustFireLoss(600) //Bad idea, spessman.
+
 /area/engine/
 	ambience = list('sound/ambience/ambisin1.ogg','sound/ambience/ambisin2.ogg','sound/ambience/ambisin3.ogg','sound/ambience/ambisin4.ogg')
 /area/turret_protected/
@@ -34,6 +41,7 @@
 /area/shuttle //DO NOT TURN THE dynamic_lighting STUFF ON FOR SHUTTLES. IT BREAKS THINGS.
 	requires_power = 0
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	outside = FALSE
 
 /area/shuttle/arrival
 	name = "Abandoned Arrival Shuttle"
@@ -207,18 +215,11 @@
 	requires_power = 0
 
 
-/area/airtunnel1/      // referenced in airtunnel.dm:759
-
-
-/area/dummy/           // Referenced in engine.dm:261
-
-
 /area/start            // will be unused once kurper gets his login interface patch done
 	name = "start area"
 	icon_state = "start"
 	requires_power = 0
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
-	has_gravity = 1
 
 
 /area/syndicate_mothership

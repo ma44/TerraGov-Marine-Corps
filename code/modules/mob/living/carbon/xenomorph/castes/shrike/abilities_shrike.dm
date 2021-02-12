@@ -48,6 +48,7 @@
 
 
 /datum/action/xeno_action/call_of_the_burrowed/proc/is_burrowed_larva_host(datum/source, list/mothers, list/silos) //Should only register while a viable candidate.
+	SIGNAL_HANDLER
 	if(!owner.incapacitated())
 		mothers += owner //Adding them to the list.
 
@@ -84,6 +85,8 @@
 		return FALSE
 	if(ishuman(target))
 		var/mob/living/carbon/human/victim = target
+		if(isnestedhost(victim))
+			return FALSE
 		if(!CHECK_BITFIELD(use_state_flags|override_flags, XACT_IGNORE_DEAD_TARGET) && victim.stat == DEAD)
 			return FALSE
 
@@ -114,7 +117,7 @@
 	succeed_activate()
 	add_cooldown()
 	if(ishuman(victim))
-		victim.apply_effects(1, 2) 	// Stun
+		victim.apply_effects(1, 0.1) 	// The fling stuns you enough to remove your gun, otherwise the marine effectively isn't stunned for long.
 		shake_camera(victim, 2, 1)
 
 	var/facing = get_dir(owner, victim)
@@ -139,6 +142,7 @@
 	mechanics_text = "Unleashes our raw psychic power, pushing aside anyone who stands in our path."
 	cooldown_timer = 50 SECONDS
 	plasma_cost = 300
+	keybind_flags = XACT_KEYBIND_USE_ABILITY | XACT_IGNORE_SELECTED_ABILITY
 	keybind_signal = COMSIG_XENOABILITY_UNRELENTING_FORCE
 
 
@@ -152,7 +156,8 @@
 	add_cooldown()
 	addtimer(CALLBACK(owner, /mob.proc/update_icons), 1 SECONDS)
 	owner.icon_state = "Shrike Screeching"
-	owner.face_atom(target)
+	if(target) // Keybind use doesn't have a target
+		owner.face_atom(target)
 
 	var/turf/lower_left
 	var/turf/upper_right
@@ -183,7 +188,7 @@
 			affected.throw_at(throwlocation, 6, 1, owner, TRUE)
 			if(ishuman(affected)) //if they're human, they also should get knocked off their feet from the blast.
 				var/mob/living/carbon/human = affected
-				human.apply_effects(1, 2) 	// Stun
+				human.apply_effects(1, 1) 	// Stun
 				shake_camera(affected, 2, 1)
 
 	owner.visible_message("<span class='xenowarning'>[owner] sends out a huge blast of psychic energy!</span>", \
@@ -203,86 +208,6 @@
 		if(FH.stat != DEAD)
 			FH.kill_hugger()
 
-// ***************************************
-// *********** Psychic Choke
-// ***************************************
-/datum/action/xeno_action/activable/psychic_choke
-	name = "Psychic Choke"
-	action_icon_state = "screech"
-	mechanics_text = "Stun and start choking a target. Ranged ability."
-	cooldown_timer = 30 SECONDS
-	plasma_cost = 100
-	keybind_signal = COMSIG_XENOABILITY_PSYCHIC_CHOKE
-	var/obj/item/tk_grab/shrike/psychic_hold
-
-
-/datum/action/xeno_action/activable/psychic_choke/on_cooldown_finish()
-	to_chat(owner, "<span class='notice'>We gather enough mental strength to choke something again.</span>")
-	return ..()
-
-
-/datum/action/xeno_action/activable/psychic_choke/can_use_ability(atom/target, silent = FALSE, override_flags)
-	. = ..()
-	if(!.)
-		return FALSE
-	if(QDELETED(target))
-		return FALSE
-	var/dist = get_dist(owner, target)
-	switch(dist)
-		if(-1 to 1)
-			if(!silent)
-				to_chat(owner, "<span class='warning'>The target is too close, we need some room to focus!</span>")
-			return FALSE
-		if(2 to 3)
-			if(!owner.line_of_sight(target))
-				if(!silent)
-					to_chat(owner, "<span class='warning'>We can't focus properly without a clear line of sight!</span>")
-				return FALSE
-		if(4 to INFINITY)
-			if(!silent)
-				to_chat(owner, "<span class='warning'>Too far, our mind power does not reach it...</span>")
-			return FALSE
-	if(!ishuman(target))
-		return FALSE
-	var/mob/living/carbon/human/victim = target
-	if(!CHECK_BITFIELD(use_state_flags|override_flags, XACT_IGNORE_DEAD_TARGET) && victim.stat == DEAD)
-		return FALSE
-
-
-/datum/action/xeno_action/activable/psychic_choke/use_ability(atom/target)
-	var/mob/living/carbon/xenomorph/shrike/assailant = owner
-	var/mob/living/carbon/human/victim = target
-
-	if(psychic_hold) //We are already using the ability.
-		if(psychic_hold.focus == victim)
-			psychic_hold.swap_psychic_grab() //If we are clicking on the same mob, just swap the grab level.
-			return TRUE
-		qdel(psychic_hold) //Else let's end the ongoing one before we start the next. Their Destroy() will clean up the mess.
-
-	if(assailant.get_active_held_item())
-		assailant.drop_held_item() //Do we have a hugger? No longer.
-
-	GLOB.round_statistics.psychic_chokes++
-	SSblackbox.record_feedback("tally", "round_statistics", 1, "psychic_chokes")
-	assailant.visible_message("<span class='xenowarning'>A strange and violent psychic aura is suddenly emitted from \the [assailant]!</span>", \
-	"<span class='xenowarning'>We choke [victim] with the power of our mind!</span>")
-	victim.visible_message("<span class='xenowarning'>[victim] is suddenly grabbed by the neck by an unseen force!</span>", \
-	"<span class='xenowarning'>You are suddenly grabbed by an unseen force!</span>")
-	playsound(victim,'sound/effects/magic.ogg', 75, 1)
-
-	victim.drop_all_held_items()
-	victim.Stun(40)
-
-	psychic_hold = new(assailant, victim, src) //Grab starts "inside" the shrike. It will auto-equip to her hands, set her as its master and her victim as its target, and then start processing the grab.
-
-	assailant.changeNext_move(CLICK_CD_RANGE)
-
-	assailant.do_attack_animation(victim, ATTACK_EFFECT_GRAB)
-
-	log_combat(assailant, victim, "psychically grabbed")
-
-	succeed_activate()
-	add_cooldown()
 
 
 // ***************************************
@@ -295,6 +220,7 @@
 	cooldown_timer = 1 MINUTES
 	plasma_cost = 200
 	keybind_signal = COMSIG_XENOABILITY_PSYCHIC_CURE
+	var/heal_range = SHRIKE_HEAL_RANGE
 
 
 /datum/action/xeno_action/activable/psychic_cure/on_cooldown_finish()
@@ -321,19 +247,12 @@
 
 /datum/action/xeno_action/activable/psychic_cure/proc/check_distance(atom/target, silent)
 	var/dist = get_dist(owner, target)
-	switch(dist)
-		if(-1)
-			if(!silent && target == owner)
-				to_chat(owner, "<span class='warning'>We cannot cure ourselves.</span>")
-			return FALSE
-		if(0 to 3)
-			if(!owner.line_of_sight(target))
-				to_chat(owner, "<span class='warning'>We can't focus properly without a clear line of sight!</span>")
-				return FALSE
-		if(4 to INFINITY)
-			if(!silent)
-				to_chat(owner, "<span class='warning'>Too far, our mind power does not reach it...</span>")
-			return FALSE
+	if(dist > heal_range)
+		to_chat(owner, "<span class='warning'>Too far for our reach... We need to be [dist - heal_range] steps closer!</span>")
+		return FALSE
+	else if(!owner.line_of_sight(target))
+		to_chat(owner, "<span class='warning'>We can't focus properly without a clear line of sight!</span>")
+		return FALSE
 	return TRUE
 
 
@@ -396,6 +315,9 @@
 	if(!T.check_alien_construction(owner, silent))
 		return FALSE
 
+	if(!T.check_disallow_alien_fortification(owner, silent))
+		return FALSE
+
 	if(locate(/obj/effect/alien/weeds/node) in T)
 		if(!silent)
 			to_chat(owner, "<span class='warning'>There is a resin node in the way!</span>")
@@ -403,7 +325,6 @@
 
 /datum/action/xeno_action/place_acidwell/action_activate()
 	var/turf/T = get_turf(owner)
-
 	succeed_activate()
 
 	playsound(T, "alien_resin_build", 25)

@@ -4,13 +4,6 @@
 
 
 // status values shared between lighting fixtures and items
-#define LIGHT_OK 0
-#define LIGHT_EMPTY 1
-#define LIGHT_BROKEN 2
-#define LIGHT_BURNED 3
-
-
-
 /obj/machinery/light_construct
 	name = "light fixture frame"
 	desc = "A light fixture under construction."
@@ -144,7 +137,7 @@
 	var/on_gs = FALSE
 	var/brightness = 8			// luminosity when on, also used in power calculation
 	var/bulb_power = 1			// basically the alpha of the emitted light source
-	var/bulb_colour = LIGHT_COLOR_WHITE
+	var/bulb_colour = COLOR_WHITE
 	var/status = LIGHT_OK		// LIGHT_OK, _EMPTY, _BURNED or _BROKEN
 	var/flickering = FALSE
 	var/light_type = /obj/item/light_bulb/tube		// the type of light item
@@ -399,11 +392,11 @@
 
 
 //Xenos smashing lights
-/obj/machinery/light/attack_alien(mob/living/carbon/xenomorph/M)
+/obj/machinery/light/attack_alien(mob/living/carbon/xenomorph/X, damage_amount = X.xeno_caste.melee_damage, damage_type = BRUTE, damage_flag = "", effects = TRUE, armor_penetration = 0, isrightclick = FALSE)
 	if(status == 2) //Ignore if broken.
 		return FALSE
-	M.do_attack_animation(src, ATTACK_EFFECT_SMASH)
-	M.visible_message("<span class='danger'>\The [M] smashes [src]!</span>", \
+	X.do_attack_animation(src, ATTACK_EFFECT_SMASH)
+	X.visible_message("<span class='danger'>\The [X] smashes [src]!</span>", \
 	"<span class='danger'>We smash [src]!</span>", null, 5)
 	broken() //Smashola!
 

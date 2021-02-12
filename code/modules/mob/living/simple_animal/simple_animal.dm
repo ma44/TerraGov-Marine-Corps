@@ -143,6 +143,7 @@
 	health = 0
 	icon_state = icon_dead
 	density = FALSE
+	to_chat(src,"<b><span class='deadsay'><p style='font-size:1.5em'><big>You have perished.</big></p></span></b>")
 
 	. = ..()
 
@@ -215,7 +216,7 @@
 			return TRUE
 
 
-/mob/living/simple_animal/attack_alien(mob/living/carbon/xenomorph/X)
+/mob/living/simple_animal/attack_alien(mob/living/carbon/xenomorph/X, damage_amount = X.xeno_caste.melee_damage, damage_type = BRUTE, damage_flag = "", effects = TRUE, armor_penetration = 0, isrightclick = FALSE)
 	. = ..()
 	if(!.)
 		return

@@ -45,6 +45,7 @@
 
 
 /atom/proc/attackby(obj/item/I, mob/user, params)
+	SIGNAL_HANDLER_DOES_SLEEP
 	add_fingerprint(user, "attackby", I)
 	if(SEND_SIGNAL(src, COMSIG_PARENT_ATTACKBY, I, user, params) & COMPONENT_NO_AFTERATTACK)
 		return TRUE
@@ -132,11 +133,11 @@
 	return I.attack(src, user)
 
 
-// Proximity_flag is 1 if this afterattack was called on something adjacent, in your square, or on your person.
+// has_proximity is TRUE if this afterattack was called on something adjacent, in your square, or on your person.
 // Click parameters is the params string from byond Click() code, see that documentation.
-/obj/item/proc/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
-	SEND_SIGNAL(src, COMSIG_ITEM_AFTERATTACK, target, user, proximity_flag, click_parameters)
-	SEND_SIGNAL(user, COMSIG_MOB_ITEM_AFTERATTACK, target, user, proximity_flag, click_parameters)
+/obj/item/proc/afterattack(atom/target, mob/user, has_proximity, click_parameters)
+	SEND_SIGNAL(src, COMSIG_ITEM_AFTERATTACK, target, user, has_proximity, click_parameters)
+	SEND_SIGNAL(user, COMSIG_MOB_ITEM_AFTERATTACK, target, user, has_proximity, click_parameters)
 	return
 
 

@@ -6,7 +6,6 @@
 	name = "Shuttle"
 	requires_power = FALSE
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
-//	has_gravity = STANDARD_GRAVITY
 	always_unpowered = FALSE
 //	valid_territory = FALSE
 	icon_state = "shuttle"
@@ -32,6 +31,12 @@
 
 /area/shuttle/dropship/normandy
 	name = "Dropship Normandy"
+
+/area/shuttle/cas
+	name = "Condor Jet"
+
+/area/shuttle/minidropship
+	name = "Tadpole Drop Shuttle"
 
 /area/shuttle/ert
 	name = "Emergency Response Team"

@@ -189,6 +189,7 @@
 	RegisterSignal(src, COMSIG_MOVABLE_SHUTTLE_CRUSH, .proc/shuttle_crush)
 
 /obj/machinery/cryopod/proc/shuttle_crush()
+	SIGNAL_HANDLER
 	if(occupant)
 		var/mob/living/L = occupant
 		go_out()
@@ -349,7 +350,7 @@
 		return
 
 	if(M.client)
-		if(alert(M, "Would you like to enter cryosleep?", , "Yes", "No") == "Yes")
+		if(tgui_alert(M, "Would you like to enter cryosleep?", list("Yes", "No")) == "Yes")
 			if(QDELETED(M) || !(G?.grabbed_thing == M))
 				return
 		else
@@ -441,6 +442,7 @@
 
 
 /obj/machinery/cryopod/proc/on_user_afk_change(datum/source, new_status, afk_timer)
+	SIGNAL_HANDLER
 	if(new_status != MOB_DISCONNECTED)
 		return
 	UnregisterSignal(source, list(COMSIG_CARBON_SETAFKSTATUS, COMSIG_MOB_DEATH))
@@ -452,6 +454,7 @@
 
 
 /obj/machinery/cryopod/proc/go_out()
+	SIGNAL_HANDLER
 	if(QDELETED(occupant))
 		return
 

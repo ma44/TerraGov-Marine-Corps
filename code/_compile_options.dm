@@ -39,15 +39,22 @@
 #endif
 #endif
 
+//Update this whenever the byond version is stable so people stop updating to hilariously broken versions
+#define MAX_COMPILER_VERSION 513
+#define MAX_COMPILER_BUILD 1542
+#if DM_VERSION > MAX_COMPILER_VERSION || DM_BUILD > MAX_COMPILER_BUILD
+#warn WARNING! your byond version is over the recommended version(MAX_COMPILER_VERSION:MAX_COMPILER_BUILD)! There may be unexpected byond bugs!
+#endif
+
 //Additional code for the above flags.
 #ifdef TESTING
 #warn compiling in TESTING mode. testing() debug messages will be visible.
 #endif
 
-#ifdef TRAVISBUILDING
+#ifdef CIBUILDING
 #define UNIT_TESTS
 #endif
 
-#ifdef TRAVISTESTING
+#ifdef CITESTING
 #define TESTING
 #endif

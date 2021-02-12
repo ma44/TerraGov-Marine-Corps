@@ -6,7 +6,7 @@
 /obj/machinery/computer/intel_computer
 	name = "Intelligence computer"
 	desc = "A computer used to access the colonies central database. TGMC Intel division will occasionally request remote data retrieval from these computers"
-	icon_state = "nuke_red"
+	icon_state = "intel_computer"
 	circuit = /obj/item/circuitboard/computer/intel_computer
 
 	resistance_flags = INDESTRUCTIBLE|UNACIDABLE
@@ -62,10 +62,10 @@
 		return
 	return ..()
 
-/obj/machinery/computer/intel_computer/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/computer/intel_computer/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "IntelComputer", "IntelComputer", 400, 500, master_ui, state)
+		ui = new(user, src, "IntelComputer", "IntelComputer")
 		ui.open()
 
 /obj/machinery/computer/intel_computer/ui_data(mob/user)
@@ -78,8 +78,9 @@
 
 	return data
 
-/obj/machinery/computer/intel_computer/ui_act(action, params)
-	if(..())
+/obj/machinery/computer/intel_computer/ui_act(action, list/params)
+	. = ..()
+	if(.)
 		return
 	switch(action)
 		if("login")

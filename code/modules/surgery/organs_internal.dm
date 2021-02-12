@@ -13,9 +13,9 @@
 
 /datum/surgery_step/internal/remove_embryo
 	allowed_tools = list(
-	/obj/item/tool/surgery/hemostat = 100,           \
-	/obj/item/tool/wirecutters = 75,         \
-	/obj/item/tool/kitchen/utensil/fork = 20
+		/obj/item/tool/surgery/hemostat = 100,
+		/obj/item/tool/wirecutters = 75,
+		/obj/item/tool/kitchen/utensil/fork = 20,
 	)
 	blood_level = 2
 
@@ -61,9 +61,9 @@
 
 /datum/surgery_step/internal/fix_organ
 	allowed_tools = list(
-	/obj/item/stack/medical/advanced/bruise_pack= 100, \
-	/obj/item/stack/medical/bruise_pack = 20,          \
-	/obj/item/stack/medical/bruise_pack/tajaran = 70,  \
+		/obj/item/stack/medical/advanced/bruise_pack= 100,
+		/obj/item/stack/medical/bruise_pack = 20,
+		/obj/item/stack/medical/bruise_pack/tajaran = 70,
 	)
 
 	min_duration = FIX_ORGAN_MIN_DURATION
@@ -129,9 +129,9 @@
 
 /datum/surgery_step/internal/fix_organ_robotic //For artificial organs
 	allowed_tools = list(
-	/obj/item/stack/nanopaste = 100,   \
-	/obj/item/tool/surgery/bonegel = 30,     \
-	/obj/item/tool/screwdriver = 70, \
+		/obj/item/stack/nanopaste = 100,
+		/obj/item/tool/surgery/bonegel = 30,
+		/obj/item/tool/screwdriver = 70,
 	)
 
 	min_duration = 60
@@ -202,7 +202,7 @@
 			if(!I.cut_away && I.parent_limb == target_zone)
 				attached_organs |= organ
 
-		var/organ_to_detach = input(user, "Which organ do you want to prepare for removal?") as null|anything in attached_organs
+		var/organ_to_detach = tgui_input_list(user, "Which organ do you want to prepare for removal?", null, attached_organs)
 		if(!organ_to_detach)
 			return 0
 		if(affected.surgery_organ)
@@ -266,7 +266,7 @@
 			if(I.cut_away && I.parent_limb == target_zone)
 				removable_organs |= organ
 
-		var/organ_to_remove = input(user, "Which organ do you want to remove?") as null|anything in removable_organs
+		var/organ_to_remove = tgui_input_list(user, "Which organ do you want to remove?", null, removable_organs)
 		if(!organ_to_remove)
 			return 0
 		if(affected.surgery_organ) //already working on an organ
@@ -420,8 +420,8 @@
 
 /datum/surgery_step/internal/attach_organ
 	allowed_tools = list(
-	/obj/item/tool/surgery/FixOVein = 100, \
-	/obj/item/stack/cable_coil = 75
+		/obj/item/tool/surgery/FixOVein = 100,
+		/obj/item/stack/cable_coil = 75,
 	)
 
 	min_duration = 60
@@ -443,7 +443,7 @@
 			if(I.cut_away && I.parent_limb == target_zone)
 				removable_organs |= organ
 
-		var/organ_to_replace = input(user, "Which organ do you want to reattach?") as null|anything in removable_organs
+		var/organ_to_replace = tgui_input_list(user, "Which organ do you want to reattach?", null, removable_organs)
 		if(!organ_to_replace)
 			return 0
 

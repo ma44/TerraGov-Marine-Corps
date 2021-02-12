@@ -2,14 +2,19 @@
 				EXTERNAL ORGANS
 ****************************************************/
 /datum/limb
+	///Actual name of the limb
 	var/name = "limb"
 	var/icon_name = null
 	var/body_part = null
+	///Whether the icon created for this limb is LEFT, RIGHT or 0. Currently utilised for legs and feet
 	var/icon_position = 0
 	var/damage_state = "00"
+	///brute damage this limb has taken as a part
 	var/brute_dam = 0
+	///burn damage this limb has taken as a part
 	var/burn_dam = 0
-	var/max_damage = 0 //The threshold before that limb gets destroyed
+	///Max damage the limb can take before being destroyed
+	var/max_damage = 0
 	var/max_size = 0
 	var/last_dam = -1
 	var/supported = FALSE
@@ -21,16 +26,15 @@
 	var/list/wounds = list()
 	var/number_wounds = 0 // cache the number of wounds, which is NOT wounds.len!
 
-	var/tmp/perma_injury = 0
-
 	var/min_broken_damage = 30
 
 	var/datum/limb/parent
 	var/list/datum/limb/children
 
-	// Internal organs of this body part
+	///List of Internal organs of this body part
 	var/list/datum/internal_organ/internal_organs
 
+	/// Message that displays when you feel pain from this limb
 	var/damage_msg = "<span class='warning'> You feel an intense pain</span>"
 	var/broken_description
 
@@ -40,21 +44,26 @@
 	var/necro_surgery_stage = 0
 	var/cavity = 0
 
-	var/in_surgery_op = FALSE //whether someone is currently doing a surgery step to this limb
+	///Whether someone is currently doing surgery on this limb
+	var/in_surgery_op = FALSE
 	var/surgery_organ //name of the organ currently being surgically worked on (detach/remove/etc)
 
 	var/encased       // Needs to be opened with a saw to access the organs.
 
 	var/obj/item/hidden = null
+	///[/obj/item/implant] Implants contained within this specific limb
 	var/list/implants = list()
 
-	// how often wounds should be updated, a higher number means less often
+	///how often wounds should be updated, a higher number means less often
 	var/wound_update_accuracy = 1
 	var/limb_status = NONE //limb status flags
 
+	///Human owner mob of this limb
 	var/mob/living/carbon/human/owner = null
-	var/vital //Lose a vital limb, die immediately.
-	var/germ_level = 0		// INTERNAL germs inside the organ, this is BAD if it's greater than INFECTION_LEVEL_ONE
+	///Whether this limb is vital, if true you die on losing it (todo make a flag)
+	var/vital = FALSE
+	///INTERNAL germs inside the organ, this is BAD if it's greater than INFECTION_LEVEL_ONE
+	var/germ_level = 0
 
 	///What % of the body does this limb cover. Make sure that the sum is always 100.
 	var/cover_index = 0
@@ -86,37 +95,35 @@
 	return icon('icons/mob/human.dmi',"blank")
 */
 
-/datum/limb/process()
-		return 0
 
 //Germs
 /datum/limb/proc/handle_antibiotics()
-    var/spaceacillin = owner.reagents.get_reagent_amount(/datum/reagent/medicine/spaceacillin)
-    var/polyhexanide = owner.reagents.get_reagent_amount(/datum/reagent/medicine/polyhexanide)
+	var/spaceacillin = owner.reagents.get_reagent_amount(/datum/reagent/medicine/spaceacillin)
+	var/polyhexanide = owner.reagents.get_reagent_amount(/datum/reagent/medicine/polyhexanide)
 
-    var/spaceacillin_curve = list(0,4,3,2)
-    var/polyhexanide_curve = list(0,1,1,10)
+	var/spaceacillin_curve = list(0,4,3,2)
+	var/polyhexanide_curve = list(0,1,1,10)
 
-    if (!germ_level || (spaceacillin + polyhexanide) < MIN_ANTIBIOTICS)
-        return
+	if (!germ_level || (spaceacillin + polyhexanide) < MIN_ANTIBIOTICS)
+		return
 
-    var/infection_level = 0
-    switch(germ_level)
-        if(-INFINITY to 10)
-            germ_level = 0
-            return // cure instantly
-        if(11 to INFECTION_LEVEL_ONE)
-            infection_level = 1
-        if(INFECTION_LEVEL_ONE - 1 to INFECTION_LEVEL_TWO)
-            infection_level = 2
-        if(INFECTION_LEVEL_TWO - 1 to INFINITY)
-            infection_level = 3
+	var/infection_level = 0
+	switch(germ_level)
+		if(-INFINITY to 10)
+			germ_level = 0
+			return // cure instantly
+		if(11 to INFECTION_LEVEL_ONE)
+			infection_level = 1
+		if(INFECTION_LEVEL_ONE - 1 to INFECTION_LEVEL_TWO)
+			infection_level = 2
+		if(INFECTION_LEVEL_TWO - 1 to INFINITY)
+			infection_level = 3
 
-    if (spaceacillin >= MIN_ANTIBIOTICS)
-        germ_level -= spaceacillin_curve[infection_level]
+	if (spaceacillin >= MIN_ANTIBIOTICS)
+		germ_level -= spaceacillin_curve[infection_level]
 
-    if (polyhexanide >= MIN_ANTIBIOTICS)
-        germ_level -= polyhexanide_curve[infection_level]
+	if (polyhexanide >= MIN_ANTIBIOTICS)
+		germ_level -= polyhexanide_curve[infection_level]
 
 
 
@@ -228,7 +235,7 @@
 
 
 	//Sync the organ's damage with its wounds
-	src.update_damages()
+	update_damages()
 
 	//If limb took enough damage, try to cut or tear it off
 
@@ -270,7 +277,6 @@
 	if(internal)
 		remove_limb_flags(LIMB_BROKEN | LIMB_SPLINTED | LIMB_STABILIZED)
 		add_limb_flags(LIMB_REPAIRED)
-		perma_injury = 0
 
 	//Sync the organ's damage with its wounds
 	update_damages()
@@ -280,13 +286,12 @@
 	var/result = update_icon()
 	return result
 
-/*
-This function completely restores a damaged organ to perfect condition.
-*/
+/**
+ * This proc completely restores a damaged organ to perfect condition.
+ */
 /datum/limb/proc/rejuvenate(updating_health = FALSE, updating_icon = FALSE)
 	damage_state = "00"
 	remove_limb_flags(LIMB_BROKEN | LIMB_BLEEDING | LIMB_SPLINTED | LIMB_STABILIZED | LIMB_AMPUTATED | LIMB_DESTROYED | LIMB_NECROTIZED | LIMB_MUTATED | LIMB_REPAIRED)
-	perma_injury = 0
 	brute_dam = 0
 	burn_dam = 0
 	germ_level = 0
@@ -322,7 +327,8 @@ This function completely restores a damaged organ to perfect condition.
 
 
 /datum/limb/proc/createwound(type = CUT, damage)
-	if(!damage) return
+	if(!damage)
+		return
 
 	//moved this before the open_wound check so that having many small wounds for example doesn't somehow protect you from taking internal damage (because of the return)
 	//Possibly trigger an internal wound, too.
@@ -341,9 +347,10 @@ This function completely restores a damaged organ to perfect condition.
 	if(wounds.len > 0 && prob(max(50+(number_wounds-1)*10,90)))
 		if((type == CUT || type == BRUISE) && damage >= 5)
 			//we need to make sure that the wound we are going to worsen is compatible with the type of damage...
-			var/compatible_wounds[] = new
+			var/list/compatible_wounds = list()
 			for(W in wounds)
-				if(W.can_worsen(type, damage)) compatible_wounds += W
+				if(W.can_worsen(type, damage))
+					compatible_wounds += W
 
 			if(compatible_wounds.len)
 				W = pick(compatible_wounds)
@@ -401,8 +408,6 @@ This function completely restores a damaged organ to perfect condition.
 	//Bone fractures
 	if(CONFIG_GET(flag/bones_can_break) && brute_dam > min_broken_damage * CONFIG_GET(number/organ_health_multiplier) && !(limb_status & LIMB_ROBOT))
 		fracture()
-	if(!(limb_status & LIMB_BROKEN))
-		perma_injury = 0
 
 	//Infections
 	update_germs()
@@ -546,10 +551,13 @@ Note that amputating the affected organ does in fact remove the infection from t
 		if(W.internal && owner.bodytemperature >= 170 && !HAS_TRAIT(owner, TRAIT_STASIS))
 			var/bicardose = owner.reagents.get_reagent_amount(/datum/reagent/medicine/bicaridine)
 			var/inaprovaline = owner.reagents.get_reagent_amount(/datum/reagent/medicine/inaprovaline)
+			var/old_qc = owner.reagents.get_reagent_amount(/datum/reagent/medicine/quickclotplus)
 			if(!(W.can_autoheal() || (bicardose && inaprovaline) || owner.reagents.get_reagent_amount(/datum/reagent/medicine/quickclot)))	//bicaridine and inaprovaline stop internal wounds from growing bigger with time, unless it is so small that it is already healing
 				W.open_wound(0.1 * wound_update_accuracy)
 			if(bicardose >= 30)	//overdose of bicaridine begins healing IB
 				W.damage = max(0, W.damage - 0.2)
+			if(old_qc >= 5)	//overdose of QC+ heals IB extremely fast.
+				W.damage = max(0, W.damage - 5)
 
 			if(W.damage <= 0)
 				wounds -= W // otherwise we are stuck with a 0 damage IB for a while
@@ -945,7 +953,6 @@ Note that amputating the affected organ does in fact remove the infection from t
 	add_limb_flags(LIMB_BROKEN)
 	remove_limb_flags(LIMB_REPAIRED)
 	broken_description = pick("broken","fracture","hairline fracture")
-	perma_injury = brute_dam
 
 	// Fractures have a chance of getting you out of restraints
 	if (prob(25))
@@ -974,7 +981,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	owner.update_body()
 
 /datum/limb/proc/get_damage()	//returns total damage
-	return max(brute_dam + burn_dam - perma_injury, perma_injury)	//could use health?
+	return brute_dam + burn_dam	//could use health?
 
 /datum/limb/proc/has_infected_wound()
 	for(var/datum/wound/W in wounds)
@@ -1012,7 +1019,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 
 /datum/limb/proc/is_usable()
-	return !(limb_status & (LIMB_DESTROYED|LIMB_MUTATED|LIMB_NECROTIZED))
+	return !(limb_status & (LIMB_DESTROYED|LIMB_NECROTIZED))
 
 /datum/limb/proc/is_broken()
 	return ((limb_status & LIMB_BROKEN) && !(limb_status & LIMB_SPLINTED) && !(limb_status & LIMB_STABILIZED))
@@ -1260,10 +1267,10 @@ Note that amputating the affected organ does in fact remove the infection from t
 		return
 	if(type == "brute")
 		owner.visible_message("<span class='warning'> You hear a sickening cracking sound coming from \the [owner]'s face.</span>",	\
-		"<span class='danger'>Your face becomes unrecognizible mangled mess!</span>",	\
+		"<span class='danger'>Your face becomes an unrecognizible mangled mess!</span>",	\
 		"<span class='warning'> You hear a sickening crack.</span>")
 	else
-		owner.visible_message("<span class='warning'> [owner]'s face melts away, turning into mangled mess!</span>",	\
+		owner.visible_message("<span class='warning'> [owner]'s face melts away, turning into a mangled mess!</span>",	\
 		"<span class='danger'>Your face melts off!</span>",	\
 		"<span class='warning'> You hear a sickening sizzle.</span>")
 	disfigured = 1

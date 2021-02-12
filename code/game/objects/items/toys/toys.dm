@@ -17,7 +17,6 @@
 
 /obj/item/toy
 	icon = 'icons/obj/items/toy.dmi'
-	throwforce = 0
 	throw_speed = 4
 	throw_range = 20
 	force = 0
@@ -94,7 +93,6 @@
 /obj/item/toy/syndicateballoon
 	name = "syndicate balloon"
 	desc = "There is a tag on the back that reads \"FUK NT!11!\"."
-	throwforce = 0
 	throw_speed = 4
 	throw_range = 20
 	force = 0
@@ -397,7 +395,6 @@
 	anchored = FALSE
 	w_class = WEIGHT_CLASS_SMALL
 	force = 0.0
-	throwforce = 0.0
 	throw_speed = 1
 	throw_range = 20
 
@@ -481,10 +478,10 @@
 	w_class = WEIGHT_CLASS_BULKY
 
 
-/obj/item/toy/beach_ball/basketball/attack_alien(mob/living/carbon/xenomorph/user)
+/obj/item/toy/beach_ball/basketball/attack_alien(mob/living/carbon/xenomorph/X, damage_amount = X.xeno_caste.melee_damage, damage_type = BRUTE, damage_flag = "", effects = TRUE, armor_penetration = 0, isrightclick = FALSE)
 	if(!CONFIG_GET(flag/fun_allowed))
 		return FALSE
-	attack_hand(user)
+	attack_hand(X)
 
 
 /obj/structure/hoop
@@ -527,7 +524,8 @@
 		visible_message("<span class='notice'>[user] dunks [I] into the [src]!</span>")
 
 
-/obj/structure/hoop/CanPass(atom/movable/mover, turf/target)
+/obj/structure/hoop/CanAllowThrough(atom/movable/mover, turf/target)
+	. = ..()
 	if(istype(mover,/obj/item) && mover.throwing)
 		var/obj/item/I = mover
 		if(prob(50))

@@ -6,9 +6,12 @@
 	var/grinder_datum = /datum/reagent/consumable/larvajelly //good ol cookin
 	var/grinder_amount = 5
 	var/mob/living/affected_mob
-	var/stage = 0 //The stage of the bursts, with worsening effects.
-	var/counter = 0 //How developed the embryo is, if it ages up highly enough it has a chance to burst.
-	var/larva_autoburst_countdown = 20 //How long before the larva is kicked out.
+	///The stage of the bursts, with worsening effects.
+	var/stage = 0
+	///How developed the embryo is, if it ages up highly enough it has a chance to burst.
+	var/counter = 0
+	///How long before the larva is kicked out, * SSobj wait
+	var/larva_autoburst_countdown = 20
 	var/hivenumber = XENO_HIVE_NORMAL
 	var/admin = FALSE
 
@@ -40,18 +43,16 @@
 
 /obj/item/alien_embryo/process()
 	if(!affected_mob)
-		STOP_PROCESSING(SSobj, src)
 		qdel(src)
-		return FALSE
+		return PROCESS_KILL
 
 	if(loc != affected_mob)
 		affected_mob.status_flags &= ~(XENO_HOST)
-		STOP_PROCESSING(SSobj, src)
 		if(iscarbon(affected_mob))
 			var/mob/living/carbon/C = affected_mob
 			C.med_hud_set_status()
 		affected_mob = null
-		return FALSE
+		return PROCESS_KILL
 
 	if(affected_mob.stat == DEAD)
 		if(ishuman(affected_mob))
@@ -59,29 +60,31 @@
 			if(check_tod(H)) //Can't be defibbed.
 				var/mob/living/carbon/xenomorph/larva/L = locate() in affected_mob
 				L?.initiate_burst(affected_mob)
-				STOP_PROCESSING(SSobj, src)
-				return FALSE
-		else
-			var/mob/living/carbon/xenomorph/larva/L = locate() in affected_mob
-			L?.initiate_burst(affected_mob)
-			STOP_PROCESSING(SSobj, src)
-			return FALSE
+				return PROCESS_KILL
+		var/mob/living/carbon/xenomorph/larva/L = locate() in affected_mob
+		L?.initiate_burst(affected_mob)
+		return PROCESS_KILL
 
 	if(HAS_TRAIT(affected_mob, TRAIT_STASIS))
-		return FALSE //If they are in cryo, bag or cell, the embryo won't grow.
+		return //If they are in cryo, bag or cell, the embryo won't grow.
 
 	process_growth()
 
 
 /obj/item/alien_embryo/proc/process_growth()
 
-	if(CHECK_BITFIELD(affected_mob.restrained_flags, RESTRAINED_XENO_NEST)) //Hosts who are nested in resin nests provide an ideal setting, larva grows faster.
-		counter += 1 + max(0, (0.03 * affected_mob.health)) //Up to +300% faster, depending on the health of the host.
-	else if(stage <= 4)
-		counter += 2 //Free burst time in ~10 min.
+	if(stage <= 4)
+		counter += 1.5 //Free burst time in ~15 min.
 
 	if(affected_mob.reagents.get_reagent_amount(/datum/reagent/toxin/xeno_growthtoxin))
-		counter += 2 //Accelerates larval growth somewhat. You don't want this stuff in your body. Larva hits Stage 5 in exactly 5 minutes (lower if healthy and nested), assuming the victim has growth toxin for the full duration.
+		counter += 2.5 //Accelerates larval growth somewhat. You don't want this stuff in your body.
+
+	if(affected_mob.reagents.get_reagent_amount(/datum/reagent/consumable/larvajelly))
+		counter += 10 //Accelerates larval growth massively. Voluntarily drinking larval jelly while infected is straight-up suicide. Larva hits Stage 5 in exactly ONE minute.
+
+	if(affected_mob.reagents.get_reagent_amount(/datum/reagent/medicine/larvaway))
+		counter -= 1 //Halves larval growth progress, for some tradeoffs. Larval toxin purges this
+
 
 	if(stage < 5 && counter >= 120)
 		counter = 0
@@ -151,7 +154,6 @@
 	//If we have a candidate, transfer it over.
 	if(picked)
 		picked.mind.transfer_to(new_xeno, TRUE)
-
 		to_chat(new_xeno, "<span class='xenoannounce'>We are a xenomorph larva inside a host! Move to burst out of it!</span>")
 		new_xeno << sound('sound/effects/xeno_newlarva.ogg')
 

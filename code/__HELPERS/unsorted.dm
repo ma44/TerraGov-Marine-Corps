@@ -206,6 +206,11 @@ GLOBAL_REAL_VAR(list/stack_trace_storage)
 	for(var/obj/structure/mineral_door/D in loc)
 		if(D.density)
 			return TRUE
+	for(var/obj/structure/barricade/B in loc)
+		if(!B.density)
+			continue
+		if(B.dir == direction)
+			return TRUE
 	return FALSE
 
 
@@ -494,28 +499,27 @@ GLOBAL_REAL_VAR(list/stack_trace_storage)
 	qdel(animation)
 
 
-/atom/proc/GetAllContents(T)
+///Returns the src and all recursive contents as a list.
+/atom/proc/GetAllContents()
+	. = list(src)
+	var/i = 0
+	while(i < length(.))
+		var/atom/A = .[++i]
+		. += A.contents
+
+///identical to getallcontents but returns a list of atoms of the type passed in the argument.
+/atom/proc/get_all_contents_type(type)
 	var/list/processing_list = list(src)
-	var/list/assembled = list()
-	if(T)
-		while(length(processing_list))
-			var/atom/A = processing_list[1]
-			processing_list.Cut(1, 2)
-			//Byond does not allow things to be in multiple contents, or double parent-child hierarchies, so only += is needed
-			//This is also why we don't need to check against assembled as we go along
-			processing_list += A.contents
-			if(istype(A, T))
-				assembled += A
-	else
-		while(length(processing_list))
-			var/atom/A = processing_list[1]
-			processing_list.Cut(1, 2)
-			processing_list += A.contents
-			assembled += A
-	return assembled
+	. = list()
+	while(length(processing_list))
+		var/atom/A = processing_list[1]
+		processing_list.Cut(1, 2)
+		processing_list += A.contents
+		if(istype(A, type))
+			. += A
 
 
-//Step-towards method of determining whether one atom can see another. Similar to viewers()
+///Step-towards method of determining whether one atom can see another. Similar to viewers()
 /proc/can_see(atom/source, atom/target, length = 5) // I couldnt be arsed to do actual raycasting :I This is horribly inaccurate.
 	var/turf/current = get_turf(source)
 	var/turf/target_turf = get_turf(target)
@@ -525,12 +529,8 @@ GLOBAL_REAL_VAR(list/stack_trace_storage)
 		return FALSE
 	current = get_step_towards(source, target_turf)
 	while((current != target_turf))
-		if(current.opacity)
+		if(IS_OPAQUE_TURF(current))
 			return FALSE
-		for(var/thing in current)
-			var/atom/A = thing
-			if(A.opacity)
-				return FALSE
 		current = get_step_towards(current, target_turf)
 	return TRUE
 
@@ -734,8 +734,8 @@ GLOBAL_REAL_VAR(list/stack_trace_storage)
 	O.contents.Cut()
 
 	for(var/V in original.vars - GLOB.duplicate_forbidden_vars)
-		if(istype(original.vars[V], /datum)) // this would reference the original's object, that will break when it is used or deleted.
-			continue
+		if(istype(original.vars[V], /datum) || ismob(original.vars[V]))
+			continue // this would reference the original's object, that will break when it is used or deleted.
 		else if(islist(original.vars[V]))
 			var/list/L = original.vars[V]
 			O.vars[V] = L.Copy()
@@ -752,6 +752,11 @@ GLOBAL_REAL_VAR(list/stack_trace_storage)
 		if(ismachinery(O))
 			var/obj/machinery/M = O
 			M.power_change()
+
+	if(ismob(O)) //Overlays are carried over despite disallowing them, if a fix is found remove this.
+		var/mob/M = O
+		M.cut_overlays()
+		M.regenerate_icons()
 
 	return O
 
@@ -961,8 +966,6 @@ GLOBAL_LIST_INIT(common_tools, typecacheof(list(
 		return FALSE
 	if(I.sharp)
 		return TRUE
-	if(I.edge)
-		return TRUE
 	return FALSE
 
 
@@ -1003,26 +1006,6 @@ GLOBAL_LIST_INIT(common_tools, typecacheof(list(
 
 //Actually better performant than reverse_direction()
 #define REVERSE_DIR(dir) ( ((dir & 85) << 1) | ((dir & 170) >> 1) )
-
-
-/proc/reverse_direction(direction)
-	switch(direction)
-		if(NORTH)
-			return SOUTH
-		if(NORTHEAST)
-			return SOUTHWEST
-		if(EAST)
-			return WEST
-		if(SOUTHEAST)
-			return NORTHWEST
-		if(SOUTH)
-			return NORTH
-		if(SOUTHWEST)
-			return NORTHEAST
-		if(WEST)
-			return EAST
-		if(NORTHWEST)
-			return SOUTHEAST
 
 
 /proc/reverse_nearby_direction(direction)
@@ -1230,14 +1213,14 @@ GLOBAL_LIST_INIT(wallitems, typecacheof(list(
 	if(!length(ignore_typecache))
 		return GetAllContents()
 	var/list/processing = list(src)
-	var/list/assembled = list()
+	. = list()
 	while(processing.len)
 		var/atom/A = processing[1]
 		processing.Cut(1,2)
-		if(!ignore_typecache[A.type])
-			processing += A.contents
-			assembled += A
-	return assembled
+		if(ignore_typecache[A.type])
+			continue
+		processing += A.contents
+		. += A
 
 /atom/proc/Shake(pixelshiftx = 15, pixelshifty = 15, duration = 25 SECONDS) //Does a "shaking" effect on a sprite, code is from tgstation
 	var/initialpixelx = pixel_x
@@ -1328,7 +1311,7 @@ will handle it, but:
 		used_key_list[input_key] = 1
 	return input_key
 
-//Returns a list of all items of interest with their name
+///Returns a list of all items of interest with their name
 /proc/getpois(mobs_only=FALSE,skip_mindless=FALSE)
 	var/list/mobs = sortmobs()
 	var/list/namecounts = list()
@@ -1336,8 +1319,9 @@ will handle it, but:
 	for(var/mob/M in mobs)
 		if(skip_mindless && (!M.mind && !M.ckey))
 			continue
-		if(M.client && M.client.holder && M.client.holder.fakekey) //stealthmins
-			continue
+		if(M.client?.holder)
+			if(M.client.holder.fakekey || M.client.holder.invisimined) //stealthmins
+				continue
 		var/name = avoid_assoc_duplicate_keys(M.name, namecounts)
 
 		if(M.real_name && M.real_name != M.name)
@@ -1351,7 +1335,7 @@ will handle it, but:
 
 	return pois
 
-//Returns the left and right dir of the input dir, used for AI stutter step while attacking
+///Returns the left and right dir of the input dir, used for AI stutter step while attacking
 /proc/LeftAndRightOfDir(direction, diagonal_check = FALSE)
 	if(diagonal_check)
 		if(ISDIAGONALDIR(direction))
@@ -1363,3 +1347,28 @@ will handle it, but:
 	return call(source, proctype)(arglist(arguments))
 
 #define TURF_FROM_COORDS_LIST(List) (locate(List[1], List[2], List[3]))
+
+
+///Takes: Area type as text string or as typepath OR an instance of the area. Returns: A list of all areas of that type in the world.
+/proc/get_areas(areatype, subtypes=TRUE)
+	if(istext(areatype))
+		areatype = text2path(areatype)
+	else if(isarea(areatype))
+		var/area/areatemp = areatype
+		areatype = areatemp.type
+	else if(!ispath(areatype))
+		return null
+
+	var/list/areas = list()
+	if(subtypes)
+		var/list/cache = typecacheof(areatype)
+		for(var/V in GLOB.sorted_areas)
+			var/area/A = V
+			if(cache[A.type])
+				areas += V
+	else
+		for(var/V in GLOB.sorted_areas)
+			var/area/A = V
+			if(A.type == areatype)
+				areas += V
+	return areas

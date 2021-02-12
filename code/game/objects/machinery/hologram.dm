@@ -103,7 +103,6 @@
 
 	var/datum/browser/popup = new(user, "holopad", name, 300, 175)
 	popup.set_content(dat)
-	popup.set_title_image(user.browse_rsc_icon(icon, icon_state))
 	popup.open()
 
 //Stop ringing the AI!!
@@ -149,7 +148,7 @@
 					LAZYADD(callnames[A], I)
 			callnames -= get_area(src)
 
-			var/result = input(usr, "Choose an area to call", "Holocall") as null|anything in callnames
+			var/result = tgui_input_list(usr, "Choose an area to call", "Holocall", callnames)
 			if(QDELETED(usr) || !result || outgoing_call)
 				return
 
