@@ -31,7 +31,7 @@
 	switch(stance)
 		if(AI_ROAMING)
 			RegisterSignal(the_ai_thing, COMSIG_STATE_MAINTAINED_DISTANCE, .proc/node_reached)
-			SEND_SIGNAL(the_ai_thing, COMSIG_SET_AI_MOVE_TARGET, current_nodes[the_ai_thing].GetBestAdjNode(preferred_weights[the_ai_thing]))
+			SEND_SIGNAL(the_ai_thing, COMSIG_SET_NEW_MOVE_TARGET, current_nodes[the_ai_thing].get_best_adj_node(preferred_weights[the_ai_thing]))
 
 /datum/element/behavior_module/patrol/unregister_stance_signals(atom/the_ai_thing, stance)
 	switch(stance)
@@ -42,4 +42,4 @@
 	the_node.weights[NODE_LAST_VISITED] = 0
 	current_nodes[source] = the_node
 	SEND_SIGNAL(source, COMSIG_MADE_IT_TO_NODE, the_node)
-	SEND_SIGNAL(source, COMSIG_SET_AI_MOVE_TARGET, current_nodes[source].GetBestAdjNode(preferred_weights[source]))
+	SEND_SIGNAL(source, COMSIG_SET_NEW_MOVE_TARGET, current_nodes[source].get_best_adj_node(preferred_weights[source]))

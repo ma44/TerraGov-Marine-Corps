@@ -53,7 +53,7 @@ The main purpose of this is to handle cleanup and setting up the initial ai beha
 		return
 	if((priority <= cur_stance[cur_stance[1]]) && !forced_change) //Gotta have a higher priority or specific parameter to override it
 		return
-	parent.RemoveElement(/datum/element/pathfinder)
+	//parent.RemoveElement(/datum/element/pathfinder)
 	SEND_SIGNAL(parent, COMSIG_AI_CHANGE_STANCE, new_stance, cur_stance[1])
 	cur_stance = list(new_stance)
 	cur_stance[new_stance] = priority //Thanks associative list

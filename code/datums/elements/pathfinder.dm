@@ -35,6 +35,7 @@ stutter_step: a prob() chance to go left or right of the mob's direction towards
 	distances_to_maintain[target] = distance_to_maintain
 	atoms_to_walk_to[target] = atom_to_walk_to
 	stutter_step_prob[target] = stutter_step
+	RegisterSignal(target, COMSIG_SET_NEW_MOVE_TARGET, .proc/set_new_move_target)
 
 /datum/element/pathfinder/process()
 	for(var/mob in distances_to_maintain)
@@ -64,6 +65,13 @@ stutter_step: a prob() chance to go left or right of the mob's direction towards
 		if(!step_to(mob_to_process, atoms_to_walk_to[mob_to_process]))
 			SEND_SIGNAL(mob_to_process, COMSIG_OBSTRUCTED_MOVE)
 		mob_to_process.last_move_time = world.time
+
+/datum/element/pathfinder/proc/set_new_move_target(datum/source, atom/new_target)
+	SIGNAL_HANDLER
+
+	if(QDELETED(new_target) || QDELETED(source))
+		return
+	atoms_to_walk_to[source] = new_target
 
 /datum/element/pathfinder/Detach(datum/source)
 	distances_to_maintain.Remove(source)

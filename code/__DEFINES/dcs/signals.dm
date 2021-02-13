@@ -565,9 +565,9 @@
 // Action state signal that's sent whenever the action state has a distance maintained with the target being walked to
 #define COMSIG_STATE_MAINTAINED_DISTANCE "action_state_maintained_dist_with_target" //(atom/target)
 #define COMSIG_OBSTRUCTED_MOVE "unable_to_step_towards_thing" //Tried to step in a direction and there was a obstruction
+#define COMSIG_SET_NEW_MOVE_TARGET "setting_new_move_target" //Overrides target to a new target
 
 //Signals related to stance and behavior modules
-#define COMSIG_SET_AI_MOVE_TARGET "setting_ai_move_target" // (atom/new_target)
 #define COMSIG_MADE_IT_TO_NODE "ai_moved_to_node" // (/obj/effect/ai_node/the_node)
 #define COMSIG_AI_SEARCH_DETECTED "ai_detected_something_while_searching" // (list/things_that_met_criteria)
 #define COMSIG_AI_ATTEMPT_CHANGE_STANCE "ai_attempting_to_change_stance" // (new_stance, priority_level)

@@ -53,3 +53,4 @@ GLOBAL_LIST_INIT(ai_xeno_hunter, list(
 								list(BEHAVE_MODULE_COMBAT, list(COMSIG_SEARCH_DETECTED_SOMETHING), TRUE),
 								list(BEHAVE_MODULE_SEARCH, 9, TRUE, list(COMSIG_SEARCH_DETECTED_SOMETHING = list(/mob/living/carbon/xenomorph)))
 								))
+

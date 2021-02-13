@@ -34,6 +34,10 @@
 		if(AI_ATTACKING)
 			UnregisterSignal(source, COMSIG_STATE_MAINTAINED_DISTANCE)
 
+/**
+ * Designates a target for the source to walk towards and do attacks
+ * the_target parameter can be the target itself OR a list of potential targets
+ */
 /datum/element/behavior_module/combat/proc/designate_target(datum/source, the_target)
 	if(!allow_overriding_target[source] && targets[source]) //Can we override targets if we already got one or nah?
 		return
@@ -44,14 +48,13 @@
 	else
 		actual_target = the_target
 	SEND_SIGNAL(source, COMSIG_AI_ATTEMPT_CHANGE_STANCE, AI_ATTACKING, 2)
-	if(targets[source]) //If overriding a target, clear the old signals
+	if(targets[source]) //If overriding a current target, clear the old signals
 		UnregisterSignal(targets[source], COMSIG_MOB_DEATH)
 	targets[source] = actual_target
 	RegisterSignal(actual_target, list(COMSIG_MOB_DEATH), .proc/undesignate_target, actual_target)
-	SEND_SIGNAL(source, COMSIG_SET_AI_MOVE_TARGET, actual_target)
+	SEND_SIGNAL(source, COMSIG_SET_NEW_MOVE_TARGET, actual_target)
 
 /datum/element/behavior_module/combat/proc/undesignate_target(datum/source, atom/the_target)
-	to_chat(world, "undesignating target: [the_target]")
 	if(!QDELETED(the_target))
 		UnregisterSignal(the_target, COMSIG_MOB_DEATH)
 		targets.Remove(the_target)

@@ -61,8 +61,8 @@
 				if(XENO_TIER_FOUR)
 					SSmonitor.stats.ancient_queen--
 
-	if(GetComponent(/datum/component/ai_controller))
-		gib()
+	//if(GetComponent(/datum/component/ai_controller))
+	//	gib()
 
 	to_chat(src,"<b><span class='deadsay'><p style='font-size:1.5em'><big>We have perished.</big><br><small>But it is not the end of us yet... wait until a newborn can rise in this world...</small></p></span></b>")
 

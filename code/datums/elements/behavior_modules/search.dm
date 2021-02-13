@@ -32,7 +32,7 @@
 //Execute a search right now instead of waiting on process(); send_signal means it will send a signal with the list to the AI when set to true
 //This will also always return a list of what it found
 
-/datum/element/behavior_module/search/proc/execute_search(send_signal = FALSE)
+/datum/element/behavior_module/search/proc/execute_search(datum/source, send_signal = FALSE)
 	var/list/list_to_send = list() //List of things we wanna send VIA as a parameter of a paired sigtype
 	for(var/atom/ai_controlled in things_attached)
 		var/list/filter_through //Things we gotta filter through like GLOB lists or range() if we use them
